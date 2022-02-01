@@ -171,6 +171,18 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
                linux_desktop_yr, LINUXREF);
         exit(1);
     }
+    else if (linux_desktop_yr > LINUX_KERNEL_FIRST_RELEASE)
+    {
+        if (currentyr - linux_desktop_yr == 1)
+        {
+            printf("Last year wasn't the year of the "LINUXREF" desktop.");
+        }
+        else
+        {
+            printf("That was %d years ago. Definitely wasn't the year of the "LINUXREF" desktop.");
+        }
+        exit(1);
+    }
     else if (linux_desktop_yr > currentyr)
     {
         int diff = linux_desktop_yr - currentyr;
