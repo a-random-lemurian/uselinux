@@ -35,6 +35,7 @@
 #define ARG_HACKERMAN 1009
 #define ARG_YEAR_OF_LINUX_DESKTOP 1010
 #define ARG_SEGFAULT 1011
+#define ARG_NO_TYPEWRITER 1012
 
 const char *argp_program_version = "version 0.1.0";
 static char doc[] = "Linux good, Windows bad";
@@ -61,6 +62,8 @@ static struct argp_option opts[] = {
      "Spam Microsoft headquarters with penguins"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
     {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
+    {0,0,0,0,"Other options"},
+    {"no-typewriter", ARG_NO_TYPEWRITER, 0, 0, "Do not print messages with typewriter effect"},
     {0}};
 
 struct args
@@ -78,6 +81,7 @@ struct args
     int snap_at_snaps;
     int penguin_spam;
     int no_bloatware;
+    int no_typewriter;
 
     // Penguin spam
     char penguin_spam_location[128];
@@ -135,6 +139,9 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case ARG_SEGFAULT:
         printf("Well, you asked for a segfault....\n");
         trigger_segfault();
+    case ARG_NO_TYPEWRITER:
+        arguments->no_typewriter = 1;
+        break;
     default:
         return ARGP_ERR_UNKNOWN;
     }
@@ -156,6 +163,7 @@ void defaults(struct args *arg)
     arg->snap_at_snaps = 0;
     arg->penguin_spam = 0;
     arg->no_bloatware = 0;
+    arg->no_typewriter = 0;
 }
 
 #define LINUX_KERNEL_FIRST_RELEASE 1991
@@ -436,7 +444,15 @@ int main(int argc, char **argv)
         printf("But it seems like your kernel patch broke userspace again!\n");
         printf("New mail: 1\n\n\n");
 
-        typewriter(WE_DO_NOT_BREAK_USERSPACE, 5);
+        if (arg.no_typewriter)
+        {
+            printf("%s",WE_DO_NOT_BREAK_USERSPACE);
+        }
+        else
+        {
+            typewriter(WE_DO_NOT_BREAK_USERSPACE, 5);
+        }
+
         exit(0);
     }
 
