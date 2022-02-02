@@ -171,7 +171,7 @@ void defaults(struct args *arg)
 
 
 void year_of_linux_desktop_segfault()
-    {
+{
     char messages[][64] = {
     "Go back to history class!",
     "You clearly don't know anything about history.",
@@ -250,6 +250,12 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
         else if (diff <= 50)
         {
             printf("Very pessimistic, indeed.");
+        }
+        else
+        {
+            printf("You can't even predict the year of "
+                   "the "LINUXREF" desktop properly? Well, ");
+            year_of_linux_desktop_segfault();
         }
     }
     else
