@@ -304,7 +304,15 @@ void remove_bloatware()
 {
     printf("Removing bloatware....\n");
 
-    char bloatware[][64] = {"Candy Crush"};
+    // Apps that are often criticized for being "bloatware"
+    char bloatware[][64] = {
+        "Candy Crush",
+        "Nero Burning ROM",
+        "Microsoft Word",
+        "Microsoft Office",
+        "Microsoft Excel",
+        "Microsoft PowerPoint"
+    };
 
     int i = 0;
     for (i = 0; i < LEN(bloatware); i++)
