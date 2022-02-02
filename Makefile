@@ -19,3 +19,8 @@ $(BLDDIR)/%.o: $(SRCDIR)/%.c
 
 .PHONY: all
 all: $(EXEC)
+
+.PHONY: clean
+clean:
+	rm -rf build/*.o
+	rm -rf bin/uselinux
