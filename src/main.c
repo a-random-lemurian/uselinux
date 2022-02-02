@@ -85,7 +85,6 @@ struct args
 };
 
 static int distro_initalized = 0;
-static char *year_of_linux_desktop_tmp_var;
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
 {
@@ -361,7 +360,7 @@ int main(int argc, char **argv)
     defaults(&arg);
     argp_parse(&argp, argc, argv, 0, 0, &arg);
 
-    time_t s, val = 1;
+    time_t s = 1;
     struct tm *current_time;
     s = time(NULL);
     current_time = localtime(&s);
@@ -378,9 +377,6 @@ int main(int argc, char **argv)
 
     if (arg.penguin_spam)
     {
-        char *rc;
-
-
         printf("Where should we deploy the penguins? ");
         if (fgets(arg.penguin_spam_location, 128, stdin) == NULL)
         {

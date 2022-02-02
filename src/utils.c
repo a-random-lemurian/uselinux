@@ -41,7 +41,4 @@ void trigger_segfault()
 {
     char* segfault = "segfault";
     segfault[0]= 'S';
-
-    char segfault1[] = "segfault";
-    char segfault2 = segfault1[20];
 }
