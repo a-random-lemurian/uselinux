@@ -41,7 +41,7 @@ const char *argp_program_version = "version 0.1.0";
 static char doc[] = "Linux good, Windows bad";
 
 static struct argp_option opts[] = {
-    {"distro", 'd', "DISTRO", 0, "Specify a GNU/Linux distribution"},
+    {"distro", 'd', "DISTRO", 0, "Specify a " LINUXREF " distribution"},
     {"desk", 'e', "DESK", 0, "Specify a desktop environment"},
     {"year-of-linux-desktop", ARG_YEAR_OF_LINUX_DESKTOP, "YEAR", 0,
      "Specify the year of the Linux desktop"},
@@ -219,16 +219,16 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
                    "right?\n",
                    LINUXREF);
         }
-        else if (diff >= 1)
+        else if (diff <= 1)
         {
             printf("The year of the %s desktop will be soon.", LINUXREF);
         }
-        else if (diff >= 10)
+        else if (diff <= 10)
         {
             printf("Microsoft Windows' market share is declining, "
                    "are you sure?");
         }
-        else if (diff >= 50)
+        else if (diff <= 50)
         {
             printf("Very pessimistic, indeed.");
         }
