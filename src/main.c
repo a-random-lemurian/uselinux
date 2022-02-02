@@ -289,11 +289,17 @@ void bash_os(char *os)
  */
 void remove_bloatware_package(char *bloatware)
 {
-    printf("Removing bloatware \"%s\"..... ", bloatware);
+    printf("Removing bloatware %s.....",bloatware);
+
+    for (int i = 0; i < 49 - strlen(bloatware); i++)
+    {
+        printf(" ");
+    }
+
     fflush(stdout);
     int sleep = randint(10, 2300);
     msleep(sleep);
-    printf("  removed in %d ms.\n", sleep);
+    printf("removed in %d ms\n",sleep);
 }
 
 /**
