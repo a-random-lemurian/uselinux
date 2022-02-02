@@ -77,6 +77,7 @@ struct args
     int compile_everything;
     int snap_at_snaps;
     int penguin_spam;
+    int no_bloatware;
 };
 
 
@@ -124,6 +125,9 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case ARG_PENGUIN_SPAM:
         arguments->penguin_spam = 1;
         break;
+    case ARG_NO_BLOATWARE:
+        arguments->no_bloatware = 1;
+        break;
     default:
         return ARGP_ERR_UNKNOWN;
     }
@@ -144,6 +148,7 @@ void defaults(struct args *arg)
     arg->compile_everything = 0;
     arg->snap_at_snaps = 0;
     arg->penguin_spam = 0;
+    arg->no_bloatware = 0;
 }
 
 
@@ -273,6 +278,39 @@ void bash_os(char* os)
     }
 }
 
+/**
+ * @brief Remove a single bloatware package.
+ * 
+ * @param bloatware Name of bloatware to remove.
+ */
+void remove_bloatware_package(char* bloatware)
+{
+    printf("Removing bloatware \"%s\"..... ", bloatware);
+    fflush(stdout);
+    int sleep = randint(10,600);
+    msleep(sleep);
+    printf("  removed in %d ms.\n", sleep);
+}
+
+/**
+ * @brief Removes bloatware, such as Candy Crush (preinstalled on Windows).
+ * 
+ */
+void remove_bloatware()
+{
+    printf("Removing bloatware....\n");
+
+    char bloatware[][64] = {
+        "Candy Crush"
+    };
+
+    int i = 0;
+    for (i = 0; i < LEN(bloatware); i++)
+    {
+        remove_bloatware_package(bloatware[i]);
+    }
+}
+
 int main(int argc, char **argv)
 {
     struct args arg;
@@ -284,6 +322,11 @@ int main(int argc, char **argv)
     struct tm* current_time;
     s = time(NULL);
     current_time = localtime(&s);
+
+    if (arg.no_bloatware)
+    {
+        remove_bloatware();
+    }
 
     if (arg.arch_btw)
     {
