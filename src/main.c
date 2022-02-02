@@ -169,6 +169,25 @@ void defaults(struct args *arg)
 #define LINUX_KERNEL_FIRST_RELEASE 1991
 #define ANALYTICAL_ENGINE_YEAR 1833
 
+
+void year_of_linux_desktop_segfault()
+    {
+    char messages[][64] = {
+    "Go back to history class!",
+    "You clearly don't know anything about history.",
+    "Have fun debugging with GDB!",
+    "I'm sure this year will be the year of the " LINUXREF " desktop!",
+    "I'm sure next year will be the year of the " LINUXREF
+    " desktop!"};
+
+    MTRand mtw = seedRand(clock());
+
+    char *HISTORY_MSG = messages[(int)floor(genRand(&mtw) * LEN(messages))];
+
+    printf("I hereby sentence you to a segfault. %s\n", HISTORY_MSG);
+    trigger_segfault();
+}
+
 /**
  * @brief The year of the Linux desktop will arrive.... eventually.
  *
@@ -235,21 +254,7 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
     }
     else
     {
-        char messages[][64] = {
-            "Go back to history class!",
-            "You clearly don't know anything about history.",
-            "Have fun debugging with GDB!",
-            "I'm sure this year will be the year of the " LINUXREF " desktop!",
-            "I'm sure next year will be the year of the " LINUXREF
-            " desktop!"};
-
-        MTRand mtw = seedRand(clock());
-
-        char *HISTORY_MSG =
-            messages[(int)floor(genRand(&mtw) * LEN(messages))];
-
-        printf("I hereby sentence you to a segfault. %s\n", HISTORY_MSG);
-        trigger_segfault();
+        year_of_linux_desktop_segfault();
     }
 }
 
