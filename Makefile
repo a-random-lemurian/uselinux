@@ -16,15 +16,22 @@ $(EXEC): $(OBJECTS)
 $(BLDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
+
+stackov: opener/opener.c opener/detect_os.c stackov_src/stackov.c
+	$(CC) $(CFLAGS) $^ -o $@ -I.
+
+
+
 INSTALLDIR=/usr/bin/
 .PHONY: install
 install: $(EXEC)
 	cp $(EXEC) $(INSTALLDIR)
 
 .PHONY: all
-all: $(EXEC)
+all: $(EXEC) stackov
 
 .PHONY: clean
 clean:
+	rm -rf opener/*.o
 	rm -rf $(OBJECTS)
 	rm -rf bin/uselinux

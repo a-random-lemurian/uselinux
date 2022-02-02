@@ -58,3 +58,8 @@ language.settings.xml
 .cproject
 .project
 .vscode
+
+
+# Executables
+uselinux
+stackov
