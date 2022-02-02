@@ -285,6 +285,11 @@ int main(int argc, char **argv)
     s = time(NULL);
     current_time = localtime(&s);
 
+    if (arg.arch_btw)
+    {
+        printf("I use Arch btw\n");
+    }
+
     if (strcmp(arg.year_of_linux_desktop,""))
     {
         long converted_yr_l = strtol(arg.year_of_linux_desktop,NULL,10);
