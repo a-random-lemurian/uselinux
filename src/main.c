@@ -76,6 +76,10 @@ struct args
     int snap_at_snaps;
     int penguin_spam;
     int no_bloatware;
+
+    // Penguin spam
+    char penguin_spam_location[128];
+    char penguin_spam_amount[128];
 };
 
 static char *year_of_linux_desktop_tmp_var;
@@ -309,6 +313,21 @@ void remove_bloatware()
     }
 }
 
+/**
+ * @brief Spam a location with penguins.
+ *
+ * @param location Location to spam with penguins.
+ * @param penguins Number of penguins to deploy.
+ */
+void penguin_spam(char *location, int penguins)
+{
+    printf("Spamming %s with penguins....", location);
+    fflush(stdout);
+    int sleep = randint(400, 900);
+    msleep(sleep);
+    printf(" done, deployed %d penguins in %d ms.\n", penguins, sleep);
+}
+
 int main(int argc, char **argv)
 {
     struct args arg;
@@ -328,6 +347,41 @@ int main(int argc, char **argv)
     if (arg.arch_btw)
     {
         printf("I use Arch btw\n");
+    }
+
+    if (arg.penguin_spam)
+    {
+        char *rc;
+
+
+        printf("Where should we deploy the penguins? ");
+        if (fgets(arg.penguin_spam_location, 128, stdin) == NULL)
+        {
+            printf(
+                "\nfatal: Penguin deployment location must be supplied\n");
+            exit(1);
+        }
+
+        if ((strlen(arg.penguin_spam_location) > 0) &&
+            (arg.penguin_spam_location[strlen(arg.penguin_spam_location) -
+                                       1] == '\n'))
+        {
+            arg.penguin_spam_location[strlen(arg.penguin_spam_location) - 1] =
+                '\0';
+        }
+
+        printf("How many penguins should we deploy? ");
+        if (fgets(arg.penguin_spam_amount, 128, stdin) == NULL)
+        {
+            printf("\nfatal: Number of penguins to deploy must be "
+                   "supplied\n");
+            exit(1);
+        }
+
+
+        long penguin_spam_amount = strtol(arg.penguin_spam_amount, NULL, 10);
+        int penguin_spam_amount_converted = (int)penguin_spam_amount;
+        penguin_spam(arg.penguin_spam_location, penguin_spam_amount_converted);
     }
 
     if (strcmp(arg.year_of_linux_desktop, ""))
