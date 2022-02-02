@@ -34,6 +34,7 @@
 #define ARG_PENGUIN_SPAM 1008
 #define ARG_HACKERMAN 1009
 #define ARG_YEAR_OF_LINUX_DESKTOP 1010
+#define ARG_SEGFAULT 1011
 
 const char *argp_program_version = "version 0.1.0";
 static char doc[] = "Linux good, Windows bad";
@@ -59,6 +60,7 @@ static struct argp_option opts[] = {
     {"penguin-spam", ARG_PENGUIN_SPAM, 0, 0,
      "Spam Microsoft headquarters with penguins"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
+    {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
     {0}};
 
 struct args
@@ -129,6 +131,9 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case ARG_NO_BLOATWARE:
         arguments->no_bloatware = 1;
         break;
+    case ARG_SEGFAULT:
+        printf("Well, you asked for a segfault....\n");
+        trigger_segfault();
     default:
         return ARGP_ERR_UNKNOWN;
     }
