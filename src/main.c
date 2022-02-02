@@ -84,6 +84,7 @@ struct args
     char penguin_spam_amount[128];
 };
 
+static int distro_initalized = 0;
 static char *year_of_linux_desktop_tmp_var;
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
@@ -93,6 +94,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     switch (key)
     {
     case 'd':
+        distro_initalized = 1;
         arguments->distro = arg;
         break;
     case 'e':
@@ -251,6 +253,12 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
  */
 void hackerman(char *distro)
 {
+    if (!distro_initalized)
+    {
+        printf("fatal: distro not specified\n");
+        exit(1);
+    }
+
     if (!strcasecmp(distro, "kali"))
     {
         printf("Activating Hackerman mode....\n");
