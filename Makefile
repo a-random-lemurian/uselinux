@@ -17,7 +17,7 @@ $(BLDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 
-stackov: opener/opener.c opener/detect_os.c stackov_src/stackov.c
+bin/stackov: opener/opener.c opener/detect_os.c stackov_src/stackov.c
 	$(CC) $(CFLAGS) $^ -o $@ -I.
 
 
