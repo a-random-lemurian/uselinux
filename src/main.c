@@ -291,7 +291,7 @@ void remove_bloatware_package(char *bloatware)
 {
     printf("Removing bloatware \"%s\"..... ", bloatware);
     fflush(stdout);
-    int sleep = randint(10, 600);
+    int sleep = randint(10, 2300);
     msleep(sleep);
     printf("  removed in %d ms.\n", sleep);
 }
