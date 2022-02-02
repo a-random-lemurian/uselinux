@@ -1,6 +1,6 @@
 CC=gcc
 EXT=c
-CFLAGS=-O3 -lm
+CFLAGS=-O3 -lm -Werror -Wall
 LDFLAGS=-O3
 SRCDIR:=src
 BLDDIR:=build
