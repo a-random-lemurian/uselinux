@@ -27,10 +27,12 @@ void ancient_debian_packages()
 
     printf("Travelling to digsites to find ancient Debian packages.\n");
 
-    int total_packages;
+    int total_packages = 0;
 
     for (int i = 0; i < digsites; i++)
     {
         total_packages += check_digsite(i);
     }
+
+    printf("Finished digging.... found %d total packages.", total_packages);
 }
