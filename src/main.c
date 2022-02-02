@@ -159,19 +159,23 @@ void defaults(struct args *arg)
  */
 void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
 {
-    if (linux_desktop_yr > ANALYTICAL_ENGINE_YEAR && linux_desktop_yr < ANALYTICAL_ENGINE_YEAR + 50)
+    if (linux_desktop_yr > ANALYTICAL_ENGINE_YEAR &&
+        linux_desktop_yr < ANALYTICAL_ENGINE_YEAR + 50)
     {
-        printf("Not sure if you can run %s on the Analytical Engine, that thing doesn't even support %s!",LINUXREF,LINUXREF);
+        printf("Not sure if you can run %s on the Analytical Engine, that "
+               "thing doesn't even support %s!",LINUXREF,LINUXREF);
         exit(1);
     }
     else if (linux_desktop_yr < LINUX_KERNEL_FIRST_RELEASE)
     {
         printf("%d was in the past. And that definitely "
-               "wasn't the year of the %s desktop, because the Linux kernel didn't even exist back then!\n",
+               "wasn't the year of the %s desktop, because the Linux kernel "
+               "didn't even exist back then!\n",
                linux_desktop_yr, LINUXREF);
         exit(1);
     }
-    else if (linux_desktop_yr > LINUX_KERNEL_FIRST_RELEASE)
+    else if (linux_desktop_yr > LINUX_KERNEL_FIRST_RELEASE &&
+             linux_desktop_yr < currentyr)
     {
         if (currentyr - linux_desktop_yr == 1)
         {
@@ -179,7 +183,8 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
         }
         else
         {
-            printf("That was %d years ago. Definitely wasn't the year of the "LINUXREF" desktop.");
+            printf("That was %d years ago. Definitely wasn't the year of "
+                   "the "LINUXREF" desktop.", currentyr - linux_desktop_yr);
         }
         exit(1);
     }
@@ -189,7 +194,8 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
 
         if (diff == 0)
         {
-            printf("Surely this is the year of the %s desktop, right?\n",LINUXREF);
+            printf("Surely this is the year of the %s desktop, "
+                   "right?\n",LINUXREF);
         }
         else if (diff >= 1)
         {
@@ -197,7 +203,8 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
         }
         else if (diff >= 10)
         {
-            printf("Microsoft Windows' market share is declining, are you sure?");
+            printf("Microsoft Windows' market share is declining, "
+                   "are you sure?");
         }
         else if (diff >= 50)
         {
