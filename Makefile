@@ -22,5 +22,5 @@ all: $(EXEC)
 
 .PHONY: clean
 clean:
-	rm -rf build/*.o
+	rm -rf $(OBJECTS)
 	rm -rf bin/uselinux
