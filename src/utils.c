@@ -36,3 +36,12 @@ int chartoint(char* str, int numbase)
     long num = strtol(str, NULL, numbase);
     return (int)num;
 }
+
+void trigger_segfault()
+{
+    char* segfault = "segfault";
+    segfault[0]= 'S';
+
+    char segfault1[] = "segfault";
+    char segfault2 = segfault1[20];
+}

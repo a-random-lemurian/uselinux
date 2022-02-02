@@ -231,8 +231,7 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
             messages[(int)floor(genRand(&mtw) * LEN(messages))];
 
         printf("I hereby sentence you to a segfault. %s\n", HISTORY_MSG);
-        char *SEGFAULT = "segfault";
-        SEGFAULT[0] = 'S';
+        trigger_segfault();
     }
 }
 

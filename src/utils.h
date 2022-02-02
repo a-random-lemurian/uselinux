@@ -40,4 +40,11 @@ int randint(int min, int max);
  * @return int
  */
 int chartoint(char *str, int numbase);
+
+/**
+ * @brief Trigger a segmentation fault. Should be used for comedic purposes
+ * only.
+ *
+ */
+void trigger_segfault();
 #endif
