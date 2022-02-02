@@ -1,18 +1,16 @@
 
 
-#include "userspace.h"
 #include "ancientpkg.h"
+#include "userspace.h"
 #include "utils.h"
 
-
-#include <unistd.h>
 #include <argp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <sys/time.h>
-
+#include <time.h>
+#include <unistd.h>
 
 #ifdef FSF_TERMINOLOGY
 #define LINUXREF "GNU/Linux"
@@ -22,9 +20,7 @@
 #define LINUXREF "Linux"
 #endif
 
-
-#define LEN(arr) ((int) (sizeof (arr) / sizeof (arr)[0]))
-
+#define LEN(arr) ((int)(sizeof(arr) / sizeof(arr)[0]))
 
 // Long-only options
 #define ARG_ARCH_BTW 1000
@@ -41,6 +37,7 @@
 
 const char *argp_program_version = "version 0.1.0";
 static char doc[] = "Linux good, Windows bad";
+
 static struct argp_option opts[] = {
     {"distro", 'd', "DISTRO", 0, "Specify a GNU/Linux distribution"},
     {"desk", 'e', "DESK", 0, "Specify a desktop environment"},
@@ -63,6 +60,7 @@ static struct argp_option opts[] = {
      "Spam Microsoft headquarters with penguins"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
     {0}};
+
 struct args
 {
     char *distro;
@@ -73,15 +71,14 @@ struct args
     int bash_windows;
     int bash_macos;
     int hackerman;
-    char* year_of_linux_desktop;
+    char *year_of_linux_desktop;
     int compile_everything;
     int snap_at_snaps;
     int penguin_spam;
     int no_bloatware;
 };
 
-
-static char* year_of_linux_desktop_tmp_var;
+static char *year_of_linux_desktop_tmp_var;
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
 {
@@ -151,13 +148,12 @@ void defaults(struct args *arg)
     arg->no_bloatware = 0;
 }
 
-
 #define LINUX_KERNEL_FIRST_RELEASE 1991
 #define ANALYTICAL_ENGINE_YEAR 1833
 
 /**
  * @brief The year of the Linux desktop will arrive.... eventually.
- * 
+ *
  * @param currentyr The current year.
  * @param linux_desktop_yr Year to predict as being the year of the Linux
  *                         desktop.
@@ -168,7 +164,8 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
         linux_desktop_yr < ANALYTICAL_ENGINE_YEAR + 50)
     {
         printf("Not sure if you can run %s on the Analytical Engine, that "
-               "thing doesn't even support %s!",LINUXREF,LINUXREF);
+               "thing doesn't even support %s!",
+               LINUXREF, LINUXREF);
         exit(1);
     }
     else if (linux_desktop_yr < LINUX_KERNEL_FIRST_RELEASE)
@@ -184,12 +181,13 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
     {
         if (currentyr - linux_desktop_yr == 1)
         {
-            printf("Last year wasn't the year of the "LINUXREF" desktop.");
+            printf("Last year wasn't the year of the " LINUXREF " desktop.");
         }
         else
         {
             printf("That was %d years ago. Definitely wasn't the year of "
-                   "the "LINUXREF" desktop.", currentyr - linux_desktop_yr);
+                   "the " LINUXREF " desktop.",
+                   currentyr - linux_desktop_yr);
         }
         exit(1);
     }
@@ -200,11 +198,12 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
         if (diff == 0)
         {
             printf("Surely this is the year of the %s desktop, "
-                   "right?\n",LINUXREF);
+                   "right?\n",
+                   LINUXREF);
         }
         else if (diff >= 1)
         {
-            printf("The year of the %s desktop will be soon.",LINUXREF);
+            printf("The year of the %s desktop will be soon.", LINUXREF);
         }
         else if (diff >= 10)
         {
@@ -222,29 +221,29 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
             "Go back to history class!",
             "You clearly don't know anything about history.",
             "Have fun debugging with GDB!",
-            "I'm sure this year will be the year of the "LINUXREF" desktop!",
-            "I'm sure next year will be the year of the "LINUXREF" desktop!"
-        };
+            "I'm sure this year will be the year of the " LINUXREF " desktop!",
+            "I'm sure next year will be the year of the " LINUXREF
+            " desktop!"};
 
         MTRand mtw = seedRand(clock());
 
-        char* HISTORY_MSG = messages[(int)floor(genRand(&mtw)*LEN(messages))];
+        char *HISTORY_MSG =
+            messages[(int)floor(genRand(&mtw) * LEN(messages))];
 
-
-        printf("I hereby sentence you to a segfault. %s\n",HISTORY_MSG);
-        char* SEGFAULT = "segfault";
+        printf("I hereby sentence you to a segfault. %s\n", HISTORY_MSG);
+        char *SEGFAULT = "segfault";
         SEGFAULT[0] = 'S';
     }
 }
 
 /**
  * @brief Activate Hackerman mode. Requires Kali Linux.
- * 
+ *
  * @param distro Distribution being used. Must be Kali Linux.
  */
-void hackerman(char* distro)
+void hackerman(char *distro)
 {
-    if (!strcasecmp(distro,"kali"))
+    if (!strcasecmp(distro, "kali"))
     {
         printf("Activating Hackerman mode....\n");
     }
@@ -257,52 +256,52 @@ void hackerman(char* distro)
 
 /**
  * @brief Bash an operating system, insulting it.
- * 
+ *
  * @param os The operating system to bash. Specifying Linux will result
  *           in an abort.
  */
-void bash_os(char* os)
+void bash_os(char *os)
 {
     if (!strcasecmp(os, "Windows"))
     {
         printf("Windows, too much bloat!\n");
     }
+
     if (!strcasecmp(os, "macOS"))
     {
         printf("macOS is proprietary garbage!\n");
     }
-    if (!strcasecmp(os, "GNU/Linux")||!strcasecmp(os, "Linux"))
+
+    if (!strcasecmp(os, "GNU/Linux") || !strcasecmp(os, "Linux"))
     {
-        printf("Ye shall not insult %s.",LINUXREF);
+        printf("Ye shall not insult %s.", LINUXREF);
         abort();
     }
 }
 
 /**
  * @brief Remove a single bloatware package.
- * 
+ *
  * @param bloatware Name of bloatware to remove.
  */
-void remove_bloatware_package(char* bloatware)
+void remove_bloatware_package(char *bloatware)
 {
     printf("Removing bloatware \"%s\"..... ", bloatware);
     fflush(stdout);
-    int sleep = randint(10,600);
+    int sleep = randint(10, 600);
     msleep(sleep);
     printf("  removed in %d ms.\n", sleep);
 }
 
 /**
  * @brief Removes bloatware, such as Candy Crush (preinstalled on Windows).
- * 
+ *
  */
 void remove_bloatware()
 {
     printf("Removing bloatware....\n");
 
-    char bloatware[][64] = {
-        "Candy Crush"
-    };
+    char bloatware[][64] = {"Candy Crush"};
 
     int i = 0;
     for (i = 0; i < LEN(bloatware); i++)
@@ -317,9 +316,8 @@ int main(int argc, char **argv)
     defaults(&arg);
     argp_parse(&argp, argc, argv, 0, 0, &arg);
 
-
     time_t s, val = 1;
-    struct tm* current_time;
+    struct tm *current_time;
     s = time(NULL);
     current_time = localtime(&s);
 
@@ -333,11 +331,11 @@ int main(int argc, char **argv)
         printf("I use Arch btw\n");
     }
 
-    if (strcmp(arg.year_of_linux_desktop,""))
+    if (strcmp(arg.year_of_linux_desktop, ""))
     {
-        long converted_yr_l = strtol(arg.year_of_linux_desktop,NULL,10);
+        long converted_yr_l = strtol(arg.year_of_linux_desktop, NULL, 10);
         int converted_yr = (int)converted_yr_l;
-        year_of_linux_desktop(current_time->tm_year+1900,converted_yr);
+        year_of_linux_desktop(current_time->tm_year + 1900, converted_yr);
     }
 
     if (arg.hackerman)
@@ -349,6 +347,7 @@ int main(int argc, char **argv)
     {
         bash_os("macOS");
     }
+
     if (arg.bash_windows)
     {
         bash_os("Windows");

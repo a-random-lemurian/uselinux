@@ -1,6 +1,5 @@
 #include "utils.h"
 
-
 void msleep(int tms)
 {
     struct timeval tv;
@@ -32,10 +31,8 @@ int randint(int min, int max)
     return out;
 }
 
-
 int chartoint(char* str, int numbase)
 {
-	long num = strtol(str, NULL, numbase);
-	return (int)num;
+    long num = strtol(str, NULL, numbase);
+    return (int)num;
 }
-

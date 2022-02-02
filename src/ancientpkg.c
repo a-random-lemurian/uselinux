@@ -11,7 +11,6 @@ int check_digsite(int i)
     printf("-------- [Digsite %d] --------\n",i);
     printf("Digging for packages.... ");
     fflush(stdout);
-
     int packages = randint(300, 800);
     printf("found %d\n",packages);
 
@@ -21,7 +20,6 @@ int check_digsite(int i)
 void ancient_debian_packages()
 {
     MTRand mtw = seedRand(clock()*8*clock());
-
     int digsites = randint(300,900);
 
 
