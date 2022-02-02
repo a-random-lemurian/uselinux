@@ -16,6 +16,10 @@ $(EXEC): $(OBJECTS)
 $(BLDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
+INSTALLDIR=/usr/bin/
+.PHONY: install
+install: $(EXEC)
+	cp $(EXEC) $(INSTALLDIR)
 
 .PHONY: all
 all: $(EXEC)
