@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := all
+
 CC=gcc
 EXT=c
 CFLAGS=-O3 -lm -Werror -Wall
