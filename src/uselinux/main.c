@@ -270,7 +270,8 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
 }
 
 /**
- * @brief Activate Hackerman mode. Requires Kali Linux.
+ * @brief Activate Hackerman mode. Requires Kali Linux, a distribution that
+ * comes preinstalled with several tools for hacking.
  *
  * @param distro Distribution being used. Must be Kali Linux.
  */
@@ -296,8 +297,9 @@ void hackerman(char *distro)
 /**
  * @brief Bash an operating system, insulting it.
  *
- * @param os The operating system to bash. Specifying Linux will result
- *           in an abort.
+ * @param os The operating system to bash.
+ * 
+ * @warning Supplying "Linux" or "GNU/Linux" will result in an abort.
  */
 void bash_os(char *os)
 {
@@ -341,12 +343,15 @@ void remove_bloatware_package(char *bloatware)
 /**
  * @brief Removes bloatware, such as Candy Crush (preinstalled on Windows).
  *
+ * Inclusion of software in the bloatware list of this function should not be
+ * taken seriously.
  */
 void remove_bloatware()
 {
     printf("Removing bloatware....\n");
 
-    // Apps that are often criticized for being "bloatware"
+    // Apps that are often criticized for being "bloatware",
+    // or are called bloatware by some people.
     char bloatware[][64] = {
         "Candy Crush",
         "Nero Burning ROM",
@@ -364,7 +369,8 @@ void remove_bloatware()
 }
 
 /**
- * @brief Spam a location with penguins.
+ * @brief Spam a location with penguins. This often results in the deployment
+ * of animal control and increases the number of Linux users in a given area.
  *
  * @param location Location to spam with penguins.
  * @param penguins Number of penguins to deploy.
@@ -379,7 +385,7 @@ void penguin_spam(char *location, int penguins)
 }
 
 /**
- * @brief Snap at Snapcraft.
+ * @brief Snap at Snapcraft by criticizing the Snap packaging system.
  * 
  * @param distro Distribution being used.
  */

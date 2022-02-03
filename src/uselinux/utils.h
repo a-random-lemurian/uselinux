@@ -21,6 +21,7 @@ void msleep(int tms);
  * @param txt Text to print with typewriter effect.
  * @param freq Delay between each character in milliseconds.
  *
+ * @todo Allow randomization of delay between each character.
  */
 void typewriter(const char *txt, int freq);
 
@@ -33,7 +34,8 @@ void typewriter(const char *txt, int freq);
 int randint(int min, int max);
 
 /**
- * @brief Converts a char* to a number.
+ * @brief Converts a char* to a number. Serves as a wrapper function for
+ * strtol().
  *
  * @param str String to convert.
  * @param numbase Base of number (10 is decimal, 16 is hexadecimal.)
@@ -47,4 +49,4 @@ int chartoint(char *str, int numbase);
  *
  */
 void trigger_segfault();
-#endif
+#endif /* UTILS_H */
