@@ -158,6 +158,8 @@ void defaults(struct args *arg)
     arg->bash_windows = 0;
     arg->bash_macos = 0;
     arg->hackerman = 0;
+    arg->distro = NULL;
+    arg->desk = NULL;
     arg->year_of_linux_desktop = "";
     arg->compile_everything = 0;
     arg->snap_at_snaps = 0;
@@ -373,6 +375,39 @@ void penguin_spam(char *location, int penguins)
     printf(" done, deployed %d penguins in %d ms.\n", penguins, sleep);
 }
 
+/**
+ * @brief Snap at Snapcraft.
+ * 
+ * @param distro Distribution being used.
+ */
+void snap_at_snaps(char* distro)
+{
+    if (distro == NULL)
+    {
+        printf("Please supply \"ubuntu\" or \"mint\" as an argument to -d to snap at snaps.\n");
+        printf("But snaps suck anyway....\n");
+        return;
+    }
+    else
+    {
+        if (!strcasecmp(distro, "Ubuntu"))
+        {
+            printf("Ubuntu snaps are completely unacceptable!\n");
+            printf("Reject snaps.\n");
+            printf("Embrace APT.\n");
+        }
+        else if (!strcasecmp(distro, "Mint")
+              || !strcasecmp(distro, "linuxmint"))
+        {
+            printf("Well, Linux Mint doesn't have snaps, yes?\n");
+        }
+        else
+        {
+            printf("No more snaps!\n");
+        }
+    }
+}
+
 int main(int argc, char **argv)
 {
     struct args arg;
@@ -387,6 +422,11 @@ int main(int argc, char **argv)
     if (arg.no_bloatware)
     {
         remove_bloatware();
+    }
+
+    if (arg.snap_at_snaps)
+    {
+        snap_at_snaps(arg.distro);
     }
 
     if (arg.arch_btw)
