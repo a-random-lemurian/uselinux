@@ -1,4 +1,4 @@
-#include "opener/opener.h"
+#include "../opener/opener.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
