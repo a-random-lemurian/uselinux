@@ -1,6 +1,5 @@
 // Modified by Lemuria (renamed to prevent name conflicts)
 
-
 //
 // os.c
 // Get to know your operating system
@@ -9,21 +8,21 @@
 // Copyright (c) Abraham Hernandez <abraham@abranhe.com>
 //
 
-const char * operating_system()
+const char *operating_system()
 {
-    #ifdef _WIN32
+#ifdef _WIN32
     return "win32";
-    #elif _WIN64
+#elif _WIN64
     return "win64";
-    #elif __unix || __unix__
+#elif __unix || __unix__
     return "unix";
-    #elif __APPLE__ || __MACH__
+#elif __APPLE__ || __MACH__
     return "macOS";
-    #elif __linux__
+#elif __linux__
     return "linux";
-    #elif __FreeBSD__
+#elif __FreeBSD__
     return "freeBSD";
-    #else
+#else
     return "other";
-    #endif
+#endif
 }

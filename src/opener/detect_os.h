@@ -1,6 +1,5 @@
 // Modified by Lemuria (renamed to prevent name conflicts)
 
-
 #ifndef DETECT_OS_H
 #define DETECT_OS_H
 
@@ -12,10 +11,11 @@
 //
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-const char * operating_system(void);
+    const char *operating_system(void);
 
 #ifdef __cplusplus
 }

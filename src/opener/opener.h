@@ -9,10 +9,11 @@
 //
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-int opener(const char *url);
+    int opener(const char *url);
 
 #ifdef __cplusplus
 }
