@@ -42,3 +42,32 @@ void trigger_segfault()
     char* segfault = "segfault";
     segfault[0]= 'S';
 }
+
+void segfault_or_abort(int threshold)
+{
+    int finalthreshold = 250;
+
+
+    if (threshold == 500)
+    {
+        abort();
+    }
+    else if (threshold == 0)
+    {
+        trigger_segfault();
+    }
+
+    if (threshold >= 0 && threshold <= 500)
+    {
+        finalthreshold = threshold;
+    }
+
+    if (randint(0, 500) >= finalthreshold)
+    {
+        abort();
+    }
+    else
+    {
+        trigger_segfault();
+    }
+}

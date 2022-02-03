@@ -49,4 +49,20 @@ int chartoint(char *str, int numbase);
  *
  */
 void trigger_segfault();
+
+/**
+ * @brief Trigger a random number generator and either cause a segmentation
+ * fault or abort, depending on the randomly generated number's value. The
+ * "threshold" can be altered to make a segmentation fault or abort more
+ * likely. A lower threshold will result in a higher chance of a segmentation
+ * fault, while a higher one will result in a higher chance of an abort.
+ * 
+ * The threshold value must be between 0 and 500. 0 will always trigger a
+ * segmentation fault and 500 will always trigger an abort.
+ * 
+ * @note If the threshold is NULL, the default threshold of 250 is used instead.
+ *
+ * @param threshold An integer between 0 and 500. (`>= 0, <= 500`)
+ */
+void segfault_or_abort(int threshold);
 #endif /* UTILS_H */

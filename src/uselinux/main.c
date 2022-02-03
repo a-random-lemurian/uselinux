@@ -513,7 +513,20 @@ int main(int argc, char **argv)
             typewriter(WE_DO_NOT_BREAK_USERSPACE, 5);
         }
 
-        exit(0);
+        printf("%d",randint(1, 100));
+
+        if (randint(1, 100) >= 2)
+        {
+            printf("\n\nThat was tough. Just as you finish reading the\n"
+                   "email, you see an apparition of Linus Torvalds\n"
+                   "approaching you causing the program to....\n");
+            
+            segfault_or_abort(80);
+        }
+        else
+        {
+            exit(0);
+        }
     }
 
     if (arg.ancient_packages)
