@@ -12,3 +12,9 @@ questionable content.
 > **Q**: It's GNU/Linux, not Linux!
 >
 > **A**: Pass the special `FSF_TERMINOLOGY` preprocessor flag and stop complaining.
+
+## Testing
+
+This program uses bats-core for testing.
+
+https://github.com/bats-core/bats-core
