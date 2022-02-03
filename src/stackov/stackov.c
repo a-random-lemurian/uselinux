@@ -53,6 +53,7 @@ static struct argp argp = {opts, parse_opt, 0, doc};
 void defaults(struct args *args)
 {
     args->url = NULL;
+    args->dry_run = 0;
 }
 
 int main(int argc, char **argv)
