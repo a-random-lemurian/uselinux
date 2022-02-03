@@ -63,3 +63,5 @@ language.settings.xml
 # Executables
 uselinux
 stackov
+
+!src/*

@@ -4,39 +4,55 @@ CFLAGS=-O3 -lm -Werror -Wall
 LDFLAGS=-O3
 SRCDIR:=src
 BLDDIR:=build
-SOURCES=$(wildcard $(SRCDIR)/*.$(EXT))
-OBJECTS=$(patsubst $(SRCDIR)/%.$(EXT), $(BLDDIR)/%.o, $(SOURCES))
-EXEC=bin/uselinux
-
-
-$(EXEC): $(OBJECTS)
-	$(CC) $(LDFLAGS) $^ -o $@
-
-
-$(BLDDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-
-STACKOV_SOURCES=$(wildcard opener/*.c)
-STACKOV_OBJECTS=$(patsubst opener/%.c, $(BLDDIR)/%.o, $(STACKOV_SOURCES))
-
-build/stackov.o: stackov_src/stackov.c
-	$(CC) $(CFLAGS) -o $@ -c $< -I.
-
-$(BLDDIR)/%.o: opener/%.c
-	$(CC) $(CFLAGS) -o $@ -c $< 
-
-bin/stackov: $(STACKOV_OBJECTS) build/stackov.o
-	$(CC) $(LDFLAGS) $^ -o $@
-
-
 INSTALLDIR=/usr/bin/
+LIBS=$(OPENER_LIB)
+
+# uselinux ####################################################################
+USELINUX_EXEC=bin/uselinux
+USELINUX_SRC=$(wildcard $(SRCDIR)/uselinux/*.$(EXT))
+USELINUX_OBJ=$(patsubst $(SRCDIR)/uselinux/%.$(EXT),\
+                        $(BLDDIR)/uselinux-%.o,\
+                        $(USELINUX_SRC))
+
+$(USELINUX_EXEC): $(USELINUX_OBJ)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+$(BLDDIR)/uselinux-%.o: $(SRCDIR)/uselinux/%.$(EXT)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# stackov #####################################################################
+STACKOV_EXEC=bin/stackov
+STACKOV_SRC=$(wildcard $(SRCDIR)/stackov/*.$(EXT))
+STACKOV_OBJ=$(patsubst $(SRCDIR)/stackov/%.$(EXT),\
+                       $(BLDDIR)/stackov-%.o,\
+                       $(STACKOV_SRC))
+
+$(STACKOV_EXEC): $(STACKOV_OBJ)
+	$(CC) $(LDFLAGS) $^ -o $@ -L./lib -lopener
+
+$(BLDDIR)/stackov-%.o: $(SRCDIR)/stackov/%.$(EXT)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# opener ######################################################################
+AR=ar
+OPENER_SRC=$(SRCDIR)/opener/detect_os.c $(SRCDIR)/opener/opener.c
+OPENER_OBJ=$(BLDDIR)/opener-detect_os.o $(BLDDIR)/opener-opener.o
+OPENER_LIB=lib/libopener.a
+
+$(OPENER_LIB): $(OPENER_OBJ)
+	$(AR) rcs $(OPENER_LIB) $^
+
+build/opener-%.o: $(SRCDIR)/opener/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+# phony rules #################################################################
 .PHONY: install
-install: $(EXEC)
-	cp $(EXEC) $(INSTALLDIR)
+EXECS=$(USELINUX_EXEC) $(STACKOV_EXEC)
+install:
+	@echo "make install may require sudo"
+	cp $(EXECS) $(INSTALLDIR)
 
 .PHONY: all
-all: $(EXEC) bin/stackov
+all: $(LIBS) $(EXECS) 
 
 .PHONY: clean
 clean:
