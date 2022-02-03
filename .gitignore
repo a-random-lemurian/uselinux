@@ -60,6 +60,8 @@ language.settings.xml
 .vscode
 
 
+auto/doxygen
+
 # Executables
 uselinux
 stackov
