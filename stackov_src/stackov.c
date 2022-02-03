@@ -1,4 +1,5 @@
 #include "../opener/opener.h"
+#include <argp.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,45 +15,53 @@ const char* mkstr(char str1[], char str2[])
         return out;
 }
 
-const char* help =
-"Open Stack Overflow from the command-line\n\n"
+static struct argp_option opts[] = {
+    {"search", 's', "QUERY", 0, "Search term on Stack Overflow"},
+    {0}};
 
-"  --help        Help information\n"
-"  --usage       Brief usage information\n\n"
-
-"This tool is bundled with uselinux.\n"
-"This program is licensed under the MIT license.\n";
-
-void print_help()
+struct args
 {
-    printf("%s",help);
+    char *url;
+};
+
+
+static error_t parse_opt(int key, char *arg, struct argp_state *state)
+{
+    struct args *arguments = state->input;
+
+    switch (key)
+    {
+    case 's':
+        arguments->url = arg;
+        break;
+    default:
+        return ARGP_ERR_UNKNOWN;
+    }
+
+    return 0;
 }
 
-void print_usage(char** argv)
+static char doc[] = "Open Stack Overflow from the command line";
+static struct argp argp = {opts, parse_opt, 0, doc};
+
+void defaults(struct args *args)
 {
-    printf("Usage: %s [QUERY]\n", argv[0]);
+    args->url = NULL;
 }
 
 int main(int argc, char **argv)
 {
-    if (argc != 2)
+    struct args arguments;
+    defaults(&arguments);
+    argp_parse(&argp, argc, argv, 0, 0, &arguments);
+
+    if (arguments.url == NULL)
     {
-        print_usage(argv);
+        printf("fatal: search query not specified\n");
+        exit(1);
     }
 
-    if (!strcmp(argv[1],"--help"))
-    {
-        print_help();
-        exit(0);
-    }
-
-    if (!strcmp(argv[1],"--usage"))
-    {
-        print_usage(argv);
-        exit(0);
-    }
-
-    const char* stackov_url = mkstr(STACKOV_SEARCH_URL, argv[1]);
+    const char* stackov_url = mkstr(STACKOV_SEARCH_URL, arguments.url);
 
     printf("Opening %s in your browser.\n", stackov_url);
     opener(stackov_url);
