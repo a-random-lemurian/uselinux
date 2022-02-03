@@ -28,7 +28,7 @@ install: $(EXEC)
 	cp $(EXEC) $(INSTALLDIR)
 
 .PHONY: all
-all: $(EXEC) stackov
+all: $(EXEC) bin/stackov
 
 .PHONY: clean
 clean:
