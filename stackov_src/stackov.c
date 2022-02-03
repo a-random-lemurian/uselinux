@@ -17,11 +17,14 @@ const char* mkstr(char str1[], char str2[])
 
 static struct argp_option opts[] = {
     {"search", 's', "QUERY", 0, "Search term on Stack Overflow"},
+    {"dry-run", 'd', 0, 0, "Do not actually open Stack Overflow in browser"},
     {0}};
 
 struct args
 {
     char *url;
+
+    int dry_run;
 };
 
 
@@ -33,6 +36,9 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     {
     case 's':
         arguments->url = arg;
+        break;
+    case 'd':
+        arguments->dry_run = 1;
         break;
     default:
         return ARGP_ERR_UNKNOWN;
@@ -64,5 +70,9 @@ int main(int argc, char **argv)
     const char* stackov_url = mkstr(STACKOV_SEARCH_URL, arguments.url);
 
     printf("Opening %s in your browser.\n", stackov_url);
-    opener(stackov_url);
+
+    if (!arguments.dry_run)
+    {
+        opener(stackov_url);
+    }
 }
