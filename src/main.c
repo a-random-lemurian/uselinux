@@ -171,7 +171,10 @@ void defaults(struct args *arg)
 #define LINUX_KERNEL_FIRST_RELEASE 1991
 #define ANALYTICAL_ENGINE_YEAR 1833
 
-
+/**
+ * @brief Trigger a segfault if the user can't even
+ * make a good guess about the year of the Linux desktop.
+ */
 void year_of_linux_desktop_segfault()
 {
     char messages[][64] = {
