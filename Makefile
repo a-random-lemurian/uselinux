@@ -56,6 +56,5 @@ all: $(LIBS) $(EXECS)
 
 .PHONY: clean
 clean:
-	rm -rf opener/*.o
-	rm -rf $(OBJECTS)
-	rm -rf bin/uselinux
+	rm build/*.o
+	rm bin/uselinux
