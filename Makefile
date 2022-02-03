@@ -17,9 +17,17 @@ $(BLDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 
-bin/stackov: opener/opener.c opener/detect_os.c stackov_src/stackov.c
-	$(CC) $(CFLAGS) $^ -o $@ -I.
+STACKOV_SOURCES=$(wildcard opener/*.c)
+STACKOV_OBJECTS=$(patsubst opener/%.c, $(BLDDIR)/%.o, $(STACKOV_SOURCES))
 
+build/stackov.o: stackov_src/stackov.c
+	$(CC) $(CFLAGS) -o $@ -c $< -I.
+
+$(BLDDIR)/%.o: opener/%.c
+	$(CC) $(CFLAGS) -o $@ -c $< 
+
+bin/stackov: $(STACKOV_OBJECTS) build/stackov.o
+	$(CC) $(LDFLAGS) $^ -o $@
 
 
 INSTALLDIR=/usr/bin/
