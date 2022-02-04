@@ -8,7 +8,7 @@
 
 int pkg_dig_job_sanity_check(pkg_dig_job *job)
 {
-    if (job->dig_coverage >= 1 || job->dig_coverage <= 10)
+    if (job->dig_coverage >= 1 && job->dig_coverage <= 10)
     {
         return 1;
     }
