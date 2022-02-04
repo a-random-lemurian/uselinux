@@ -158,8 +158,8 @@ void defaults(struct args *arg)
     arg->bash_windows = 0;
     arg->bash_macos = 0;
     arg->hackerman = 0;
-    arg->distro = NULL;
-    arg->desk = NULL;
+    arg->distro = "";
+    arg->desk = "";
     arg->year_of_linux_desktop = "";
     arg->compile_everything = 0;
     arg->snap_at_snaps = 0;
