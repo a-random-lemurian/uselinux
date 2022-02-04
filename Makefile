@@ -11,9 +11,9 @@ LIBS=$(OPENER_LIB)
 
 
 ifndef V
-	QUIET_CC  =@echo '    ' CC '    ' $@;
-	QUIET_AR  =@echo '    ' AR '    ' $@;
-	QUIET_LINK=@echo '    ' LINK '  ' $@;
+	QUIET_CC  =@echo '    ' CC '    ' $<;
+	QUIET_AR  =@echo '    ' AR '    ' $<;
+	QUIET_LINK=@echo '    ' LINK '  ' $<;
 endif
 
 # uselinux ####################################################################
