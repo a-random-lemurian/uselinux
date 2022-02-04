@@ -34,6 +34,9 @@
 #define ARG_YEAR_OF_LINUX_DESKTOP 1010
 #define ARG_SEGFAULT 1011
 #define ARG_NO_TYPEWRITER 1012
+#define ARG_ANCIENT_DEBIAN_PACKAGES_USE_V2 1013
+#define ARG_AP_LIMIT_LOCS 1014
+#define ARG_AP_LIMIT_SITES 1015
 
 const char *argp_program_version = "version 0.1.0";
 static char doc[] = "Linux good, Windows bad";
@@ -43,8 +46,6 @@ static struct argp_option opts[] = {
     {"desk", 'e', "DESK", 0, "Specify a desktop environment"},
     {"year-of-linux-desktop", ARG_YEAR_OF_LINUX_DESKTOP, "YEAR", 0,
      "Specify the year of the Linux desktop"},
-    {"ancient-packages", ARG_ANCIENT_PACKAGES, 0, 0,
-     "Use packages from 10,000 years ago (Debian)"},
     {"break-userspace", ARG_BREAK_USERSPACE, 0, 0,
      "Make Linus Torvalds angry by breaking userspace with Linux kernel "
      "patches"},
@@ -60,6 +61,15 @@ static struct argp_option opts[] = {
      "Spam Microsoft headquarters with penguins"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
     {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
+    {0,0,0,0,"Ancient Debian packages"},
+    {"ancient-packages", ARG_ANCIENT_PACKAGES, 0, 0,
+     "Use packages from 10,000 years ago (Debian), v1"},
+    {"ancient-packages-v2", ARG_ANCIENT_DEBIAN_PACKAGES_USE_V2, 0, 0,
+     "Use Debian packages from 11,000 years ago"},
+    {"ap-limit-locations", ARG_AP_LIMIT_LOCS, "LOCS", 0,
+     "Limit locations to exacavate packages at"},
+    {"ap-limit-sites", ARG_AP_LIMIT_SITES, "SITES", 0,
+     "Limit digsites per location"},
     {0,0,0,0,"Other options"},
     {"no-typewriter", ARG_NO_TYPEWRITER, 0, 0, "Do not print messages with typewriter effect"},
     {0}};
@@ -80,6 +90,11 @@ struct args
     int penguin_spam;
     int no_bloatware;
     int no_typewriter;
+
+    int ancient_debian_packages_v2;
+
+    char* ap_limit_locs;
+    char* ap_limit_sites;
 
     // Penguin spam
     char penguin_spam_location[128];
@@ -140,6 +155,15 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case ARG_NO_TYPEWRITER:
         arguments->no_typewriter = 1;
         break;
+    case ARG_ANCIENT_DEBIAN_PACKAGES_USE_V2:
+        arguments->ancient_debian_packages_v2 = 1;
+        break;
+    case ARG_AP_LIMIT_LOCS:
+        arguments->ap_limit_locs = arg;
+        break;
+    case ARG_AP_LIMIT_SITES:
+        arguments->ap_limit_sites = arg;
+        break;
     default:
         return ARGP_ERR_UNKNOWN;
     }
@@ -164,6 +188,10 @@ void defaults(struct args *arg)
     arg->penguin_spam = 0;
     arg->no_bloatware = 0;
     arg->no_typewriter = 0;
+    arg->ancient_debian_packages_v2 = 0;
+
+    arg->ap_limit_locs = "";
+    arg->ap_limit_sites = "";
 }
 
 #define LINUX_KERNEL_FIRST_RELEASE 1991
@@ -527,10 +555,42 @@ int main(int argc, char **argv)
         }
     }
 
+    if (arg.ancient_debian_packages_v2)
+    {
+        if (strcasecmp(arg.distro, "debian"))
+        {
+            printf("fatal: to dig for ancient packages, you must specify"
+                   " debian as the distro");
+            exit(1);
+        }
+
+        pkg_dig_job_control pkgdigctl;
+
+        pdjctl_set_defaults(&pkgdigctl);
+
+        if (strcmp(arg.ap_limit_locs, ""))
+        {
+            long converted_l = strtol(arg.ap_limit_locs, NULL, 10);
+            int ap_limit_locs_i = (int)converted_l;
+            pkgdigctl.max_locs = ap_limit_locs_i;
+        }
+
+        if (strcmp(arg.ap_limit_sites, ""))
+        {
+            long converted_l = strtol(arg.ap_limit_sites, NULL, 10);
+            int ap_limit_sites_i = (int)converted_l;
+            pkgdigctl.max_sites = ap_limit_sites_i;
+        }
+
+        ancient_debian_packages_v2(&pkgdigctl);
+    }
+
     if (arg.ancient_packages)
     {
         if (!strcasecmp(arg.distro, "debian"))
         {
+            printf("Warning: --ancient-packages is deprecated.\n"
+                   "Please use --ancient-packages-v2 instead.\n");
             printf("Using 10,000 year-old Debian packages.\n"
                    "Why does Debian have to be so outdated, "
                    "anyway?\n");
