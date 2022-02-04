@@ -77,5 +77,6 @@ all: $(LIBS) $(EXECS)
 
 .PHONY: clean
 clean:
+	rm lib/*.a
 	rm build/*.o
 	rm bin/uselinux
