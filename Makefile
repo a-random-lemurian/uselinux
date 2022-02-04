@@ -2,12 +2,12 @@
 
 CC=gcc
 EXT=c
-CFLAGS=-O3 -Werror -Wall
+CFLAGS=-O3 -Werror -Wall -I./src/common
 LDFLAGS=-O3 -lm
 SRCDIR:=src
 BLDDIR:=build
 INSTALLDIR=/usr/bin/
-LIBS=$(OPENER_LIB)
+LIBS=$(OPENER_LIB) $(COMMON_LIB)
 
 
 ifndef V
@@ -24,7 +24,7 @@ USELINUX_OBJ=$(patsubst $(SRCDIR)/uselinux/%.$(EXT),\
                         $(USELINUX_SRC))
 
 $(USELINUX_EXEC): $(USELINUX_OBJ)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) $^ -o $@
+	$(QUIET_LINK)$(CC) $(LDFLAGS) $^ -o $@ -L./lib -lcommon
 
 $(BLDDIR)/uselinux-%.o: $(SRCDIR)/uselinux/%.$(EXT)
 	$(QUIET_CC)$(CC) $(CFLAGS) -c $< -o $@
@@ -53,6 +53,18 @@ $(OPENER_LIB): $(OPENER_OBJ)
 
 build/opener-%.o: $(SRCDIR)/opener/%.c
 	$(QUIET_CC)$(CC) $(CFLAGS) -c $< -o $@
+
+# common ######################################################################
+COMMON_SRC=$(SRCDIR)/common/mtwister.c $(SRCDIR)/common/utils.c
+COMMON_OBJ=$(BLDDIR)/common-mtwister.o $(BLDDIR)/common-utils.o
+COMMON_LIB=lib/libcommon.a
+
+$(COMMON_LIB): $(COMMON_OBJ)
+	$(QUIET_AR)$(AR) rcs $(COMMON_LIB) $^
+
+build/common-%.o: $(SRCDIR)/common/%.c
+	$(QUIET_CC)$(CC) $(CFLAGS) -c $< -o $@
+
 # phony rules #################################################################
 .PHONY: install
 EXECS=$(USELINUX_EXEC) $(STACKOV_EXEC)

@@ -1,3 +1,5 @@
+#ifndef MTWISTER_H
+#define MTWISTER_H
 #ifndef __MTWISTER_H
 #define __MTWISTER_H
 
@@ -16,3 +18,6 @@ unsigned long genRandLong(MTRand *rand);
 double genRand(MTRand *rand);
 
 #endif /* #ifndef __MTWISTER_H */
+
+
+#endif /* MTWISTER_H */
