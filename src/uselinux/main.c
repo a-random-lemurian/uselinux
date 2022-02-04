@@ -61,7 +61,7 @@ static struct argp_option opts[] = {
      "Spam Microsoft headquarters with penguins"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
     {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
-    {0,0,0,0,"Ancient Debian packages"},
+    {0, 0, 0, 0, "Ancient Debian packages"},
     {"ancient-packages", ARG_ANCIENT_PACKAGES, 0, 0,
      "Use packages from 10,000 years ago (Debian), v1"},
     {"ancient-packages-v2", ARG_ANCIENT_DEBIAN_PACKAGES_USE_V2, 0, 0,
@@ -70,8 +70,9 @@ static struct argp_option opts[] = {
      "Limit locations to exacavate packages at"},
     {"ap-limit-sites", ARG_AP_LIMIT_SITES, "SITES", 0,
      "Limit digsites per location"},
-    {0,0,0,0,"Other options"},
-    {"no-typewriter", ARG_NO_TYPEWRITER, 0, 0, "Do not print messages with typewriter effect"},
+    {0, 0, 0, 0, "Other options"},
+    {"no-typewriter", ARG_NO_TYPEWRITER, 0, 0,
+     "Do not print messages with typewriter effect"},
     {0}};
 
 struct args
@@ -93,8 +94,8 @@ struct args
 
     int ancient_debian_packages_v2;
 
-    char* ap_limit_locs;
-    char* ap_limit_sites;
+    char *ap_limit_locs;
+    char *ap_limit_sites;
 
     // Penguin spam
     char penguin_spam_location[128];
@@ -204,12 +205,11 @@ void defaults(struct args *arg)
 void year_of_linux_desktop_segfault()
 {
     char messages[][64] = {
-    "Go back to history class!",
-    "You clearly don't know anything about history.",
-    "Have fun debugging with GDB!",
-    "I'm sure this year will be the year of the " LINUXREF " desktop!",
-    "I'm sure next year will be the year of the " LINUXREF
-    " desktop!"};
+        "Go back to history class!",
+        "You clearly don't know anything about history.",
+        "Have fun debugging with GDB!",
+        "I'm sure this year will be the year of the " LINUXREF " desktop!",
+        "I'm sure next year will be the year of the " LINUXREF " desktop!"};
 
     MTRand mtw = seedRand(clock());
 
@@ -285,7 +285,7 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
         else
         {
             printf("You can't even predict the year of "
-                   "the "LINUXREF" desktop properly? Well, ");
+                   "the " LINUXREF " desktop properly? Well, ");
             year_of_linux_desktop_segfault();
         }
     }
@@ -324,7 +324,7 @@ void hackerman(char *distro)
  * @brief Bash an operating system, insulting it.
  *
  * @param os The operating system to bash.
- * 
+ *
  * @warning Supplying "Linux" or "GNU/Linux" will result in an abort.
  */
 void bash_os(char *os)
@@ -353,7 +353,7 @@ void bash_os(char *os)
  */
 void remove_bloatware_package(char *bloatware)
 {
-    printf("Removing bloatware %s.....",bloatware);
+    printf("Removing bloatware %s.....", bloatware);
 
     for (int i = 0; i < 49 - strlen(bloatware); i++)
     {
@@ -363,7 +363,7 @@ void remove_bloatware_package(char *bloatware)
     fflush(stdout);
     int sleep = randint(10, 2300);
     msleep(sleep);
-    printf("removed in %d ms\n",sleep);
+    printf("removed in %d ms\n", sleep);
 }
 
 /**
@@ -378,14 +378,9 @@ void remove_bloatware()
 
     // Apps that are often criticized for being "bloatware",
     // or are called bloatware by some people.
-    char bloatware[][64] = {
-        "Candy Crush",
-        "Nero Burning ROM",
-        "Microsoft Word",
-        "Microsoft Office",
-        "Microsoft Excel",
-        "Microsoft PowerPoint"
-    };
+    char bloatware[][64] = {"Candy Crush",     "Nero Burning ROM",
+                            "Microsoft Word",  "Microsoft Office",
+                            "Microsoft Excel", "Microsoft PowerPoint"};
 
     int i = 0;
     for (i = 0; i < LEN(bloatware); i++)
@@ -412,14 +407,15 @@ void penguin_spam(char *location, int penguins)
 
 /**
  * @brief Snap at Snapcraft by criticizing the Snap packaging system.
- * 
+ *
  * @param distro Distribution being used.
  */
-void snap_at_snaps(char* distro)
+void snap_at_snaps(char *distro)
 {
     if (distro == NULL)
     {
-        printf("Please supply \"ubuntu\" or \"mint\" as an argument to -d to snap at snaps.\n");
+        printf("Please supply \"ubuntu\" or \"mint\" as an argument to -d to "
+               "snap at snaps.\n");
         printf("But snaps suck anyway....\n");
         return;
     }
@@ -431,8 +427,8 @@ void snap_at_snaps(char* distro)
             printf("Reject snaps.\n");
             printf("Embrace APT.\n");
         }
-        else if (!strcasecmp(distro, "Mint")
-              || !strcasecmp(distro, "linuxmint"))
+        else if (!strcasecmp(distro, "Mint") ||
+                 !strcasecmp(distro, "linuxmint"))
         {
             printf("Well, Linux Mint doesn't have snaps, yes?\n");
         }
@@ -474,8 +470,7 @@ int main(int argc, char **argv)
         printf("Where should we deploy the penguins? ");
         if (fgets(arg.penguin_spam_location, 128, stdin) == NULL)
         {
-            printf(
-                "\nfatal: Penguin deployment location must be supplied\n");
+            printf("\nfatal: Penguin deployment location must be supplied\n");
             exit(1);
         }
 
@@ -494,7 +489,6 @@ int main(int argc, char **argv)
                    "supplied\n");
             exit(1);
         }
-
 
         long penguin_spam_amount = strtol(arg.penguin_spam_amount, NULL, 10);
         int penguin_spam_amount_converted = (int)penguin_spam_amount;
@@ -532,21 +526,21 @@ int main(int argc, char **argv)
 
         if (arg.no_typewriter)
         {
-            printf("%s",WE_DO_NOT_BREAK_USERSPACE);
+            printf("%s", WE_DO_NOT_BREAK_USERSPACE);
         }
         else
         {
             typewriter(WE_DO_NOT_BREAK_USERSPACE, 5);
         }
 
-        printf("%d",randint(1, 100));
+        printf("%d", randint(1, 100));
 
         if (randint(1, 100) >= 2)
         {
             printf("\n\nThat was tough. Just as you finish reading the\n"
                    "email, you see an apparition of Linus Torvalds\n"
                    "approaching you causing the program to....\n");
-            
+
             segfault_or_abort(80);
         }
         else

@@ -1,12 +1,12 @@
-#include <time.h>
 #include <math.h>
 #include <stdio.h>
+#include <time.h>
 
-#include "mtwister.h"
 #include "ancientpkg.h"
+#include "mtwister.h"
 #include "utils.h"
 
-int pkg_dig_job_sanity_check(pkg_dig_job* job)
+int pkg_dig_job_sanity_check(pkg_dig_job *job)
 {
     if (job->dig_coverage >= 1 || job->dig_coverage <= 10)
     {
@@ -16,7 +16,7 @@ int pkg_dig_job_sanity_check(pkg_dig_job* job)
     return 0;
 }
 
-int mk_pdj_safe(char* location, int dig_coverage, pkg_dig_job* job)
+int mk_pdj_safe(char *location, int dig_coverage, pkg_dig_job *job)
 {
     job->dig_coverage = dig_coverage;
     job->location = location;
@@ -29,13 +29,13 @@ int mk_pdj_safe(char* location, int dig_coverage, pkg_dig_job* job)
     return 0;
 };
 
-void pdjctl_set_defaults(pkg_dig_job_control* ctl)
+void pdjctl_set_defaults(pkg_dig_job_control *ctl)
 {
     ctl->max_locs = -1;
     ctl->max_sites = -1;
 }
 
-void package_dig_job(pkg_dig_job* job, int sanity, pkg_dig_job_control* ctl)
+void package_dig_job(pkg_dig_job *job, int sanity, pkg_dig_job_control *ctl)
 {
     if (sanity)
     {
@@ -44,10 +44,10 @@ void package_dig_job(pkg_dig_job* job, int sanity, pkg_dig_job_control* ctl)
 
     int archaeologists = 10 + (job->dig_coverage * 3 / 2) + randint(2, 5);
 
-    printf("Sending %d archaeologists to %s.\n",
-           archaeologists, job->location);
+    printf("Sending %d archaeologists to %s.\n", archaeologists,
+           job->location);
 
-    msleep(randint(100,4000));
+    msleep(randint(100, 4000));
 
     int sites = archaeologists * 3 + (job->dig_coverage * 2) + randint(3, 9);
 
@@ -61,7 +61,7 @@ void package_dig_job(pkg_dig_job* job, int sanity, pkg_dig_job_control* ctl)
 
     for (int i = 0; i < sites; i++)
     {
-        int packages = randint(10, 40) * (job->dig_coverage/4);
+        int packages = randint(10, 40) * (job->dig_coverage / 4);
 
         int sleep = randint(300, 5000);
         totalsleep += sleep;
@@ -69,9 +69,8 @@ void package_dig_job(pkg_dig_job* job, int sanity, pkg_dig_job_control* ctl)
 
         msleep(sleep);
 
-
-        printf("Site %d of %d, found %d packages in %d ms.\n",
-               i + 1, sites, packages, sleep);
+        printf("Site %d of %d, found %d packages in %d ms.\n", i + 1, sites,
+               packages, sleep);
 
         if (i >= ctl->max_sites - 1 && ctl->max_sites != 1)
         {
@@ -79,14 +78,12 @@ void package_dig_job(pkg_dig_job* job, int sanity, pkg_dig_job_control* ctl)
         }
     }
 
-
-
     long double packs_per_sec = totalsleep / totalpackages;
-    printf("Found %d packages in %d ms (%Lf pkgs / sec)\n",
-           totalpackages, totalsleep, packs_per_sec);
+    printf("Found %d packages in %d ms (%Lf pkgs / sec)\n", totalpackages,
+           totalsleep, packs_per_sec);
 }
 
-void ancient_debian_packages_v2(pkg_dig_job_control* ctl)
+void ancient_debian_packages_v2(pkg_dig_job_control *ctl)
 {
     char locations[][127] = {"Egypt", "Ancient APT Servers"};
 
@@ -113,19 +110,18 @@ void ancient_debian_packages_v2(pkg_dig_job_control* ctl)
 
 int check_digsite(int i)
 {
-    printf("-------- [Digsite %d] --------\n",i);
+    printf("-------- [Digsite %d] --------\n", i);
     printf("Digging for packages.... ");
     fflush(stdout);
     int packages = randint(300, 800);
-    printf("found %d\n",packages);
+    printf("found %d\n", packages);
 
     return packages;
 }
 
 void ancient_debian_packages()
 {
-    int digsites = randint(300,900);
-
+    int digsites = randint(300, 900);
 
     printf("Travelling to digsites to find ancient Debian packages.\n");
 

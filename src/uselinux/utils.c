@@ -20,18 +20,18 @@ void typewriter(const char *txt, int freq)
 
 int randint(int min, int max)
 {
-    MTRand mtw = seedRand(clock()*8*clock());
+    MTRand mtw = seedRand(clock() * 8 * clock());
     int out = 0;
 
     while (out < min)
     {
-        out = ceil(genRand(&mtw)*max);
+        out = ceil(genRand(&mtw) * max);
     }
 
     return out;
 }
 
-int chartoint(char* str, int numbase)
+int chartoint(char *str, int numbase)
 {
     long num = strtol(str, NULL, numbase);
     return (int)num;
@@ -39,14 +39,13 @@ int chartoint(char* str, int numbase)
 
 void trigger_segfault()
 {
-    char* segfault = "segfault";
-    segfault[0]= 'S';
+    char *segfault = "segfault";
+    segfault[0] = 'S';
 }
 
 void segfault_or_abort(int threshold)
 {
     int finalthreshold = 250;
-
 
     if (threshold == 500)
     {

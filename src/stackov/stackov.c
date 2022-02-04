@@ -1,18 +1,18 @@
 #include "../opener/opener.h"
 #include <argp.h>
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define STACKOV_SEARCH_URL "https://stackoverflow.com/search?q="
 
-const char* mkstr(char str1[], char str2[])
+const char *mkstr(char str1[], char str2[])
 {
-        char* out = malloc(strlen(str1) + strlen(str2) + 1);
-        strcpy(out, str1);
-        strcat(out, str2);
+    char *out = malloc(strlen(str1) + strlen(str2) + 1);
+    strcpy(out, str1);
+    strcat(out, str2);
 
-        return out;
+    return out;
 }
 
 static struct argp_option opts[] = {
@@ -26,7 +26,6 @@ struct args
 
     int dry_run;
 };
-
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
 {
@@ -68,7 +67,7 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    const char* stackov_url = mkstr(STACKOV_SEARCH_URL, arguments.url);
+    const char *stackov_url = mkstr(STACKOV_SEARCH_URL, arguments.url);
 
     printf("Opening %s in your browser.\n", stackov_url);
 

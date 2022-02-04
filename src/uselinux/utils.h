@@ -58,11 +58,12 @@ void trigger_segfault();
  * "threshold" can be altered to make a segmentation fault or abort more
  * likely. A lower threshold will result in a higher chance of a segmentation
  * fault, while a higher one will result in a higher chance of an abort.
- * 
+ *
  * The threshold value must be between 0 and 500. 0 will always trigger a
  * segmentation fault and 500 will always trigger an abort.
- * 
- * @note If the threshold is NULL, the default threshold of 250 is used instead.
+ *
+ * @note If the threshold is NULL, the default threshold of 250 is used
+ * instead.
  *
  * @param threshold An integer between 0 and 500. (`>= 0, <= 500`)
  */
