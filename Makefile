@@ -2,8 +2,8 @@
 
 CC=gcc
 EXT=c
-CFLAGS=-O3 -lm -Werror -Wall
-LDFLAGS=-O3
+CFLAGS=-O3 -Werror -Wall
+LDFLAGS=-O3 -lm
 SRCDIR:=src
 BLDDIR:=build
 INSTALLDIR=/usr/bin/
