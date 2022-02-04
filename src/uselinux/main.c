@@ -20,8 +20,6 @@
 #define LINUXREF "Linux"
 #endif
 
-#define LEN(arr) ((int)(sizeof(arr) / sizeof(arr)[0]))
-
 // Long-only options
 #define ARG_ARCH_BTW 1000
 #define ARG_ANCIENT_PACKAGES 1001

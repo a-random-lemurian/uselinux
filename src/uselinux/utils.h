@@ -8,6 +8,8 @@
 #include <sys/time.h>
 #include <time.h>
 
+#define LEN(arr) ((int)(sizeof(arr) / sizeof(arr)[0]))
+
 /**
  * @brief Delay execution with millisecond precision.
  *
