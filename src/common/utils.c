@@ -30,7 +30,7 @@ void typewriter_randomized(const char *txt, int min, int max)
 
 int randint(int min, int max)
 {
-    MTRand mtw = seedRand(clock() * 8 * clock());
+    MTRand mtw = seedRand(clock());
     int out = 0;
 
     while (out < min)
