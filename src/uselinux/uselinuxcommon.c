@@ -32,13 +32,11 @@ void bash_os(char *os)
     {
         printf("Windows, too much bloat!\n");
     }
-
-    if (!strcasecmp(os, "macOS"))
+    else if (!strcasecmp(os, "macOS"))
     {
         printf("macOS is proprietary garbage!\n");
     }
-
-    if (!strcasecmp(os, "GNU/Linux") || !strcasecmp(os, "Linux"))
+    else if (!strcasecmp(os, "GNU/Linux") || !strcasecmp(os, "Linux"))
     {
         printf("Ye shall not insult %s.", LINUXREF);
         abort();
