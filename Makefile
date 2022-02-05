@@ -16,6 +16,10 @@ ifndef V
 	QUIET_LINK=@echo '    ' LINK '  ' $(@F);
 endif
 
+ifndef NOCOLOR
+	COMMON_DEFINES+=-DLOG_USE_COLOR
+endif
+
 # uselinux ####################################################################
 USELINUX_EXEC=bin/uselinux
 USELINUX_SRC=$(wildcard $(SRCDIR)/uselinux/*.$(EXT))
@@ -63,7 +67,7 @@ $(COMMON_LIB): $(COMMON_OBJ)
 	$(QUIET_AR)$(AR) rcs $(COMMON_LIB) $^
 
 build/common-%.o: $(SRCDIR)/common/%.c
-	$(QUIET_CC)$(CC) $(CFLAGS) -c $< -o $@
+	$(QUIET_CC)$(CC) $(CFLAGS) -c $< -o $@ $(COMMON_DEFINES)
 
 # penguinspam (lib) ###########################################################
 PENGUINSPAM_SRC=$(SRCDIR)/penguinspam/penguinspam.c
