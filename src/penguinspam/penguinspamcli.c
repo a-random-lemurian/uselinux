@@ -20,18 +20,21 @@ struct args
 {
     char *location;
     int penguins;
+    char* penguin_type;
 };
 
 static struct argp_option opts[] = {
     {"location", 'l', "LOCATION", 0, "Location where penguins will be deployed"},
     {"penguins", 'p', "PENGUINS", 0,
      "Number of penguins to spam at particular location"},
+    {"penguin-type",'t', "TYPE", 0, "Type of penguin"},
     {0}};
 
 void defaults(struct args *args)
 {
     args->location = "";
     args->penguins = -1;
+    args->penguin_type = "";
 }
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
@@ -46,6 +49,8 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case 'p':
         arguments->penguins = chartoint(arg, 10);
         break;
+    case 't':
+        arguments->penguin_type = arg;
     }
     return 0;
 }
@@ -63,6 +68,10 @@ void handle_penguin_spam_error(int rc, penguin_spam_job *job)
     {
         printf("general error");
     }
+    else if (rc == PENGUIN_SPAM_INVALID_PENGUIN)
+    {
+        printf("invalid type of penguin");
+    }
 
     printf("\n");
     printf("penguinspam: %s\n", job->__error__);
@@ -77,7 +86,8 @@ int main(int argc, char **argv)
     argp_parse(&argp, argc, argv, 0, 0, &arg);
 
     penguin_spam_job job;
-    int rc = mk_penguin_spam_job(&job, arg.penguins, arg.location);
+    int rc = mk_penguin_spam_job(&job, arg.penguins, arg.location,
+                                  arg.penguin_type);
     if (rc != PENGUIN_SPAM_OK)
     {
         handle_penguin_spam_error(rc, &job);

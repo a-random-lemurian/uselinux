@@ -12,10 +12,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utils.h"
+
+int _is_valid_penguin(char *penguin_type)
+{
+    const char valid_penguins[][16] = {
+        "emperor",
+        "snares",
+        "little",
+        "yelloweyed",
+        "gentoo",
+        "african",
+        "mixed"
+    };
+
+    for (int i = 0; i < LEN(valid_penguins); i++)
+    {
+        if (!strcasecmp(penguin_type, valid_penguins[i]))
+        {
+            return 1;
+        }
+        else
+        {
+            continue;
+        }
+    }
+
+    return 0;
+}
 
 void free_psj_mem(penguin_spam_job *job) { free(job->__error__); }
 
-int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location)
+int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location,
+                        char* penguin_type)
 {
     job->__error__ = malloc(512);
 
@@ -38,6 +67,13 @@ int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location)
                 "Error: penguins must be a positive number (tried to send %d)",
                 penguins);
         return PENGUIN_SPAM_ERROR;
+    }
+    if (!_is_valid_penguin(penguin_type))
+    {
+        sprintf(job->__error__,
+                 "Error: penguin type %s is invalid. Must be of: african, gentoo, yelloweyed, little, snares, emperor",
+                 penguin_type);
+        return PENGUIN_SPAM_INVALID_PENGUIN;
     }
 
     job->location = location;

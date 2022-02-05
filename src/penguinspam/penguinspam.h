@@ -20,10 +20,13 @@
 #define PENGUIN_SPAM_ERROR 1
 /** @brief An attempt was made to send too many penguins.*/
 #define PENGUIN_SPAM_TOO_MANY_PENGUINS 2
+/** @brief Wrong kind of penguin specified. */
+#define PENGUIN_SPAM_INVALID_PENGUIN 3
 
 typedef struct penguin_spam_job
 {
     char *location;
+    char *penguin_type;
     int penguins;
 
     char *__error__;
@@ -37,7 +40,8 @@ typedef struct penguin_spam_job
  * @param location Location where penguins will be sent.
  * @return int Status code of operation.
  */
-int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location)
+int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location,
+                        char *penguin_type)
     __attribute__((warn_unused_result));
 
 /**
