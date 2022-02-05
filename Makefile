@@ -99,8 +99,8 @@ $(EXECS): $(LIBS)
 
 all: $(LIBS) $(EXECS)
 
+RM := /bin/rm
+RMFILES=lib/*.a build/*.o $(EXECS)
 .PHONY: clean
 clean:
-	rm lib/*.a
-	rm build/*.o
-	rm bin/uselinux
+	@$(RM) $(RMFILES)
