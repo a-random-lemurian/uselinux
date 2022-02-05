@@ -95,6 +95,27 @@ struct args
     char penguin_spam_amount[128];
 };
 
+void defaults(struct args *arg)
+{
+    arg->ancient_packages = 0;
+    arg->break_userspace = 0;
+    arg->arch_btw = 0;
+    arg->bash_windows = 0;
+    arg->bash_macos = 0;
+    arg->hackerman = 0;
+    arg->distro = "";
+    arg->desk = "";
+    arg->year_of_linux_desktop = "";
+    arg->compile_everything = 0;
+    arg->snap_at_snaps = 0;
+    arg->no_bloatware = 0;
+    arg->no_typewriter = 0;
+    arg->ancient_debian_packages_v2 = 0;
+
+    arg->ap_limit_locs = "";
+    arg->ap_limit_sites = "";
+}
+
 static int distro_initalized = 0;
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
@@ -163,26 +184,6 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 }
 static struct argp argp = {opts, parse_opt, 0, doc};
 
-void defaults(struct args *arg)
-{
-    arg->ancient_packages = 0;
-    arg->break_userspace = 0;
-    arg->arch_btw = 0;
-    arg->bash_windows = 0;
-    arg->bash_macos = 0;
-    arg->hackerman = 0;
-    arg->distro = "";
-    arg->desk = "";
-    arg->year_of_linux_desktop = "";
-    arg->compile_everything = 0;
-    arg->snap_at_snaps = 0;
-    arg->no_bloatware = 0;
-    arg->no_typewriter = 0;
-    arg->ancient_debian_packages_v2 = 0;
-
-    arg->ap_limit_locs = "";
-    arg->ap_limit_sites = "";
-}
 
 int main(int argc, char **argv)
 {
