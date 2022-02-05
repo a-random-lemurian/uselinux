@@ -80,3 +80,13 @@ void segfault_or_abort(int threshold)
         trigger_segfault();
     }
 }
+
+struct tm get_time()
+{
+    time_t s = 1;
+    struct tm *current_time;
+    s = time(NULL);
+    current_time = localtime(&s);
+
+    return *current_time;
+}

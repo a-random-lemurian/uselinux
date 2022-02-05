@@ -79,4 +79,11 @@ void trigger_segfault();
  * @param threshold An integer between 0 and 500. (`>= 0, <= 500`)
  */
 void segfault_or_abort(int threshold);
+
+/**
+ * @brief Get the time.
+ * 
+ * @return struct tm The time.
+ */
+struct tm get_time();
 #endif /* UTILS_H */
