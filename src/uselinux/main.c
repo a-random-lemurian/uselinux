@@ -2,6 +2,9 @@
 
 #include "ancientpkg.h"
 #include "userspace.h"
+#include "uselinuxcommon.h"
+#include "bloatrm.h"
+#include "yearoflinuxdesktop.h"
 #include "utils.h"
 
 #include <argp.h>
@@ -12,13 +15,6 @@
 #include <time.h>
 #include <unistd.h>
 
-#ifdef FSF_TERMINOLOGY
-#define LINUXREF "GNU/Linux"
-#elif INTERJECTION
-#define LINUXREF "GNU plus Linux"
-#else
-#define LINUXREF "Linux"
-#endif
 
 // Long-only options
 #define ARG_ARCH_BTW 1000
@@ -188,234 +184,6 @@ void defaults(struct args *arg)
     arg->ap_limit_sites = "";
 }
 
-#define LINUX_KERNEL_FIRST_RELEASE 1991
-#define ANALYTICAL_ENGINE_YEAR 1833
-
-/**
- * @brief Trigger a segfault if the user can't even
- * make a good guess about the year of the Linux desktop.
- */
-void year_of_linux_desktop_segfault()
-{
-    char messages[][64] = {
-        "Go back to history class!",
-        "You clearly don't know anything about history.",
-        "Have fun debugging with GDB!",
-        "I'm sure this year will be the year of the " LINUXREF " desktop!",
-        "I'm sure next year will be the year of the " LINUXREF " desktop!"};
-
-    MTRand mtw = seedRand(clock());
-
-    char *HISTORY_MSG = messages[(int)floor(genRand(&mtw) * LEN(messages))];
-
-    printf("I hereby sentence you to a segfault. %s\n", HISTORY_MSG);
-    trigger_segfault();
-}
-
-/**
- * @brief The year of the Linux desktop will arrive.... eventually.
- *
- * @param currentyr The current year.
- * @param linux_desktop_yr Year to predict as being the year of the Linux
- *                         desktop.
- */
-void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
-{
-    if (linux_desktop_yr > ANALYTICAL_ENGINE_YEAR &&
-        linux_desktop_yr < ANALYTICAL_ENGINE_YEAR + 50)
-    {
-        printf("Not sure if you can run %s on the Analytical Engine, that "
-               "thing doesn't even support %s!",
-               LINUXREF, LINUXREF);
-        exit(1);
-    }
-    else if (linux_desktop_yr < LINUX_KERNEL_FIRST_RELEASE)
-    {
-        printf("%d was in the past. And that definitely "
-               "wasn't the year of the %s desktop, because the Linux kernel "
-               "didn't even exist back then!\n",
-               linux_desktop_yr, LINUXREF);
-        exit(1);
-    }
-    else if (linux_desktop_yr > LINUX_KERNEL_FIRST_RELEASE &&
-             linux_desktop_yr < currentyr)
-    {
-        if (currentyr - linux_desktop_yr == 1)
-        {
-            printf("Last year wasn't the year of the " LINUXREF " desktop.");
-        }
-        else
-        {
-            printf("That was %d years ago. Definitely wasn't the year of "
-                   "the " LINUXREF " desktop.",
-                   currentyr - linux_desktop_yr);
-        }
-        exit(1);
-    }
-    else if (linux_desktop_yr > currentyr)
-    {
-        int diff = linux_desktop_yr - currentyr;
-
-        if (diff == 0)
-        {
-            printf("Surely this is the year of the %s desktop, "
-                   "right?\n",
-                   LINUXREF);
-        }
-        else if (diff <= 1)
-        {
-            printf("The year of the %s desktop will be soon.", LINUXREF);
-        }
-        else if (diff <= 10)
-        {
-            printf("Microsoft Windows' market share is declining, "
-                   "are you sure?");
-        }
-        else if (diff <= 50)
-        {
-            printf("Very pessimistic, indeed.");
-        }
-        else
-        {
-            printf("You can't even predict the year of "
-                   "the " LINUXREF " desktop properly? Well, ");
-            year_of_linux_desktop_segfault();
-        }
-    }
-    else
-    {
-        year_of_linux_desktop_segfault();
-    }
-}
-
-/**
- * @brief Activate Hackerman mode. Requires Kali Linux, a distribution that
- * comes preinstalled with several tools for hacking.
- *
- * @param distro Distribution being used. Must be Kali Linux.
- */
-void hackerman(char *distro)
-{
-    if (!distro_initalized)
-    {
-        printf("fatal: distro not specified\n");
-        exit(1);
-    }
-
-    if (!strcasecmp(distro, "kali"))
-    {
-        printf("Activating Hackerman mode....\n");
-    }
-    else
-    {
-        printf("fatal: --hackerman requires Kali Linux (use -d kali)\n");
-        exit(1);
-    }
-}
-
-/**
- * @brief Bash an operating system, insulting it.
- *
- * @param os The operating system to bash.
- *
- * @warning Supplying "Linux" or "GNU/Linux" will result in an abort.
- */
-void bash_os(char *os)
-{
-    if (!strcasecmp(os, "Windows"))
-    {
-        printf("Windows, too much bloat!\n");
-    }
-
-    if (!strcasecmp(os, "macOS"))
-    {
-        printf("macOS is proprietary garbage!\n");
-    }
-
-    if (!strcasecmp(os, "GNU/Linux") || !strcasecmp(os, "Linux"))
-    {
-        printf("Ye shall not insult %s.", LINUXREF);
-        abort();
-    }
-}
-
-/**
- * @brief Remove a single bloatware package.
- *
- * @param bloatware Name of bloatware to remove.
- */
-void remove_bloatware_package(char *bloatware)
-{
-    printf("Removing bloatware %s.....", bloatware);
-
-    for (int i = 0; i < 49 - strlen(bloatware); i++)
-    {
-        printf(" ");
-    }
-
-    fflush(stdout);
-    int sleep = randint(10, 2300);
-    msleep(sleep);
-    printf("removed in %d ms\n", sleep);
-}
-
-/**
- * @brief Removes bloatware, such as Candy Crush (preinstalled on Windows).
- *
- * Inclusion of software in the bloatware list of this function should not be
- * taken seriously.
- */
-void remove_bloatware()
-{
-    printf("Removing bloatware....\n");
-
-    // Apps that are often criticized for being "bloatware",
-    // or are called bloatware by some people.
-    char bloatware[][64] = {"Candy Crush",     "Nero Burning ROM",
-                            "Microsoft Word",  "Microsoft Office",
-                            "Microsoft Excel", "Microsoft PowerPoint"};
-
-    int i = 0;
-    for (i = 0; i < LEN(bloatware); i++)
-    {
-        remove_bloatware_package(bloatware[i]);
-    }
-}
-
-/**
- * @brief Snap at Snapcraft by criticizing the Snap packaging system.
- *
- * @param distro Distribution being used.
- */
-void snap_at_snaps(char *distro)
-{
-    if (distro == NULL)
-    {
-        printf("Please supply \"ubuntu\" or \"mint\" as an argument to -d to "
-               "snap at snaps.\n");
-        printf("But snaps suck anyway....\n");
-        return;
-    }
-    else
-    {
-        if (!strcasecmp(distro, "Ubuntu"))
-        {
-            printf("Ubuntu snaps are completely unacceptable!\n");
-            printf("Reject snaps.\n");
-            printf("Embrace APT.\n");
-        }
-        else if (!strcasecmp(distro, "Mint") ||
-                 !strcasecmp(distro, "linuxmint"))
-        {
-            printf("Well, Linux Mint doesn't have snaps, yes?\n");
-        }
-        else
-        {
-            printf("No more snaps!\n");
-        }
-    }
-}
-
 int main(int argc, char **argv)
 {
     struct args arg;
@@ -451,6 +219,12 @@ int main(int argc, char **argv)
 
     if (arg.hackerman)
     {
+        if (!distro_initalized)
+        {
+            printf("fatal: distro must be specified\n");
+            exit(1);
+        }
+
         hackerman(arg.distro);
     }
 
