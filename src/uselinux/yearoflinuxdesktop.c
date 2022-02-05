@@ -1,5 +1,6 @@
 #include "uselinuxcommon.h"
 #include "yearoflinuxdesktop.h"
+#include "utils.h"
 
 void year_of_linux_desktop_segfault()
 {
@@ -85,4 +86,14 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
     {
         year_of_linux_desktop_segfault();
     }
+}
+
+int get_year_of_linux_desktop()
+{
+    struct tm time = get_time();
+
+    // randint will always return 0 if the min argument is 0,
+    // so we subtract by 1 to allow 0 (therefore, the current
+    // year)
+    return time.tm_year + 1900 + randint(1,2) - 1;
 }

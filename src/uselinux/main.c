@@ -33,6 +33,7 @@
 #define ARG_ANCIENT_DEBIAN_PACKAGES_USE_V2 1013
 #define ARG_AP_LIMIT_LOCS 1014
 #define ARG_AP_LIMIT_SITES 1015
+#define ARG_GET_YOLD 1016
 
 const char *argp_program_version = "version 0.1.0";
 static char doc[] = "Linux good, Windows bad";
@@ -52,6 +53,7 @@ static struct argp_option opts[] = {
      "Compile everything (Gentoo)"},
     {"snap-at-snaps", ARG_SNAP_AT_SNAPS, 0, 0,
      "Get annoyed at constant Ubuntu snap updates"},
+    {"get-yold", ARG_GET_YOLD, 0, 0, "Print the year of the Linux desktop"},
     {"no-bloatware", ARG_NO_BLOATWARE, 0, 0, "Do not install bloatware"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
     {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
@@ -84,6 +86,7 @@ struct args
     int snap_at_snaps;
     int no_bloatware;
     int no_typewriter;
+    int get_yold;
 
     int ancient_debian_packages_v2;
 
@@ -110,6 +113,7 @@ void defaults(struct args *arg)
     arg->snap_at_snaps = 0;
     arg->no_bloatware = 0;
     arg->no_typewriter = 0;
+    arg->get_yold = 0;
     arg->ancient_debian_packages_v2 = 0;
 
     arg->ap_limit_locs = "";
@@ -176,6 +180,9 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case ARG_AP_LIMIT_SITES:
         arguments->ap_limit_sites = arg;
         break;
+    case ARG_GET_YOLD:
+        arguments->get_yold = 1;
+        break;
     default:
         return ARGP_ERR_UNKNOWN;
     }
@@ -195,6 +202,12 @@ int main(int argc, char **argv)
     struct tm *current_time;
     s = time(NULL);
     current_time = localtime(&s);
+
+    if (arg.get_yold)
+    {
+        int yr = get_year_of_linux_desktop();
+        printf("%d", yr);
+    }
 
     if (arg.no_bloatware)
     {

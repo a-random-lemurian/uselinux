@@ -23,4 +23,10 @@ void year_of_linux_desktop_segfault();
  */
 void year_of_linux_desktop(int currentyr, int linux_desktop_yr);
 
+/**
+ * @brief Get the year of the Linux desktop. For real, this time.
+ * 
+ * @return int The year of the Linux desktop.
+ */
+int get_year_of_linux_desktop();
 #endif /* YEAROFLINUXDESKTOP_H */
