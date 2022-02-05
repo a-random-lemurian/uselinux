@@ -12,9 +12,7 @@
 #ifndef PENGUINSPAM_H
 #define PENGUINSPAM_H
 
-
-
-
+/** @brief Limit on how many penguins can be sent. */
 #define MAX_PENGUINS 5000000
 
 
