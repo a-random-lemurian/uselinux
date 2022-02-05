@@ -4,6 +4,7 @@
 #include "bloatrm.h"
 #include "uselinuxcommon.h"
 #include "userspace.h"
+#include "deskenv.h"
 #include "utils.h"
 #include "yearoflinuxdesktop.h"
 
@@ -202,6 +203,11 @@ int main(int argc, char **argv)
     struct tm *current_time;
     s = time(NULL);
     current_time = localtime(&s);
+
+    if (strcmp("", arg.desk))
+    {
+        desktop_environments(arg.desk);
+    }
 
     if (arg.get_yold)
     {
