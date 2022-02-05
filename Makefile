@@ -44,8 +44,8 @@ $(BLDDIR)/stackov-%.o: $(SRCDIR)/stackov/%.$(EXT)
 
 # opener ######################################################################
 AR=ar
-OPENER_SRC=$(SRCDIR)/opener/detect_os.c $(SRCDIR)/opener/opener.c
-OPENER_OBJ=$(BLDDIR)/opener-detect_os.o $(BLDDIR)/opener-opener.o
+OPENER_SRC=$(wildcard $(SRCDIR)/opener/*.$(EXT))
+OPENER_OBJ=$(patsubst $(SRCDIR)/opener/%.$(EXT),$(BLDDIR)/opener-%.o,$(OPENER_SRC))
 OPENER_LIB=lib/libopener.a
 
 $(OPENER_LIB): $(OPENER_OBJ)
@@ -55,8 +55,8 @@ build/opener-%.o: $(SRCDIR)/opener/%.c
 	$(QUIET_CC)$(CC) $(CFLAGS) -c $< -o $@
 
 # common ######################################################################
-COMMON_SRC=$(SRCDIR)/common/mtwister.c $(SRCDIR)/common/utils.c
-COMMON_OBJ=$(BLDDIR)/common-mtwister.o $(BLDDIR)/common-utils.o
+COMMON_SRC=$(wildcard $(SRCDIR)/common/*.$(EXT))
+COMMON_OBJ=$(patsubst $(SRCDIR)/common/%.$(EXT),$(BLDDIR)/common-%.o,$(COMMON_SRC))
 COMMON_LIB=lib/libcommon.a
 
 $(COMMON_LIB): $(COMMON_OBJ)
