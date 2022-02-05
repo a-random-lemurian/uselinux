@@ -251,7 +251,7 @@ int main(int argc, char **argv)
         }
         else
         {
-            typewriter(WE_DO_NOT_BREAK_USERSPACE, 5);
+            typewriter_randomized(WE_DO_NOT_BREAK_USERSPACE, 2, 18);
         }
 
         printf("%d", randint(1, 100));
