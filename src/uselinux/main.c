@@ -57,8 +57,6 @@ static struct argp_option opts[] = {
     {"snap-at-snaps", ARG_SNAP_AT_SNAPS, 0, 0,
      "Get annoyed at constant Ubuntu snap updates"},
     {"no-bloatware", ARG_NO_BLOATWARE, 0, 0, "Do not install bloatware"},
-    {"penguin-spam", ARG_PENGUIN_SPAM, 0, 0,
-     "Spam Microsoft headquarters with penguins"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
     {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
     {0, 0, 0, 0, "Ancient Debian packages"},
@@ -88,7 +86,6 @@ struct args
     char *year_of_linux_desktop;
     int compile_everything;
     int snap_at_snaps;
-    int penguin_spam;
     int no_bloatware;
     int no_typewriter;
 
@@ -144,9 +141,6 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case ARG_SNAP_AT_SNAPS:
         arguments->snap_at_snaps = 1;
         break;
-    case ARG_PENGUIN_SPAM:
-        arguments->penguin_spam = 1;
-        break;
     case ARG_NO_BLOATWARE:
         arguments->no_bloatware = 1;
         break;
@@ -186,7 +180,6 @@ void defaults(struct args *arg)
     arg->year_of_linux_desktop = "";
     arg->compile_everything = 0;
     arg->snap_at_snaps = 0;
-    arg->penguin_spam = 0;
     arg->no_bloatware = 0;
     arg->no_typewriter = 0;
     arg->ancient_debian_packages_v2 = 0;
@@ -390,22 +383,6 @@ void remove_bloatware()
 }
 
 /**
- * @brief Spam a location with penguins. This often results in the deployment
- * of animal control and increases the number of Linux users in a given area.
- *
- * @param location Location to spam with penguins.
- * @param penguins Number of penguins to deploy.
- */
-void penguin_spam(char *location, int penguins)
-{
-    printf("Spamming %s with penguins....", location);
-    fflush(stdout);
-    int sleep = randint(400, 900);
-    msleep(sleep);
-    printf(" done, deployed %d penguins in %d ms.\n", penguins, sleep);
-}
-
-/**
  * @brief Snap at Snapcraft by criticizing the Snap packaging system.
  *
  * @param distro Distribution being used.
@@ -463,36 +440,6 @@ int main(int argc, char **argv)
     if (arg.arch_btw)
     {
         printf("I use Arch btw\n");
-    }
-
-    if (arg.penguin_spam)
-    {
-        printf("Where should we deploy the penguins? ");
-        if (fgets(arg.penguin_spam_location, 128, stdin) == NULL)
-        {
-            printf("\nfatal: Penguin deployment location must be supplied\n");
-            exit(1);
-        }
-
-        if ((strlen(arg.penguin_spam_location) > 0) &&
-            (arg.penguin_spam_location[strlen(arg.penguin_spam_location) -
-                                       1] == '\n'))
-        {
-            arg.penguin_spam_location[strlen(arg.penguin_spam_location) - 1] =
-                '\0';
-        }
-
-        printf("How many penguins should we deploy? ");
-        if (fgets(arg.penguin_spam_amount, 128, stdin) == NULL)
-        {
-            printf("\nfatal: Number of penguins to deploy must be "
-                   "supplied\n");
-            exit(1);
-        }
-
-        long penguin_spam_amount = strtol(arg.penguin_spam_amount, NULL, 10);
-        int penguin_spam_amount_converted = (int)penguin_spam_amount;
-        penguin_spam(arg.penguin_spam_location, penguin_spam_amount_converted);
     }
 
     if (strcmp(arg.year_of_linux_desktop, ""))
