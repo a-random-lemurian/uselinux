@@ -18,6 +18,16 @@ void typewriter(const char *txt, int freq)
     }
 }
 
+void typewriter_randomized(const char *txt, int min, int max)
+{
+    for (int i = 0; i < strlen(txt); i++)
+    {
+        printf("%c", txt[i]);
+        fflush(stdout);
+        msleep(randint(min, max));
+    }
+}
+
 int randint(int min, int max)
 {
     MTRand mtw = seedRand(clock() * 8 * clock());

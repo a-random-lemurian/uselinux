@@ -23,9 +23,20 @@ void msleep(int tms);
  * @param txt Text to print with typewriter effect.
  * @param freq Delay between each character in milliseconds.
  *
- * @todo Allow randomization of delay between each character.
+ * @note To randomize the delay between each character, use the
+ * typewriter_randomized() function instead.
  */
 void typewriter(const char *txt, int freq);
+
+/**
+ * @brief Print text with a typewriter effect, with the time between the
+ * printing of each individual character ranmdomized.
+ * 
+ * @param txt Text to print with typewriter effect.
+ * @param min Minimum delay between each character.
+ * @param max Maximum delay.
+ */
+void typewriter_randomized(const char *txt, int min, int max);
 
 /**
  * @brief Generate a random integer.
