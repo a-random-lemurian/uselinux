@@ -94,7 +94,10 @@ install:
 	cp $(EXECS) $(INSTALLDIR)
 
 .PHONY: all
-all: $(LIBS) $(EXECS) 
+
+$(EXECS): $(LIBS)
+
+all: $(LIBS) $(EXECS)
 
 .PHONY: clean
 clean:
