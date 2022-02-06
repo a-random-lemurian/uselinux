@@ -1,0 +1,6 @@
+add_executable(rmbloat rmbloat-common.c rmbloat.c)
+add_executable(rmbloat-rm rmbloat-common.c rmbloat-rm.c)
+add_library(rmbloatapi rmbloatapi.c)
+target_link_libraries(rmbloatapi common)
+target_link_libraries(rmbloat-rm common)
+target_link_libraries(rmbloat-rm rmbloatapi)
