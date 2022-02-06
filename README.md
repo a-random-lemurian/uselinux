@@ -16,6 +16,6 @@ questionable content.
 
 ## Testing
 
-This program uses bats-core for testing.
+This program uses bats-core for testing the command line interfaces.
 
 https://github.com/bats-core/bats-core
