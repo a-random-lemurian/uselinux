@@ -1,4 +1,5 @@
 # uselinux
+[Install](docs/INSTALL.md) | [Documentation](docs/README.md)
 
 This program uses Linux. It is a joke, as this program's code contains
 many inside jokes common amongst the Linux community, and possibly programmers
