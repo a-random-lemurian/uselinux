@@ -39,4 +39,18 @@ void desktop_environments(char* desk)
 
         exit(1);
     }
+    else if (!strcasecmp(desk, "kde"))
+    {
+        log_info("KDE desktop detected.");
+
+        if (randint(1, 900) >= 800)
+        {
+            log_warn("KDE is too much bloat.");
+            log_fatal("uselinux could not withstand the bloat of KDE.");
+        }
+        else
+        {
+            log_info("KDE is not bloated.");
+        }
+    }
 }
