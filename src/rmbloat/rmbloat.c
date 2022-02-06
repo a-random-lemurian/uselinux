@@ -45,6 +45,10 @@ int main(int argc, char** argv)
                 print_help();
                 exit(0);
             }
+            else
+            {
+                strcat(buf, argv[i]);
+            }
         }
         else if (!strcmp(argv[i], "from-csv") && i == 1)
         {
