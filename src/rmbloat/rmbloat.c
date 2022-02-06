@@ -38,11 +38,13 @@ int main(int argc, char** argv)
     int pass_to_subcommand = 0;
     for (int i = 1; i < argc; i++)
     {
-        if (   !(strcmp(argv[i], "--help") || strcmp(argv[i], "-h"))
-            && !pass_to_subcommand)
+        if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h"))
         {
-            print_help();
-            exit(0);
+            if (!pass_to_subcommand)
+            {
+                print_help();
+                exit(0);
+            }
         }
         else if (!strcmp(argv[i], "from-csv") && i == 1)
         {
