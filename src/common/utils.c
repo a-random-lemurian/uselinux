@@ -33,10 +33,7 @@ int randint(int min, int max)
     MTRand mtw = seedRand(clock());
     int out = 0;
 
-    while (out < min)
-    {
-        out = ceil(genRand(&mtw) * max);
-    }
+    out = ceil(genRand(&mtw) * max - min) + min;
 
     return out;
 }
