@@ -1,0 +1,6 @@
+add_subdirectory(common)
+include_directories(common)
+add_subdirectory(opener)
+add_subdirectory(stackov)
+add_subdirectory(penguinspam)
+add_subdirectory(uselinux)
