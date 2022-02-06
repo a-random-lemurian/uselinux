@@ -4,11 +4,22 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
 
 #define LOGGER_NAME "deskenv"
 
+void sigint_handler()
+{
+    log_fatal("SIGINT recieved");
+    exit(1);
+}
+
 void desktop_environments(char* desk)
 {
+    signal(SIGINT, sigint_handler);
+
+
     if (!strcasecmp(desk, "gnome"))
     {
         log_info("GNOME desktop detected.");
