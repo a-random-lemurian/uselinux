@@ -1,7 +1,6 @@
 
 
 #include "ancientpkg.h"
-#include "bloatrm.h"
 #include "uselinuxcommon.h"
 #include "userspace.h"
 #include "deskenv.h"
@@ -55,7 +54,6 @@ static struct argp_option opts[] = {
     {"snap-at-snaps", ARG_SNAP_AT_SNAPS, 0, 0,
      "Get annoyed at constant Ubuntu snap updates"},
     {"get-yold", ARG_GET_YOLD, 0, 0, "Print the year of the Linux desktop"},
-    {"no-bloatware", ARG_NO_BLOATWARE, 0, 0, "Do not install bloatware"},
     {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
     {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
     {0, 0, 0, 0, "Ancient Debian packages"},
@@ -85,7 +83,6 @@ struct args
     char *year_of_linux_desktop;
     int compile_everything;
     int snap_at_snaps;
-    int no_bloatware;
     int no_typewriter;
     int get_yold;
 
@@ -112,7 +109,6 @@ void defaults(struct args *arg)
     arg->year_of_linux_desktop = "";
     arg->compile_everything = 0;
     arg->snap_at_snaps = 0;
-    arg->no_bloatware = 0;
     arg->no_typewriter = 0;
     arg->get_yold = 0;
     arg->ancient_debian_packages_v2 = 0;
@@ -163,9 +159,6 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
     case ARG_SNAP_AT_SNAPS:
         arguments->snap_at_snaps = 1;
         break;
-    case ARG_NO_BLOATWARE:
-        arguments->no_bloatware = 1;
-        break;
     case ARG_SEGFAULT:
         printf("Well, you asked for a segfault....\n");
         trigger_segfault();
@@ -213,11 +206,6 @@ int main(int argc, char **argv)
     {
         int yr = get_year_of_linux_desktop();
         printf("%d", yr);
-    }
-
-    if (arg.no_bloatware)
-    {
-        remove_bloatware();
     }
 
     if (arg.snap_at_snaps)
