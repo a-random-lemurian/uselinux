@@ -15,6 +15,8 @@ void print_help()
 
         "Subcommands:\n"
         "    rm               Remove bloat from the command line\n"
+        "    from-csv         Remove a list of packages from a file \n"
+        "                     separated by newlines\n"
     );
     printf("\n");
 }
