@@ -6,7 +6,14 @@
 void remove_bloatware(char* bloatware)
 {
     printf("removing %s....", bloatware);
-    msleep(randint(300, 900));
-    printf(" finished.");
+    for (int i = 0; i < 65 - strlen(bloatware); i++)
+    {
+        printf(" ");
+    }
+    fflush(stdout);
+
+    int sleep = randint(300, 900);
+    msleep(sleep);
+    printf(" finished in %d ms.", sleep);
     printf("\n");
 }
