@@ -26,7 +26,7 @@ int main(int argc, char** argv)
             print_help();
             exit(0);
         }
-        if (!strcmp(argv[i], "--list") || !strcmp(argv[i], "-l"))
+        else if (!strcmp(argv[i], "--list") || !strcmp(argv[i], "-l"))
         {
             i++;
             for (int idx = i; idx < argc; idx++)
