@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 
-void remove_bloatware(char* bloatware)
+void remove_bloatware(char* bloatware, int fast)
 {
     printf("removing %s....", bloatware);
     for (int i = 0; i < 65 - strlen(bloatware); i++)
@@ -12,7 +12,17 @@ void remove_bloatware(char* bloatware)
     }
     fflush(stdout);
 
-    int sleep = randint(300, 900);
+    int sleep = 0;
+
+    if (!fast)
+    {
+        sleep = randint(300, 900);
+    }
+    else
+    {
+        sleep = randint(30, 80);
+    }
+
     msleep(sleep);
     printf(" finished in %d ms.", sleep);
     printf("\n");

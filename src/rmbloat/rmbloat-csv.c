@@ -4,6 +4,7 @@
 #include "csv.h"
 #include "utils.h"
 
+static int fast = 0;
 
 void print_help()
 {
@@ -78,11 +79,12 @@ void rm_bloat_csv(char* file)
             {
                 char* pkg = rm_pkgs[0];
                 pkg[strcspn(pkg, "\r\n")] = 0;
-                remove_bloatware(pkg);
+                remove_bloatware(pkg, fast);
             }
         }
     }
 }
+
 
 int main(int argc, char** argv)
 {
@@ -100,6 +102,10 @@ int main(int argc, char** argv)
         {
             print_help();
             exit(0);
+        }
+        else if (!strcmp(argv[i], "--fast"))
+        {
+            fast = 1;
         }
         else if (!strcmp(argv[i], "--file") || !strcmp(argv[i], "-f"))
         {
