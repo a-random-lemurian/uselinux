@@ -31,7 +31,7 @@ int main(int argc, char** argv)
             i++;
             for (int idx = i; idx < argc; idx++)
             {
-                remove_bloatware(argv[idx]);
+                remove_bloatware(argv[idx], 0);
             }
             exit(0);
         }

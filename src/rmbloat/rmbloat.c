@@ -15,6 +15,8 @@ void print_help()
 
         "Subcommands:\n"
         "    rm               Remove bloat from the command line\n"
+        "    from-csv         Remove a list of packages from a file \n"
+        "                     separated by newlines\n"
     );
     printf("\n");
 }
@@ -25,7 +27,7 @@ void print_help()
 
 int main(int argc, char** argv)
 {
-    char buf[512];
+    char* buf = malloc(512);
     int rc = readlink("/proc/self/exe", buf, 64);
 
     if (argc == 1)
@@ -38,11 +40,17 @@ int main(int argc, char** argv)
     int pass_to_subcommand = 0;
     for (int i = 1; i < argc; i++)
     {
-        if (   !(strcmp(argv[i], "--help") || strcmp(argv[i], "-h"))
-            && !pass_to_subcommand)
+        if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h"))
         {
-            print_help();
-            exit(0);
+            if (!pass_to_subcommand)
+            {
+                print_help();
+                exit(0);
+            }
+            else
+            {
+                strcat(buf, argv[i]);
+            }
         }
         else if (!strcmp(argv[i], "from-csv") && i == 1)
         {
@@ -66,4 +74,5 @@ int main(int argc, char** argv)
     }
 
     rc = system(buf);
+    free(buf);
 }
