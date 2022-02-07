@@ -16,6 +16,30 @@ void print_help()
     printf("\n");
 }
 
+size_t line_cnt(char* file)
+{
+    size_t linecnt = -1;
+    FILE* fp = fopen(file, "r");
+    if (fp == NULL)
+    {
+        fprintf(stderr, "fatal: unable to find file %s\n", file);
+        exit(1);
+    }
+    else
+    {
+        char* line = NULL;
+        size_t len = 0;
+        ssize_t read;
+
+        while ((read = getline(&line, &len, fp)) != -1)
+        {
+            linecnt++;
+        }
+    }
+
+    return linecnt;
+}
+
 void rm_bloat_csv(char* file)
 {
     FILE* fp = fopen(file, "r");
@@ -26,6 +50,17 @@ void rm_bloat_csv(char* file)
     }
     else
     {
+        size_t lines = line_cnt(file);
+        printf("Packages to remove: %ld.\n", lines);
+
+        for (int i = 10; i > 0; i--)
+        {
+            printf("Starting removal in %d seconds.              \r", i - 1);
+            fflush(stdout);
+            msleep(1000);
+        }
+        printf("                                                          \r");
+
         char* line = NULL;
         size_t len = 0;
         ssize_t read;
