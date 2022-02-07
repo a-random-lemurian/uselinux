@@ -16,19 +16,48 @@ void print_help()
     printf("\n");
 }
 
+void rm_bloat_csv(char* file)
+{
+    FILE* fp = fopen(file, "r");
+    if (fp == NULL)
+    {
+        fprintf(stderr, "fatal: unable to find file %s\n", file);
+        exit(1);
+    }
+    else
+    {
+        char* line = NULL;
+        size_t len = 0;
+        ssize_t read;
 
-/* Look for executables in the same directory as the executable itself. */
+        while ((read = getline(&line, &len, fp)) != -1)
+        {
+            char** rm_pkgs = parse_csv(line);
 
+            if (LEN(rm_pkgs) != 1)
+            {
+                fprintf(stderr, "fatal: list of packages to remove "
+                                "must be separated by lines");
+            }
+            else
+            {
+                char* pkg = rm_pkgs[0];
+                pkg[strcspn(pkg, "\r\n")] = 0;
+                remove_bloatware(pkg);
+            }
+        }
+    }
+}
 
 int main(int argc, char** argv)
 {
-
     if (argc == 1)
     {
         printf("No arguments specified.\n");
         print_help();
         exit(1);
     }
+
 
     for (int i = 1; i < argc; i++)
     {
@@ -41,36 +70,7 @@ int main(int argc, char** argv)
         {
             i++;
             char* file = argv[i];
-
-            FILE* fp = fopen(file, "r");
-            if (fp == NULL)
-            {
-                fprintf(stderr, "fatal: unable to find file %s\n", file);
-                exit(1);
-            }
-            else
-            {
-                char* line = NULL;
-                size_t len = 0;
-                ssize_t read;
-
-                while ((read = getline(&line, &len, fp)) != -1)
-                {
-                    char** rm_pkgs = parse_csv(line);
-
-                    if (LEN(rm_pkgs) != 1)
-                    {
-                        fprintf(stderr, "fatal: list of packages to remove "
-                                        "must be separated by lines");
-                    }
-                    else
-                    {
-                        char* pkg = rm_pkgs[0];
-                        pkg[strcspn(pkg, "\r\n")] = 0;
-                        remove_bloatware(pkg);
-                    }
-                }
-            }
+            rm_bloat_csv(file);
         }
         else
         {
