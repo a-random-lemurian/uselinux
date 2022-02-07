@@ -5,6 +5,9 @@
 #include "rmbloat-common.h"
 #include "rmbloatapi.h"
 
+
+static int fast_flag = 0;
+
 void print_help()
 {
     printf(
@@ -12,6 +15,7 @@ void print_help()
 
         "    -h, --help           Program help\n"
         "    -l, --list           List of software to remove\n"
+        "        --fast           Be faster\n"
     );
     printf("\n");
 }
@@ -31,9 +35,13 @@ int main(int argc, char** argv)
             i++;
             for (int idx = i; idx < argc; idx++)
             {
-                remove_bloatware(argv[idx], 0);
+                remove_bloatware(argv[idx], fast_flag);
             }
             exit(0);
+        }
+        else if (!strcmp(argv[i], "--fast"))
+        {
+            fast_flag = 1;
         }
         else
         {
