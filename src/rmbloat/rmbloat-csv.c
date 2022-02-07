@@ -13,6 +13,7 @@ void print_help()
 
         "    -h, --help           Program help\n"
         "    -f, --file           Filepath of CSV file\n"
+        "        --fast           Remove bloat faster\n"
     );
     printf("\n");
 }
