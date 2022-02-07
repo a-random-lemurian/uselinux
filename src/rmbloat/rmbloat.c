@@ -27,7 +27,7 @@ void print_help()
 
 int main(int argc, char** argv)
 {
-    char buf[512];
+    char* buf = malloc(512);
     int rc = readlink("/proc/self/exe", buf, 64);
 
     if (argc == 1)
@@ -74,4 +74,5 @@ int main(int argc, char** argv)
     }
 
     rc = system(buf);
+    free(buf);
 }
