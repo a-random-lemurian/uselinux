@@ -23,11 +23,19 @@
 /** @brief Wrong kind of penguin specified. */
 #define PENGUIN_SPAM_INVALID_PENGUIN 3
 
+typedef struct penguin_food
+{
+    char* food;
+    int qty;
+} penguin_food;
+
 typedef struct penguin_spam_job
 {
     char *location;
     char *penguin_type;
     int penguins;
+
+    penguin_food food;
 
     char *__error__;
 } penguin_spam_job;
@@ -43,6 +51,8 @@ typedef struct penguin_spam_job
 int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location,
                         char *penguin_type)
     __attribute__((warn_unused_result));
+int prepare_penguin_food(char *type, penguin_food *food, int qty,
+                         penguin_spam_job *job);
 
 /**
  * @brief Execute a penguin spam job.

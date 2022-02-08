@@ -125,6 +125,9 @@ int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location,
         return PENGUIN_SPAM_INVALID_PENGUIN;
     }
 
+    penguin_food food;
+    prepare_penguin_food("squid", &food, penguins * 3, job);
+
     job->location = location;
     job->penguins = penguins;
 
@@ -176,5 +179,60 @@ int execute_penguin_spam_job(penguin_spam_job *job)
 int finish_penguin_spam_job(penguin_spam_job *job)
 {
     free(job->__error__);
+    return PENGUIN_SPAM_OK;
+}
+
+int check_food_type(char* type)
+{
+    if (!strcasecmp(type, "squid"))
+    {
+        return 10;
+    }
+    else if (!strcasecmp(type, "fish"))
+    {
+        return 5;
+    }
+    else if (!strcasecmp(type, "krill"))
+    {
+        return 2;
+    }
+    else
+    {
+        fprintf(stderr, "penguinspam: invalid food type %s", type);
+        abort();
+    }
+}
+
+/**
+ * @brief Perform computationally-expensive math calculations, which will
+ * cause small amounts of CPU heat. The heat is then teleported to a large
+ * facility on Earth cooking the desired food for all the penguins before
+ * they embark on their penguin spam expedition.
+ *
+ * @param type Type of penguin food.
+ */
+void cook_penguin_food(char *type)
+{
+    int type_int = check_food_type(type);
+    for (int i = 0; i < type_int; i++)
+    {
+        double n;
+        for (double j = 0; j < 10; j++)
+        {
+            n = sin(j);
+        }
+    }
+}
+
+int prepare_penguin_food(char *type, penguin_food *food, int qty,
+                         penguin_spam_job *job)
+{
+    for (int i = 0; i < qty; i++)
+    {
+        cook_penguin_food(type);
+    }
+    food->food = type;
+    food->qty = qty;
+    job->food = *food;
     return PENGUIN_SPAM_OK;
 }
