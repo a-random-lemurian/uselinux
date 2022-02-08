@@ -54,8 +54,40 @@ int csv_line_len(char** csv)
     return i;
 }
 
+int check_single_line(char** csv, int linepos)
+{
+    if (csv_line_len(csv) != 1)
+    {
+        fprintf(stderr, "fatal: list of packages to remove "
+                        "must be separated by lines (line %d)", linepos);
+        return 1;
+    }
+    return 0;
+}
+
+void check_bloat_csv_list(char* file)
+{
+    FILE* fp = fopen(file, "r");
+    char* line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    int linepos = 1;
+    while ((read = getline(&line, &len, fp)) != -1)
+    {
+        char** csv = parse_csv(line);
+        if (!check_single_line(csv, linepos))
+        {
+            fclose(fp);
+            exit(1);
+        }
+        linepos++;
+    }
+    fclose(fp);
+}
+
 void rm_bloat_csv(char* file, int wait)
 {
+    check_bloat_csv_list(file);
     FILE* fp = fopen(file, "r");
     if (fp == NULL)
     {
@@ -87,19 +119,9 @@ void rm_bloat_csv(char* file, int wait)
         while ((read = getline(&line, &len, fp)) != -1)
         {
             char** rm_pkgs = parse_csv(line);
-
-            if (csv_line_len(rm_pkgs) != 1)
-            {
-                fprintf(stderr, "fatal: list of packages to remove "
-                                "must be separated by lines");
-                exit(1);
-            }
-            else
-            {
-                char* pkg = rm_pkgs[0];
-                pkg[strcspn(pkg, "\r\n")] = 0;
-                remove_bloatware(pkg, fast);
-            }
+            char* pkg = rm_pkgs[0];
+            pkg[strcspn(pkg, "\r\n")] = 0;
+            remove_bloatware(pkg, fast);
         }
     }
 }
