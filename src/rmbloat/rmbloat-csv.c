@@ -14,6 +14,7 @@ void print_help()
         "    -h, --help           Program help\n"
         "    -f, --file           Filepath of CSV file\n"
         "        --fast           Remove bloat faster\n"
+        "        --no-wait        Don't wait before removing bloat\n"
     );
     printf("\n");
 }
@@ -53,7 +54,7 @@ int csv_line_len(char** csv)
     return i;
 }
 
-void rm_bloat_csv(char* file)
+void rm_bloat_csv(char* file, int wait)
 {
     FILE* fp = fopen(file, "r");
     if (fp == NULL)
@@ -66,13 +67,18 @@ void rm_bloat_csv(char* file)
         size_t lines = line_cnt(file);
         printf("Packages to remove: %ld.\n", lines);
 
-        for (int i = 10; i > 0; i--)
+        if (wait)
         {
-            printf("Starting removal in %d seconds.              \r", i - 1);
-            fflush(stdout);
-            msleep(1000);
+            for (int i = 10; i > 0; i--)
+            {
+                printf("Starting removal in %d seconds.              \r",
+                       i - 1);
+                fflush(stdout);
+                msleep(1000);
+            }
+            printf("                                                  "
+                   "        \r");
         }
-        printf("                                                          \r");
 
         char* line = NULL;
         size_t len = 0;
@@ -108,7 +114,7 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-
+    int wait = 1;
     for (int i = 1; i < argc; i++)
     {
         if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h"))
@@ -120,11 +126,15 @@ int main(int argc, char** argv)
         {
             fast = 1;
         }
+        else if (!strcmp(argv[i], "--no-wait"))
+        {
+            wait = 0;
+        }
         else if (!strcmp(argv[i], "--file") || !strcmp(argv[i], "-f"))
         {
             i++;
             char* file = argv[i];
-            rm_bloat_csv(file);
+            rm_bloat_csv(file, wait);
         }
         else
         {
