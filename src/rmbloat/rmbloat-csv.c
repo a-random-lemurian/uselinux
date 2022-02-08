@@ -86,6 +86,7 @@ void rm_bloat_csv(char* file)
             {
                 fprintf(stderr, "fatal: list of packages to remove "
                                 "must be separated by lines");
+                exit(1);
             }
             else
             {
