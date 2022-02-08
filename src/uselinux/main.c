@@ -35,7 +35,10 @@
 #define ARG_AP_LIMIT_SITES 1015
 #define ARG_GET_YOLD 1016
 
-const char *argp_program_version = "version 0.1.0";
+const char *argp_program_version =
+    "uselinux -- compiled "__TIME__" " __DATE__"\n"
+    "Copyright (c) 2022 Lemuria, licensed under MIT";
+
 static char doc[] = "Linux good, Windows bad";
 
 static struct argp_option opts[] = {
