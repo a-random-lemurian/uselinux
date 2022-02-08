@@ -42,6 +42,17 @@ size_t line_cnt(char* file)
     return linecnt;
 }
 
+int csv_line_len(char** csv)
+{
+    int i = 0;
+    while (csv[i] != NULL)
+    {
+        i++;
+    }
+
+    return i;
+}
+
 void rm_bloat_csv(char* file)
 {
     FILE* fp = fopen(file, "r");
@@ -71,7 +82,7 @@ void rm_bloat_csv(char* file)
         {
             char** rm_pkgs = parse_csv(line);
 
-            if (LEN(rm_pkgs) != 1)
+            if (csv_line_len(rm_pkgs) != 1)
             {
                 fprintf(stderr, "fatal: list of packages to remove "
                                 "must be separated by lines");
