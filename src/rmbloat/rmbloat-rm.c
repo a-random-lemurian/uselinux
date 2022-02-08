@@ -25,12 +25,12 @@ int main(int argc, char** argv)
 {
     for (int i = 1; i < argc; i++)
     {
-        if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h"))
+        if (!strncmp(argv[i], "--help", 7) || !strncmp(argv[i], "-h", 2))
         {
             print_help();
             exit(0);
         }
-        else if (!strcmp(argv[i], "--list") || !strcmp(argv[i], "-l"))
+        else if (!strncmp(argv[i], "--list", 7) || !strncmp(argv[i], "-l", 2))
         {
             i++;
             for (int idx = i; idx < argc; idx++)
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
             }
             exit(0);
         }
-        else if (!strcmp(argv[i], "--fast"))
+        else if (!strncmp(argv[i], "--fast", 7))
         {
             fast_flag = 1;
         }

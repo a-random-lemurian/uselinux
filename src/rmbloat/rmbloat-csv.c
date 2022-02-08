@@ -139,20 +139,20 @@ int main(int argc, char** argv)
     int wait = 1;
     for (int i = 1; i < argc; i++)
     {
-        if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h"))
+        if (!strncmp(argv[i], "--help", 7) || !strncmp(argv[i], "-h", 2))
         {
             print_help();
             exit(0);
         }
-        else if (!strcmp(argv[i], "--fast"))
+        else if (!strncmp(argv[i], "--fast", 7))
         {
             fast = 1;
         }
-        else if (!strcmp(argv[i], "--no-wait"))
+        else if (!strncmp(argv[i], "--no-wait", 10))
         {
             wait = 0;
         }
-        else if (!strcmp(argv[i], "--file") || !strcmp(argv[i], "-f"))
+        else if (!strncmp(argv[i], "--file", 7) || !strncmp(argv[i], "-f", 2))
         {
             i++;
             char* file = argv[i];
