@@ -1,12 +1,12 @@
 
 
 #include "ancientpkg.h"
+#include "argparse.h"
+#include "deskenv.h"
 #include "uselinuxcommon.h"
 #include "userspace.h"
-#include "deskenv.h"
 #include "utils.h"
 #include "yearoflinuxdesktop.h"
-#include "argparse.h"
 
 #include <argp.h>
 #include <stdio.h>
@@ -15,7 +15,6 @@
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
-
 
 // Long-only options
 #define ARG_ARCH_BTW 1000
@@ -37,17 +36,15 @@
 #define ARG_GET_YOLD 1016
 
 #define PROGNAME "uselinux"
-static const char* cmd_doc_footer =
+static const char *cmd_doc_footer =
     "\n"
     "\n"
-    "uselinux -- compiled "__TIME__" " __DATE__"\n"
+    "uselinux -- compiled "__TIME__
+    " " __DATE__ "\n"
     "Copyright (c) 2022 Lemuria, licensed under MIT";
-static const char* cmd_doc = "Linux good, Windows bad";
-static const char *const usage[] = {
-    PROGNAME" --year-of-linux-desktop 2023",
-    PROGNAME" --arch-btw",
-    NULL
-};
+static const char *cmd_doc = "Linux good, Windows bad";
+static const char *const usage[] = {PROGNAME " --year-of-linux-desktop 2023",
+                                    PROGNAME " --arch-btw", NULL};
 
 int main(int argc, const char **argv)
 {
@@ -58,8 +55,8 @@ int main(int argc, const char **argv)
     int arg_bash_windows = -100;
     int arg_bash_macos = -100;
     int arg_hackerman = -100;
-    char* arg_distro = "";
-    char* arg_desk = "";
+    char *arg_distro = "";
+    char *arg_desk = "";
     int arg_year_of_linux_desktop = -100;
     int arg_compile_everything = -100;
     int arg_snap_at_snaps = -100;
@@ -72,25 +69,43 @@ int main(int argc, const char **argv)
 
     struct argparse_option opts[] = {
         OPT_HELP(),
+
         OPT_GROUP("Basic options"),
-        OPT_STRING('d', "distro", &arg_distro, "Specify a "LINUXREF" distribution"),
+        OPT_STRING('d', "distro", &arg_distro,
+                   "Specify a " LINUXREF " distribution"),
         OPT_STRING('e', "desk", &arg_desk, "Specify a desktop environment"),
-        OPT_BOOLEAN(0, "break-userspace", &arg_break_userspace, "Make Linus Torvalds angry by breaking userspace with Linux kernel " "patches"),
+        OPT_BOOLEAN(0, "break-userspace", &arg_break_userspace,
+                    "Make Linus Torvalds angry by breaking userspace with "
+                    "Linux kernel "
+                    "patches"),
         OPT_BOOLEAN(0, "arch-btw", &arg_arch_btw, "I use arch btw"),
-        OPT_BOOLEAN(0, "bash-windows", &arg_bash_windows, "Windows is spyware"),
+        OPT_BOOLEAN(0, "bash-windows", &arg_bash_windows,
+                    "Windows is spyware"),
         OPT_BOOLEAN(0, "bash-macos", &arg_bash_macos, "macOS is spyware"),
-        OPT_BOOLEAN(0, "compile-everything", &arg_compile_everything, "Compile everything (Gentoo)"),
-        OPT_BOOLEAN(0, "snap-at-snaps", &arg_snap_at_snaps, "Get annoyed at constant Ubuntu snap updates"),
-        OPT_BOOLEAN(0, "get-yold", &arg_get_yold, "Print the year of the Linux desktop"),
-        OPT_BOOLEAN(0, "hackerman", &arg_hackerman, "Be a hackerman (requires Kali)"),
-        OPT_BOOLEAN(0, "segfault", &arg_segfault, "Trigger a segmentation fault"),
+        OPT_BOOLEAN(0, "compile-everything", &arg_compile_everything,
+                    "Compile everything (Gentoo)"),
+        OPT_BOOLEAN(0, "snap-at-snaps", &arg_snap_at_snaps,
+                    "Get annoyed at constant Ubuntu snap updates"),
+        OPT_BOOLEAN(0, "get-yold", &arg_get_yold,
+                    "Print the year of the Linux desktop"),
+        OPT_BOOLEAN(0, "hackerman", &arg_hackerman,
+                    "Be a hackerman (requires Kali)"),
+        OPT_BOOLEAN(0, "segfault", &arg_segfault,
+                    "Trigger a segmentation fault"),
+
         OPT_GROUP("Ancient Debian packages"),
-        OPT_BOOLEAN(0, "ancient-packages", &arg_ancient_packages, "Use packages from 10,000 years ago (Debian), v1"),
-        OPT_BOOLEAN(0, "ancient-packages-v2", &arg_ancient_debian_packages_v2, "Use Debian packages from 11,000 years ago"),
-        OPT_BOOLEAN(0, "ap-limit-locations", &arg_ap_limit_locs, "Limit locations to exacavate packages at"),
-        OPT_BOOLEAN(0, "ap-limit-sites", &arg_ap_limit_sites, "Limit digsites per location"),
+        OPT_BOOLEAN(0, "ancient-packages", &arg_ancient_packages,
+                    "Use packages from 10,000 years ago (Debian), v1"),
+        OPT_BOOLEAN(0, "ancient-packages-v2", &arg_ancient_debian_packages_v2,
+                    "Use Debian packages from 11,000 years ago"),
+        OPT_BOOLEAN(0, "ap-limit-locations", &arg_ap_limit_locs,
+                    "Limit locations to exacavate packages at"),
+        OPT_BOOLEAN(0, "ap-limit-sites", &arg_ap_limit_sites,
+                    "Limit digsites per location"),
+
         OPT_GROUP("Other options"),
-        OPT_BOOLEAN(0, "no-typewriter", &arg_no_typewriter, "Do not print messages with typewriter effect"),
+        OPT_BOOLEAN(0, "no-typewriter", &arg_no_typewriter,
+                    "Do not print messages with typewriter effect"),
         OPT_END()
     };
 
@@ -140,10 +155,8 @@ int main(int argc, const char **argv)
 
     if (arg_year_of_linux_desktop != -100)
     {
-        year_of_linux_desktop(
-            current_time->tm_year + 1900,
-            arg_year_of_linux_desktop
-        );
+        year_of_linux_desktop(current_time->tm_year + 1900,
+                              arg_year_of_linux_desktop);
     }
 
     if (arg_hackerman == 1)
