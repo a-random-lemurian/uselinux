@@ -1,5 +1,5 @@
 #include "../opener/opener.h"
-#include <argp.h>
+#include "argparse.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,63 +15,35 @@ const char *mkstr(char str1[], char str2[])
     return out;
 }
 
-static struct argp_option opts[] = {
-    {"search", 's', "QUERY", 0, "Search term on Stack Overflow"},
-    {"dry-run", 'd', 0, 0, "Do not actually open Stack Overflow in browser"},
-    {0}};
-
-struct args
-{
-    char *url;
-
-    int dry_run;
-};
-
-static error_t parse_opt(int key, char *arg, struct argp_state *state)
-{
-    struct args *arguments = state->input;
-
-    switch (key)
-    {
-    case 's':
-        arguments->url = arg;
-        break;
-    case 'd':
-        arguments->dry_run = 1;
-        break;
-    default:
-        return ARGP_ERR_UNKNOWN;
-    }
-
-    return 0;
-}
-
-static char doc[] = "Open Stack Overflow from the command line";
-static struct argp argp = {opts, parse_opt, 0, doc};
-
-void defaults(struct args *args)
-{
-    args->url = NULL;
-    args->dry_run = 0;
-}
-
 int main(int argc, char **argv)
 {
-    struct args arguments;
-    defaults(&arguments);
-    argp_parse(&argp, argc, argv, 0, 0, &arguments);
+    char *query = "";
+    int flag_dry_run = 0;
 
-    if (arguments.url == NULL)
-    {
-        printf("fatal: search query not specified\n");
-        exit(1);
-    }
+    struct argparse parser;
+    struct argparse_option opts[] = {
+        OPT_HELP(), OPT_STRING('q', "query", &query, "Stack Overflow query"),
+        OPT_BOOLEAN(0, "dry-run", &flag_dry_run,
+                    "Dry run - don't open "
+                    "Stack Overflow"),
+        OPT_END()};
 
-    const char *stackov_url = mkstr(STACKOV_SEARCH_URL, arguments.url);
+    static const char *const usage[] = {"stackov -q QUERY [--dry-run]", NULL};
+
+    argparse_init(&parser, opts, usage, 0);
+    argparse_describe(&parser, "Open Stack Overflow from the command line",
+                      "\nCompiled "__DATE__
+                      " "__TIME__
+                      ".\n"
+                      "Created by Lemuria as part of uselinux:\n"
+                      "<https://github.com/a-random-lemurian/uselinux>");
+    argparse_parse(&parser, argc, (const char **)argv);
+
+    const char *stackov_url = mkstr(STACKOV_SEARCH_URL, query);
 
     printf("Opening %s in your browser.\n", stackov_url);
 
-    if (!arguments.dry_run)
+    if (!flag_dry_run)
     {
         opener(stackov_url);
     }
