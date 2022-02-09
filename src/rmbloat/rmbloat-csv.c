@@ -11,6 +11,8 @@ void print_help()
 {
     printf(
         "rmbloat - remove bloated software or any software you don't like\n\n"
+        );
+}
 
 static const char *const usage[] = {
     "rmbloat-csv [options] [[--] args]",
