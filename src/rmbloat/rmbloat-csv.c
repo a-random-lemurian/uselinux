@@ -151,7 +151,7 @@ int main(int argc, const char** argv)
 
     struct argparse argparse;
     argparse_init(&argparse, options, usage, 0);
-    argparse_describe(&argparse, "\nA brief description of what the program does and how it works.", "\nAdditional description of the program after the description of the arguments.");
+    argparse_describe(&argparse, "\nRemove bloated packages from a list in a file.", "\n-");
     argc = argparse_parse(&argparse, argc, argv);
 
     printf("%s",file);
