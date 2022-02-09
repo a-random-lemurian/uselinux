@@ -37,7 +37,9 @@ int main(int argc, char** argv)
         exit(1);
     }
 
+    char* subcmd = "";
     int pass_to_subcommand = 0;
+    int rm_l_flag =0;
     for (int i = 1; i < argc; i++)
     {
         if (!strncmp(argv[i], "--help", 7) || !strncmp(argv[i], "-h", 2))
@@ -55,16 +57,32 @@ int main(int argc, char** argv)
         else if (!strncmp(argv[i], "from-csv", 9) && i == 1)
         {
             strcat(buf, "-csv ");
+            subcmd = "csv";
             pass_to_subcommand = 1;
         }
         else if (!strncmp(argv[i], "rm", 2) && i == 1)
         {
             strcat(buf, "-rm ");
+            subcmd = "rm";
             pass_to_subcommand = 1;
         }
         else if (pass_to_subcommand)
         {
+            if (!strncmp(argv[i], "-l", 2) && !strcmp(subcmd, "rm"))
+            {
+                strcat(buf, "-l ");
+                rm_l_flag = 1;
+                continue;
+            }
+            if (rm_l_flag)
+            {
+                strcat(buf, "\"");
+            }
             strcat(buf, argv[i]);
+            if (rm_l_flag)
+            {
+                strcat(buf, "\"");
+            }
             strcat(buf, " ");
         }
         else
