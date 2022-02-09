@@ -3,22 +3,21 @@
 #include "rmbloat-common.h"
 #include "csv.h"
 #include "utils.h"
+#include "argparse.h"
 
-static int wait = 0;
-static int fast = 0;
+int fast;
 
 void print_help()
 {
     printf(
         "rmbloat - remove bloated software or any software you don't like\n\n"
 
-        "    -h, --help           Program help\n"
-        "    -f, --file           Filepath of CSV file\n"
-        "        --fast           Remove bloat faster\n"
-        "        --no-wait        Don't wait before removing bloat\n"
-    );
-    printf("\n");
-}
+static const char *const usage[] = {
+    "rmbloat-csv [options] [[--] args]",
+    "rmbloat-csv [options]",
+    NULL,
+};
+
 
 size_t line_cnt(char* file)
 {
@@ -127,40 +126,34 @@ void rm_bloat_csv(char* file, int wait)
     }
 }
 
-
-int main(int argc, char** argv)
+int main(int argc, const char** argv)
 {
     if (argc == 1)
     {
         printf("No arguments specified.\n");
-        print_help();
         exit(1);
     }
 
-    for (int i = 1; i < argc; i++)
-    {
-        if (!strncmp(argv[i], "--help", 7) || !strncmp(argv[i], "-h", 2))
-        {
-            print_help();
-            exit(0);
-        }
-        else if (!strncmp(argv[i], "--fast", 7))
-        {
-            fast = 1;
-        }
-        else if (!strncmp(argv[i], "--no-wait", 10))
-        {
-            wait = 0;
-        }
-        else if (!strncmp(argv[i], "--file", 7) || !strncmp(argv[i], "-f", 2))
-        {
-            i++;
-            char* file = argv[i];
-            rm_bloat_csv(file, wait);
-        }
-        else
-        {
-            handle_bad_arg(argv[i]);
-        }
-    }
+    int wait = 0;
+    int fast = 0;
+    char* file;
+
+    struct argparse_option options[] = {
+        OPT_HELP(),
+        OPT_GROUP("Basic options"),
+        OPT_BOOLEAN('w', "wait", &wait, "wait 10 seconds before starting"),
+        OPT_BOOLEAN('s', "fast", &fast, "remove bloat faster"),
+        OPT_STRING('f', "file", &file, "path to CSV file"),
+        OPT_END()
+    };
+
+    struct argparse argparse;
+    argparse_init(&argparse, options, usage, 0);
+    argparse_describe(&argparse, "\nA brief description of what the program does and how it works.", "\nAdditional description of the program after the description of the arguments.");
+    argc = argparse_parse(&argparse, argc, argv);
+
+    printf("%s",file);
+
+    rm_bloat_csv(file, wait);
+
 }
