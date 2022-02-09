@@ -6,6 +6,7 @@
 #include "deskenv.h"
 #include "utils.h"
 #include "yearoflinuxdesktop.h"
+#include "argparse.h"
 
 #include <argp.h>
 #include <stdio.h>
@@ -35,228 +36,145 @@
 #define ARG_AP_LIMIT_SITES 1015
 #define ARG_GET_YOLD 1016
 
-const char *argp_program_version =
+#define PROGNAME "uselinux"
+static const char* cmd_doc_footer =
+    "\n"
+    "\n"
     "uselinux -- compiled "__TIME__" " __DATE__"\n"
     "Copyright (c) 2022 Lemuria, licensed under MIT";
-
-static char doc[] = "Linux good, Windows bad";
-
-static struct argp_option opts[] = {
-    {"distro", 'd', "DISTRO", 0, "Specify a " LINUXREF " distribution"},
-    {"desk", 'e', "DESK", 0, "Specify a desktop environment"},
-    {"year-of-linux-desktop", ARG_YEAR_OF_LINUX_DESKTOP, "YEAR", 0,
-     "Specify the year of the Linux desktop"},
-    {"break-userspace", ARG_BREAK_USERSPACE, 0, 0,
-     "Make Linus Torvalds angry by breaking userspace with Linux kernel "
-     "patches"},
-    {"arch-btw", ARG_ARCH_BTW, 0, 0, "I use arch btw"},
-    {"bash-windows", ARG_BASH_WINDOWS, 0, 0, "Windows is spyware"},
-    {"bash-macos", ARG_BASH_MACOS, 0, 0, "macOS is spyware"},
-    {"compile-everything", ARG_COMPILE_EVERYTHING, 0, 0,
-     "Compile everything (Gentoo)"},
-    {"snap-at-snaps", ARG_SNAP_AT_SNAPS, 0, 0,
-     "Get annoyed at constant Ubuntu snap updates"},
-    {"get-yold", ARG_GET_YOLD, 0, 0, "Print the year of the Linux desktop"},
-    {"hackerman", ARG_HACKERMAN, 0, 0, "Be a hackerman (requires Kali)"},
-    {"segfault", ARG_SEGFAULT, 0, 0, "Trigger a segmentation fault"},
-    {0, 0, 0, 0, "Ancient Debian packages"},
-    {"ancient-packages", ARG_ANCIENT_PACKAGES, 0, 0,
-     "Use packages from 10,000 years ago (Debian), v1"},
-    {"ancient-packages-v2", ARG_ANCIENT_DEBIAN_PACKAGES_USE_V2, 0, 0,
-     "Use Debian packages from 11,000 years ago"},
-    {"ap-limit-locations", ARG_AP_LIMIT_LOCS, "LOCS", 0,
-     "Limit locations to exacavate packages at"},
-    {"ap-limit-sites", ARG_AP_LIMIT_SITES, "SITES", 0,
-     "Limit digsites per location"},
-    {0, 0, 0, 0, "Other options"},
-    {"no-typewriter", ARG_NO_TYPEWRITER, 0, 0,
-     "Do not print messages with typewriter effect"},
-    {0}};
-
-struct args
-{
-    char *distro;
-    char *desk;
-    int ancient_packages;
-    int break_userspace;
-    int arch_btw;
-    int bash_windows;
-    int bash_macos;
-    int hackerman;
-    char *year_of_linux_desktop;
-    int compile_everything;
-    int snap_at_snaps;
-    int no_typewriter;
-    int get_yold;
-
-    int ancient_debian_packages_v2;
-
-    char *ap_limit_locs;
-    char *ap_limit_sites;
-
-    // Penguin spam
-    char penguin_spam_location[128];
-    char penguin_spam_amount[128];
+static const char* cmd_doc = "Linux good, Windows bad";
+static const char *const usage[] = {
+    PROGNAME" --year-of-linux-desktop 2023",
+    PROGNAME" --arch-btw",
+    NULL
 };
 
-void defaults(struct args *arg)
+int main(int argc, const char **argv)
 {
-    arg->ancient_packages = 0;
-    arg->break_userspace = 0;
-    arg->arch_btw = 0;
-    arg->bash_windows = 0;
-    arg->bash_macos = 0;
-    arg->hackerman = 0;
-    arg->distro = "";
-    arg->desk = "";
-    arg->year_of_linux_desktop = "";
-    arg->compile_everything = 0;
-    arg->snap_at_snaps = 0;
-    arg->no_typewriter = 0;
-    arg->get_yold = 0;
-    arg->ancient_debian_packages_v2 = 0;
 
-    arg->ap_limit_locs = "";
-    arg->ap_limit_sites = "";
-}
+    int arg_ancient_packages = -100;
+    int arg_break_userspace = -100;
+    int arg_arch_btw = -100;
+    int arg_bash_windows = -100;
+    int arg_bash_macos = -100;
+    int arg_hackerman = -100;
+    char* arg_distro = "";
+    char* arg_desk = "";
+    int arg_year_of_linux_desktop = -100;
+    int arg_compile_everything = -100;
+    int arg_snap_at_snaps = -100;
+    int arg_no_typewriter = -100;
+    int arg_get_yold = -100;
+    int arg_ancient_debian_packages_v2 = -100;
+    int arg_ap_limit_locs = -100;
+    int arg_ap_limit_sites = -100;
+    int arg_segfault = -100;
 
-static int distro_initalized = 0;
+    struct argparse_option opts[] = {
+        OPT_HELP(),
+        OPT_GROUP("Basic options"),
+        OPT_STRING('d', "distro", &arg_distro, "Specify a "LINUXREF" distribution"),
+        OPT_STRING('e', "desk", &arg_desk, "Specify a desktop environment"),
+        OPT_BOOLEAN(0, "break-userspace", &arg_break_userspace, "Make Linus Torvalds angry by breaking userspace with Linux kernel " "patches"),
+        OPT_BOOLEAN(0, "arch-btw", &arg_arch_btw, "I use arch btw"),
+        OPT_BOOLEAN(0, "bash-windows", &arg_bash_windows, "Windows is spyware"),
+        OPT_BOOLEAN(0, "bash-macos", &arg_bash_macos, "macOS is spyware"),
+        OPT_BOOLEAN(0, "compile-everything", &arg_compile_everything, "Compile everything (Gentoo)"),
+        OPT_BOOLEAN(0, "snap-at-snaps", &arg_snap_at_snaps, "Get annoyed at constant Ubuntu snap updates"),
+        OPT_BOOLEAN(0, "get-yold", &arg_get_yold, "Print the year of the Linux desktop"),
+        OPT_BOOLEAN(0, "hackerman", &arg_hackerman, "Be a hackerman (requires Kali)"),
+        OPT_BOOLEAN(0, "segfault", &arg_segfault, "Trigger a segmentation fault"),
+        OPT_GROUP("Ancient Debian packages"),
+        OPT_BOOLEAN(0, "ancient-packages", &arg_ancient_packages, "Use packages from 10,000 years ago (Debian), v1"),
+        OPT_BOOLEAN(0, "ancient-packages-v2", &arg_ancient_debian_packages_v2, "Use Debian packages from 11,000 years ago"),
+        OPT_BOOLEAN(0, "ap-limit-locations", &arg_ap_limit_locs, "Limit locations to exacavate packages at"),
+        OPT_BOOLEAN(0, "ap-limit-sites", &arg_ap_limit_sites, "Limit digsites per location"),
+        OPT_GROUP("Other options"),
+        OPT_BOOLEAN(0, "no-typewriter", &arg_no_typewriter, "Do not print messages with typewriter effect"),
+        OPT_END()
+    };
 
-static error_t parse_opt(int key, char *arg, struct argp_state *state)
-{
-    struct args *arguments = state->input;
+    struct argparse argparse;
+    argparse_init(&argparse, opts, usage, 0);
+    argparse_describe(&argparse, cmd_doc, cmd_doc_footer);
 
-    switch (key)
+    if (argc == 1)
     {
-    case 'd':
-        distro_initalized = 1;
-        arguments->distro = arg;
-        break;
-    case 'e':
-        arguments->desk = arg;
-        break;
-    case ARG_ARCH_BTW:
-        arguments->arch_btw = 1;
-        break;
-    case ARG_ANCIENT_PACKAGES:
-        arguments->ancient_packages = 1;
-        break;
-    case ARG_BREAK_USERSPACE:
-        arguments->break_userspace = 1;
-        break;
-    case ARG_BASH_MACOS:
-        arguments->bash_macos = 1;
-        break;
-    case ARG_BASH_WINDOWS:
-        arguments->bash_windows = 1;
-        break;
-    case ARG_COMPILE_EVERYTHING:
-        arguments->compile_everything = 1;
-        break;
-    case ARG_HACKERMAN:
-        arguments->hackerman = 1;
-        break;
-    case ARG_YEAR_OF_LINUX_DESKTOP:
-        arguments->year_of_linux_desktop = arg;
-        break;
-    case ARG_SNAP_AT_SNAPS:
-        arguments->snap_at_snaps = 1;
-        break;
-    case ARG_SEGFAULT:
-        printf("Well, you asked for a segfault....\n");
-        trigger_segfault();
-    case ARG_NO_TYPEWRITER:
-        arguments->no_typewriter = 1;
-        break;
-    case ARG_ANCIENT_DEBIAN_PACKAGES_USE_V2:
-        arguments->ancient_debian_packages_v2 = 1;
-        break;
-    case ARG_AP_LIMIT_LOCS:
-        arguments->ap_limit_locs = arg;
-        break;
-    case ARG_AP_LIMIT_SITES:
-        arguments->ap_limit_sites = arg;
-        break;
-    case ARG_GET_YOLD:
-        arguments->get_yold = 1;
-        break;
-    default:
-        return ARGP_ERR_UNKNOWN;
+        printf("Error: no arguments specified\n");
+        argparse_help_cb(&argparse, opts);
+        exit(1);
     }
 
-    return 0;
-}
-static struct argp argp = {opts, parse_opt, 0, doc};
-
-
-int main(int argc, char **argv)
-{
-    struct args arg;
-    defaults(&arg);
-    argp_parse(&argp, argc, argv, 0, 0, &arg);
+    argc = argparse_parse(&argparse, argc, argv);
 
     time_t s = 1;
     struct tm *current_time;
     s = time(NULL);
     current_time = localtime(&s);
 
-    if (strcmp("", arg.desk))
+    if (arg_segfault == 1)
     {
-        desktop_environments(arg.desk);
+        trigger_segfault();
     }
 
-    if (arg.get_yold)
+    if (strcmp("", arg_desk))
+    {
+        desktop_environments(arg_desk);
+    }
+
+    if (arg_get_yold == 1)
     {
         int yr = get_year_of_linux_desktop();
         printf("%d", yr);
     }
 
-    if (arg.snap_at_snaps)
+    if (arg_snap_at_snaps == 1)
     {
-        snap_at_snaps(arg.distro);
+        snap_at_snaps(arg_distro);
     }
 
-    if (arg.arch_btw)
+    if (arg_arch_btw == 1)
     {
         printf("I use Arch btw\n");
     }
 
-    if (strcmp(arg.year_of_linux_desktop, ""))
+    if (arg_year_of_linux_desktop != -100)
     {
-        long converted_yr_l = strtol(arg.year_of_linux_desktop, NULL, 10);
-        int converted_yr = (int)converted_yr_l;
-        year_of_linux_desktop(current_time->tm_year + 1900, converted_yr);
+        year_of_linux_desktop(
+            current_time->tm_year + 1900,
+            arg_year_of_linux_desktop
+        );
     }
 
-    if (arg.hackerman)
+    if (arg_hackerman == 1)
     {
-        if (!distro_initalized)
+        if (!strcmp(arg_distro, ""))
         {
             printf("fatal: distro must be specified\n");
             exit(1);
         }
 
-        hackerman(arg.distro);
+        hackerman(arg_distro);
     }
 
-    if (arg.bash_macos)
+    if (arg_bash_macos == 1)
     {
         bash_os("macOS");
     }
 
-    if (arg.bash_windows)
+    if (arg_bash_windows == 1)
     {
         bash_os("Windows");
     }
 
-    if (arg.break_userspace)
+    if (arg_break_userspace == 1)
     {
         printf("\n------\n");
         printf("You check the mailing list...\n");
         printf("But it seems like your kernel patch broke userspace again!\n");
         printf("New mail: 1\n\n\n");
 
-        if (arg.no_typewriter)
+        if (arg_no_typewriter == 1)
         {
             printf("%s", WE_DO_NOT_BREAK_USERSPACE);
         }
@@ -281,9 +199,9 @@ int main(int argc, char **argv)
         }
     }
 
-    if (arg.ancient_debian_packages_v2)
+    if (arg_ancient_debian_packages_v2)
     {
-        if (strcasecmp(arg.distro, "debian"))
+        if (strcasecmp(arg_distro, "debian"))
         {
             printf("fatal: to dig for ancient packages, you must specify"
                    " debian as the distro");
@@ -294,26 +212,22 @@ int main(int argc, char **argv)
 
         pdjctl_set_defaults(&pkgdigctl);
 
-        if (strcmp(arg.ap_limit_locs, ""))
+        if (arg_ap_limit_locs > 0)
         {
-            long converted_l = strtol(arg.ap_limit_locs, NULL, 10);
-            int ap_limit_locs_i = (int)converted_l;
-            pkgdigctl.max_locs = ap_limit_locs_i;
+            pkgdigctl.max_locs = arg_ap_limit_locs;
         }
 
-        if (strcmp(arg.ap_limit_sites, ""))
+        if (arg_ap_limit_sites > 0)
         {
-            long converted_l = strtol(arg.ap_limit_sites, NULL, 10);
-            int ap_limit_sites_i = (int)converted_l;
-            pkgdigctl.max_sites = ap_limit_sites_i;
+            pkgdigctl.max_sites = arg_ap_limit_sites;
         }
 
         ancient_debian_packages_v2(&pkgdigctl);
     }
 
-    if (arg.ancient_packages)
+    if (arg_ancient_packages)
     {
-        if (!strcasecmp(arg.distro, "debian"))
+        if (!strcasecmp(arg_distro, "debian"))
         {
             printf("Warning: --ancient-packages is deprecated.\n"
                    "Please use --ancient-packages-v2 instead.\n");
