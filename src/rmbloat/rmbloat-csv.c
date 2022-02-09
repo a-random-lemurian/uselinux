@@ -4,6 +4,7 @@
 #include "csv.h"
 #include "utils.h"
 
+static int wait = 0;
 static int fast = 0;
 
 void print_help()
@@ -136,7 +137,6 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    int wait = 1;
     for (int i = 1; i < argc; i++)
     {
         if (!strncmp(argv[i], "--help", 7) || !strncmp(argv[i], "-h", 2))
