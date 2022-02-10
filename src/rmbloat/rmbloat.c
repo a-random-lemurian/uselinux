@@ -5,6 +5,14 @@
 
 #include "rmbloat.h"
 
+#ifndef USELINUX_RMBLOAT_NOCOLOR
+#define BOLDGREEN "\033[1m\033[92m"
+#define NOCOLOR "\033[0m"
+#else
+#define BOLDGREEN ""
+#define NOCOLOR ""
+#endif
+
 struct cmd_struct {
     const char *cmd;
     int len;
@@ -32,7 +40,9 @@ int main(int argc, char** argv)
         int i;
         for (i = 0; i < sizeof(subcommands)/sizeof(subcommands[0]); i++)
         {
-            printf("    %s: %s\n", subcommands[i].cmd, subcommands[i].help);
+            printf("    "BOLDGREEN"%s"NOCOLOR": %s\n",
+                   subcommands[i].cmd,
+                   subcommands[i].help);
         }
         printf("\n");
         exit(0);
