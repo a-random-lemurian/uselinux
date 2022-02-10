@@ -16,7 +16,7 @@ static const char *const usage[] = {
 };
 
 
-int main(int argc, char** argv)
+int rmbloat_rm(int argc, char** argv)
 {
     int fast = 0;
 
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     argparse_describe(&argparse, "Remove bloat from the command line","\n");
     argc = argparse_parse(&argparse, argc, (const char**)argv);
 
-    for (int i = 0; i < argc; i++)
+    for (int i = 1; i < argc; i++)
     {
         remove_bloatware(argv[i], fast);
     }

@@ -20,7 +20,7 @@ static const char *const usage[] = {
 };
 
 
-int main(int argc, const char** argv)
+int rmbloat_csv(int argc, const char** argv)
 {
     if (argc == 1)
     {

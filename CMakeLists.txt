@@ -9,8 +9,6 @@ install(
     TARGETS
         penguinspammer
         rmbloat
-        rmbloat-csv
-        rmbloat-rm
         stackov
         uselinux
     DESTINATION
