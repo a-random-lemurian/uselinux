@@ -9,55 +9,13 @@
  */
 
 #include "penguinspam.h"
+#include <argparse.h>
 
-
-#include <argp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 int chartoint(char *str, int numbase);
-
-struct args
-{
-    char *location;
-    int penguins;
-    char* penguin_type;
-};
-
-static struct argp_option opts[] = {
-    {"location", 'l', "LOCATION", 0, "Location where penguins will be deployed"},
-    {"penguins", 'p', "PENGUINS", 0,
-     "Number of penguins to spam at particular location"},
-    {"penguin-type",'t', "TYPE", 0, "Type of penguin"},
-    {0}};
-
-void defaults(struct args *args)
-{
-    args->location = "";
-    args->penguins = -1;
-    args->penguin_type = "";
-}
-
-static error_t parse_opt(int key, char *arg, struct argp_state *state)
-{
-    struct args *arguments = state->input;
-
-    switch (key)
-    {
-    case 'l':
-        arguments->location = arg;
-        break;
-    case 'p':
-        arguments->penguins = chartoint(arg, 10);
-        break;
-    case 't':
-        arguments->penguin_type = arg;
-    }
-    return 0;
-}
-
-static struct argp argp = {opts, parse_opt, 0, ""};
 
 void handle_penguin_spam_error(int rc, penguin_spam_job *job)
 {
@@ -83,13 +41,22 @@ void handle_penguin_spam_error(int rc, penguin_spam_job *job)
 
 int main(int argc, char **argv)
 {
-    struct args arg;
-    defaults(&arg);
-    argp_parse(&argp, argc, argv, 0, 0, &arg);
+    char *arg_location = "";
+    int arg_penguins = -1;
+    char *arg_penguin_type = "";
+
+    struct argparse_option options[] = {
+        OPT_HELP(),
+        OPT_STRING('l', "location", &arg_location,
+                   "Location of penguin spam job"),
+        OPT_STRING('p', "penguins", &arg_penguins,
+                   "Number of penguins to send"),
+        OPT_STRING('t', "penguin-type", &arg_penguin_type, "Type of penguin"),
+        OPT_END()};
 
     penguin_spam_job job;
-    int rc = mk_penguin_spam_job(&job, arg.penguins, arg.location,
-                                  arg.penguin_type);
+    int rc = mk_penguin_spam_job(&job, arg_penguins, arg_location,
+                                 arg_penguin_type);
     if (rc != PENGUIN_SPAM_OK)
     {
         handle_penguin_spam_error(rc, &job);
