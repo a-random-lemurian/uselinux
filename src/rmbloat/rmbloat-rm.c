@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <argparse.h>
-#include "rmbloat-common.h"
 #include "rmbloatapi.h"
 
 

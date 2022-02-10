@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "rmbloatapi.h"
-#include "rmbloat-common.h"
 #include "csv.h"
 #include "utils.h"
 #include "argparse.h"

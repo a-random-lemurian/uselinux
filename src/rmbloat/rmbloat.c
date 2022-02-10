@@ -3,7 +3,6 @@
 #include <libgen.h>
 #include <unistd.h>
 #include <string.h>
-#include "rmbloat-common.h"
 
 
 void print_help()
