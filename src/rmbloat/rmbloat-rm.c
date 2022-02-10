@@ -18,12 +18,15 @@ static const char *const usage[] = {
 
 int rmbloat_rm(int argc, char** argv)
 {
+    int list = 0;
     int fast = 0;
 
     struct argparse argparse;
     struct argparse_option options[] = {
         OPT_HELP(),
-        OPT_BOOLEAN(0, "fast", &fast, "Remove bloat faster"),
+        OPT_BOOLEAN('l', "list", &list, "Does nothing, preserved for "
+                                        "backwards compatibility"),
+        OPT_BOOLEAN(0,   "fast", &fast, "Remove bloat faster"),
         OPT_END()
     };
 
