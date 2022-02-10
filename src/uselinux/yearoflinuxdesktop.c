@@ -1,6 +1,6 @@
 #include "uselinuxcommon.h"
 #include "yearoflinuxdesktop.h"
-#include "utils.h"
+#include <utils.h>
 
 void year_of_linux_desktop_segfault()
 {

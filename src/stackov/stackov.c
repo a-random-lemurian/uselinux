@@ -1,8 +1,11 @@
 #include "../opener/opener.h"
-#include "argparse.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
+#include <argparse.h>
+
 
 #define STACKOV_SEARCH_URL "https://stackoverflow.com/search?q="
 

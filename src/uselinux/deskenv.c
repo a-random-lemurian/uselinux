@@ -1,6 +1,8 @@
 #include "deskenv.h"
-#include "log.h"
-#include "utils.h"
+
+#include <log.h>
+#include <utils.h>
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

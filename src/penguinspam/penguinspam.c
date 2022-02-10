@@ -13,10 +13,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "utils.h"
+
+#include <utils.h>
 
 #define LOGGER_NAME "penguinspam"
-#include "log.h"
+#include <log.h>
 
 // penguinspam Internals //////////////////////////////////////////////////////
 
