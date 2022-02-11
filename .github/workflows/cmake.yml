@@ -2,17 +2,7 @@ name: CMake
 
 on:
   push:
-    branches: ["**"]
-    paths:
-      - "CMakeLists.txt"
-      - "source/**"
-      - "include/**"
   pull_request:
-    branches: ["**"]
-    paths:
-      - "CMakeLists.txt"
-      - "source/**"
-      - "include/**"
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
