@@ -1,1 +1,0 @@
-add_library(csvreader csv.c fread_csv_line.c split.c)

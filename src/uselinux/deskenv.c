@@ -1,7 +1,7 @@
 #include "deskenv.h"
 
-#include <log.h>
-#include <utils.h>
+#include <common/log.h>
+#include <common/utils.h>
 
 #include <string.h>
 #include <stdio.h>

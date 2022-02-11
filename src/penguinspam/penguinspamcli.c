@@ -9,7 +9,7 @@
  */
 
 #include "penguinspam.h"
-#include <argparse.h>
+#include <common/argparse.h>
 
 #include <stdio.h>
 #include <stdlib.h>

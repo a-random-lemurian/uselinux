@@ -14,10 +14,10 @@
 #include <time.h>
 #include <string.h>
 
-#include <utils.h>
+#include <common/utils.h>
 
 #define LOGGER_NAME "penguinspam"
-#include <log.h>
+#include <common/log.h>
 
 // penguinspam Internals //////////////////////////////////////////////////////
 

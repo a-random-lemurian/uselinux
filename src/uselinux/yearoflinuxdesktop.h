@@ -2,8 +2,8 @@
 #define YEAROFLINUXDESKTOP_H
 
 #include "uselinuxcommon.h"
-#include "utils.h"
-#include "mtwister.h"
+#include <common/utils.h>
+#include <common/mtwister.h>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>

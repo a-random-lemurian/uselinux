@@ -4,8 +4,8 @@
 
 #include "ancientpkg.h"
 
-#include <mtwister.h>
-#include <utils.h>
+#include <common/mtwister.h>
+#include <common/utils.h>
 
 int pkg_dig_job_sanity_check(pkg_dig_job *job)
 {

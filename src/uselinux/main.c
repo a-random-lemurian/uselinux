@@ -7,8 +7,8 @@
 #include "yearoflinuxdesktop.h"
 
 
-#include <utils.h>
-#include <argparse.h>
+#include <common/utils.h>
+#include <common/argparse.h>
 
 
 #include <argp.h>
@@ -150,6 +150,7 @@ int main(int argc, const char **argv)
     {
         snap_at_snaps(arg_distro);
     }
+
 
     if (arg_arch_btw == 1)
     {

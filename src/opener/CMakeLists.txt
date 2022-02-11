@@ -1,1 +1,0 @@
-add_library(opener opener.c detect_os.c)

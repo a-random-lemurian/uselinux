@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "rmbloatapi.h"
 
-#include <csv.h>
-#include <utils.h>
-#include <argparse.h>
+#include <common/csv.h>
+#include <common/utils.h>
+#include <common/argparse.h>
 
 int fast;
 
