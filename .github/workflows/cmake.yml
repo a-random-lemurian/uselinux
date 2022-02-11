@@ -2,13 +2,13 @@ name: CMake
 
 on:
   push:
-    branches: ['*']
+    branches: ["**"]
     paths:
       - "CMakeLists.txt"
       - "source/**"
       - "include/**"
   pull_request:
-    branches: ['*']
+    branches: ["**"]
     paths:
       - "CMakeLists.txt"
       - "source/**"
