@@ -18,7 +18,7 @@ int main(int argc, char **argv)
         OPT_BOOLEAN('O', "old", &use_old_method,
                     "Call old method to snap at snaps"),
         OPT_END()};
-    const char *usages[] = {"antisnap [--anger-level=LVL] [--distro=DISTRO]"};
+    const char *usages[] = {"antisnap [--anger-level=LVL] [--distro=DISTRO]", NULL};
     argparse_init(&argparse, options, usages, 0);
 
     if (argc == 1)
