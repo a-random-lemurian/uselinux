@@ -62,7 +62,6 @@ int main(int argc, const char **argv)
     char *arg_desk = "";
     int arg_year_of_linux_desktop = -100;
     int arg_compile_everything = -100;
-    int arg_snap_at_snaps = -100;
     int arg_no_typewriter = -100;
     int arg_get_yold = -100;
     int arg_ancient_debian_packages_v2 = -100;
@@ -87,8 +86,6 @@ int main(int argc, const char **argv)
         OPT_BOOLEAN(0, "bash-macos", &arg_bash_macos, "macOS is spyware"),
         OPT_BOOLEAN(0, "compile-everything", &arg_compile_everything,
                     "Compile everything (Gentoo)"),
-        OPT_BOOLEAN(0, "snap-at-snaps", &arg_snap_at_snaps,
-                    "Get annoyed at constant Ubuntu snap updates"),
         OPT_BOOLEAN(0, "get-yold", &arg_get_yold,
                     "Print the year of the Linux desktop"),
         OPT_BOOLEAN(0, "hackerman", &arg_hackerman,
@@ -145,12 +142,6 @@ int main(int argc, const char **argv)
         int yr = get_year_of_linux_desktop();
         printf("%d", yr);
     }
-
-    if (arg_snap_at_snaps == 1)
-    {
-        snap_at_snaps(arg_distro);
-    }
-
 
     if (arg_arch_btw == 1)
     {
