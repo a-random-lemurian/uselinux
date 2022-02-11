@@ -20,6 +20,12 @@ int main(int argc, char **argv)
         OPT_END()};
     const char *usages[] = {"antisnap [--anger-level=LVL] [--distro=DISTRO]"};
     argparse_init(&argparse, options, usages, 0);
+
+    if (argc == 1)
+    {
+        argparse_help_cb(&argparse, options);
+    }
+
     argparse_parse(&argparse, argc, (const char **)argv);
 
     if (use_old_method)
