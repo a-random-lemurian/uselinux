@@ -36,7 +36,26 @@ int main(int argc, char **argv)
     {
         if (!strncasecmp(distro, "ubuntu", 6))
         {
-            printf("Snaps... they are annoying.");
+            if (anger_lvl > 0)
+            {
+                printf("Snaps... they are annoying.\n");
+            }
+            else if (anger_lvl > 50)
+            {
+                printf("Reject snap! Return to apt!\n");
+            }
+            else if (anger_lvl > 100)
+            {
+                printf("Warning: too angry.\n");
+            }
+            else if (anger_lvl > 200)
+            {
+                printf("Okay, we get it. Snaps are evil.\n");
+            }
+            else
+            {
+                printf("Are you really angry at snaps?\n");
+            }
         }
         else
         {
