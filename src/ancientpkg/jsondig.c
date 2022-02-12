@@ -2,6 +2,7 @@
 
 #include "ancientpkg.h"
 #include <string.h>
+#include <stdlib.h>
 #include <parson/parson.h>
 
 int has_missing_package_params(JSON_Object* package)
@@ -57,4 +58,32 @@ int dig_from_json(char* filename)
         printf("From JSON job file %s: missing arguments.\n", filename);
         exit(1);
     }
+
+    JSON_Array* packages = json_object_get_array(root, "packages");
+    JSON_Object* package;
+    if (packages != NULL)
+    {
+        for (size_t i = 0; i < json_array_get_count(packages); i++)
+        {
+            package = json_array_get_object(packages, i);
+            if (package != NULL)
+            {
+                if (has_missing_package_params(package))
+                {
+                    printf("Error: missing package params (package %ld)\n",i);
+                }
+                else
+                {
+                    const char* pkgname = 
+                            json_object_get_string(package, "packageName");
+                    const char* license =
+                            json_object_get_string(package, "license");
+                    printf("[PRIORITY] Prepare excavation of high-priority "
+                           "package %s (License: %s)", pkgname, license);
+                }
+            }
+        }
+    }
+
+    json_value_free(root);
 }
