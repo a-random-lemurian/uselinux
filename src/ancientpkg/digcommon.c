@@ -61,4 +61,6 @@ int has_missing_args(char* location, int archaeologists,
         printf("use --help for help.\n");
         return 1;
     }
+
+    return had_fatal_err;
 }
