@@ -87,7 +87,7 @@ int dig_from_json(char* filename)
                     const char* license =
                             json_object_get_string(package, "license");
                     printf("[PRIORITY] Prepare excavation of high-priority "
-                           "package %s (License: %s)", pkgname, license);
+                           "package %s (License: %s)\n", pkgname, license);
                 }
             }
         }
