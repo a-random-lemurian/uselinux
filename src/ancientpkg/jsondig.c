@@ -63,7 +63,14 @@ int dig_from_json(char* filename)
 
     if (has_missing_args(location, archaeologists, passes, expected_packages))
     {
-        printf("From JSON job file %s: missing arguments.\n", filename);
+        printf("From JSON job file %s: missing arguments.\n"
+               "location: %s\n"
+               "archaeologists: %d\n"
+               "passes: %d\n"
+               "expected packages: %d\n",
+               
+               filename, location, archaeologists,
+               passes, expected_packages);
         exit(1);
     }
 
