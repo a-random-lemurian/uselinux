@@ -26,6 +26,7 @@ static struct cmd_struct subcommands[] = {
     {"rm", 2, rmbloat_rm, "Remove bloated packages from the command line"}
 };
 
+#define ARRSZ(a) sizeof(a)/sizeof(a[0])
 
 int main(int argc, char** argv)
 {
@@ -38,7 +39,7 @@ int main(int argc, char** argv)
             "\n"
             , argv[0]);
         int i;
-        for (i = 0; i < sizeof(subcommands)/sizeof(subcommands[0]); i++)
+        for (i = 0; i < ARRSZ(subcommands); i++)
         {
             printf("    "BOLDGREEN"%s"NOCOLOR": %s\n",
                    subcommands[i].cmd,
@@ -53,7 +54,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        long subcmd_ls_sz = sizeof(subcommands)/sizeof(subcommands[0]);
+        long subcmd_ls_sz = ARRSZ(subcommands);
         int i;
         for (i = 0; i < subcmd_ls_sz; i++)
         {
