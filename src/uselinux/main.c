@@ -93,16 +93,6 @@ int main(int argc, const char **argv)
         OPT_BOOLEAN(0, "segfault", &arg_segfault,
                     "Trigger a segmentation fault"),
 
-        OPT_GROUP("Ancient Debian packages"),
-        OPT_BOOLEAN(0, "ancient-packages", &arg_ancient_packages,
-                    "Use packages from 10,000 years ago (Debian), v1"),
-        OPT_BOOLEAN(0, "ancient-packages-v2", &arg_ancient_debian_packages_v2,
-                    "Use Debian packages from 11,000 years ago"),
-        OPT_BOOLEAN(0, "ap-limit-locations", &arg_ap_limit_locs,
-                    "Limit locations to exacavate packages at"),
-        OPT_BOOLEAN(0, "ap-limit-sites", &arg_ap_limit_sites,
-                    "Limit digsites per location"),
-
         OPT_GROUP("Other options"),
         OPT_BOOLEAN(0, "no-typewriter", &arg_no_typewriter,
                     "Do not print messages with typewriter effect"),
@@ -204,50 +194,6 @@ int main(int argc, const char **argv)
         else
         {
             exit(0);
-        }
-    }
-
-    if (arg_ancient_debian_packages_v2)
-    {
-        if (strcasecmp(arg_distro, "debian"))
-        {
-            printf("fatal: to dig for ancient packages, you must specify"
-                   " debian as the distro");
-            exit(1);
-        }
-
-        pkg_dig_job_control pkgdigctl;
-
-        pdjctl_set_defaults(&pkgdigctl);
-
-        if (arg_ap_limit_locs > 0)
-        {
-            pkgdigctl.max_locs = arg_ap_limit_locs;
-        }
-
-        if (arg_ap_limit_sites > 0)
-        {
-            pkgdigctl.max_sites = arg_ap_limit_sites;
-        }
-
-        ancient_debian_packages_v2(&pkgdigctl);
-    }
-
-    if (arg_ancient_packages)
-    {
-        if (!strcasecmp(arg_distro, "debian"))
-        {
-            printf("Warning: --ancient-packages is deprecated.\n"
-                   "Please use --ancient-packages-v2 instead.\n");
-            printf("Using 10,000 year-old Debian packages.\n"
-                   "Why does Debian have to be so outdated, "
-                   "anyway?\n");
-
-            ancient_debian_packages();
-        }
-        else
-        {
-            printf("Using 10,000 year-old packages.\n");
         }
     }
 
