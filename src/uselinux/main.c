@@ -1,6 +1,3 @@
-
-
-#include "ancientpkg.h"
 #include "deskenv.h"
 #include "uselinuxcommon.h"
 #include "userspace.h"
