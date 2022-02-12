@@ -1,6 +1,7 @@
+#include <common/ansiescapes.h>
+#include <common/argparse.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <common/argparse.h>
 #include <string.h>
 
 #include "rmbloat.h"
@@ -13,56 +14,62 @@
 #define NOCOLOR ""
 #endif
 
-struct cmd_struct {
+struct cmd_struct
+{
     const char *cmd;
     int len;
-    int (*fn) (int, const char **);
+    int (*fn)(int, const char **);
     const char *help;
 };
 
-
 static struct cmd_struct subcommands[] = {
     {"from-csv", 8, rmbloat_csv, "Remove bloated packages listed in a file"},
-    {"rm", 2, rmbloat_rm, "Remove bloated packages from the command line"}
-};
+    {"rm", 2, rmbloat_rm, "Remove bloated packages from the command line"}};
 
-#define ARRSZ(a) sizeof(a)/sizeof(a[0])
+#define ARRSZ(a) sizeof(a) / sizeof(a[0])
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    if (argc == 2 && !strcmp(argv[1], "--help"))
+    int flag_help = 0;
+
+    struct argparse argparse;
+    struct argparse_option options[] = {
+        /* we don't want to exit after printing help, we
+           have to print the subcommand information too,
+           therefore we don't use OPT_HELP() */
+        OPT_BOOLEAN('h', "help", &flag_help,
+                    "show this help message and exit"),
+        OPT_END()};
+    const char *usages[] = {
+        "rmbloat rm [--help] [--fast] [<PACKAGES>]",
+        "rmbloat from-csv [--help] [--wait] [--fast] --file=FILE", NULL};
+    argparse_init(&argparse, options, usages, ARGPARSE_STOP_AT_NON_OPTION);
+    argc = argparse_parse(&argparse, argc, (const char **)argv);
+
+    if (flag_help || argc == 1)
     {
-        printf(
-            "Usage: %s [--help] <command> [<args>]\n"
-            "\n"
-            "Subcommands:\n"
-            "\n"
-            , argv[0]);
-        int i;
-        for (i = 0; i < ARRSZ(subcommands); i++)
+        argparse_help_cb_no_exit(&argparse, options);
+
+        printf("\n\nSubcommands:\n");
+        for (int i = 0; i < ARRSZ(subcommands); i++)
         {
-            printf("    "BOLDGREEN"%s"NOCOLOR": %s\n",
-                   subcommands[i].cmd,
+            printf("   " HYEL "%s: " NOCOLOR " %s\n", subcommands[i].cmd,
                    subcommands[i].help);
         }
-        printf("\n");
         exit(0);
     }
-    else if (argc == 1)
+
+    struct cmd_struct *cmd = NULL;
+    for (int i = 0; i < ARRSZ(subcommands); i++)
     {
-        printf("For help, try %s --help.\n", argv[0]);
-    }
-    else
-    {
-        long subcmd_ls_sz = ARRSZ(subcommands);
-        int i;
-        for (i = 0; i < subcmd_ls_sz; i++)
+        if (!strcmp(subcommands[i].cmd, argv[0]))
         {
-            char** subcmd_argv;
-            if (!strcmp(argv[1], subcommands[i].cmd))
-            {
-                subcommands[i].fn(argc, (const char**)argv);
-            }
+            cmd = &subcommands[i];
         }
     }
+    if (cmd)
+    {
+        return cmd->fn(argc, (const char **)argv);
+    }
+    return 0;
 }
