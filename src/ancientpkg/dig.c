@@ -7,8 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ERROR BHRED "error: " reset
-
 int cmd_dig(int argc, char **argv)
 {
     int archaeologists = -1;
