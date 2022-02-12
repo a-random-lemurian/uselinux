@@ -19,4 +19,6 @@ int cmd_dig(int argc, char** argv);
 int cmd_date(int argc, char** argv);
 int has_missing_args(char* location, int archaeologists,
                int passes, int expected_packages);
+int dig_common(int archaeologists, int expected_packages,
+               int verbose, int passes, char* location)
 #endif /* ANCIENTPKG_H */
