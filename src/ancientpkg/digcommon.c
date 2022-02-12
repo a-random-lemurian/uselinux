@@ -1,6 +1,8 @@
 #include "ancientpkg.h"
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>
+#include <common/utils.h>
+#include <time.h>
 #include <stdio.h>
 
 int dig_common(int archaeologists, int expected_packages,
@@ -8,7 +10,7 @@ int dig_common(int archaeologists, int expected_packages,
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
-    MTRand mtw = seedRand(((unsigned long)loops + clock()));
+    MTRand mtw = seedRand(clock());
 
     int packages = 0;
     char endch = verbose ? '\n' : '\r';
