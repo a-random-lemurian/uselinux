@@ -1,7 +1,38 @@
 /* Documentation in docs/dig_from_json.md */
 
 #include "ancientpkg.h"
+#include <string.h>
 #include <parson/parson.h>
+
+int has_missing_package_params(JSON_Object* package)
+{
+    const char* maintainer = json_object_get_string(package, "maintainer");
+    if (maintainer == NULL)
+    {
+        return 1;
+    }
+    if (!strcmp(maintainer, "multiple"))
+    {
+        JSON_Array* maintainers = json_object_get_array(package,
+                                                        "maintainers");
+        if (maintainers == NULL)
+        {
+            return 1;
+        }
+    }
+
+    const char* pkgname = json_object_get_string(package, "packageName");
+    if (pkgname == NULL)
+    {
+        return 1;
+    }
+
+    const char* license = json_object_get_string(package, "license");
+    if (license == NULL)
+    {
+        return 1;
+    }
+}
 
 int dig_from_json(char* filename)
 {
