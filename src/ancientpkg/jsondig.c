@@ -2,36 +2,44 @@
 
 #include "ancientpkg.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <parson/parson.h>
+#include <common/ansiescapes.h>
 
 int has_missing_package_params(JSON_Object* package)
 {
+    int has_missing = 0;
     const char* maintainer = json_object_get_string(package, "maintainer");
     if (maintainer == NULL)
     {
-        return 1;
+        printf(ERROR "Missing parameter \"maintainer\" in package.\n");
+        has_missing = 1;
     }
+
     if (!strcmp(maintainer, "multiple"))
     {
         JSON_Array* maintainers = json_object_get_array(package,
                                                         "maintainers");
         if (maintainers == NULL)
         {
-            return 1;
+            printf(ERROR "Missing parameter \"maintainers\" in package.\n");
+            has_missing = 1;
         }
     }
 
     const char* pkgname = json_object_get_string(package, "packageName");
     if (pkgname == NULL)
     {
-        return 1;
+        printf(ERROR "Missing parameter \"packageName\" in package.\n");
+        has_missing = 1;
     }
 
     const char* license = json_object_get_string(package, "license");
     if (license == NULL)
     {
-        return 1;
+        printf(ERROR "Missing parameter \"license\" in package.\n");
+        has_missing = 1;
     }
 }
 
