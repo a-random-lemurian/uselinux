@@ -37,7 +37,7 @@ int has_missing_package_params(JSON_Object* package)
 
 int dig_from_json(char* filename)
 {
-    JSON_Value *job = json_parse_file_with_comments((const char**)filename);
+    JSON_Value *job = json_parse_file_with_comments((const char*)filename);
     JSON_Object *root = json_object(job);
 
     /* Look for the required fields. */
