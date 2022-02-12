@@ -17,4 +17,6 @@ typedef struct PackageDatingResult {
 
 int cmd_dig(int argc, char** argv);
 int cmd_date(int argc, char** argv);
+int has_missing_args(char* location, int archaeologists,
+               int passes, int expected_packages);
 #endif /* ANCIENTPKG_H */

@@ -54,30 +54,10 @@ int cmd_dig(int argc, char **argv)
     argparse_init(&ap, opts, NULL, 0);
     argparse_parse(&ap, argc, (const char **)argv);
 
-    int had_fatal_err = 0;
-    if (location == NULL)
+
+    if (has_missing_args(location, archaeologists, passes, expected_packages))
     {
-        printf(ERROR "location must be specified\n");
-        had_fatal_err = 1;
-    }
-    if (archaeologists <= 1)
-    {
-        printf(ERROR "need more than 1 archaeologist.\n");
-        had_fatal_err = 1;
-    }
-    if (passes <= 0)
-    {
-        printf(ERROR "need more than 1 pass.\n");
-        had_fatal_err = 1;
-    }
-    if (expected_packages <= 0)
-    {
-        printf(ERROR "need to expect more than 1 package.\n");
-        had_fatal_err = 1;
-    }
-    if (had_fatal_err)
-    {
-        printf("use --help for help.\n");
+        printf("From the command line: missing arguments.\n");
         exit(1);
     }
 
