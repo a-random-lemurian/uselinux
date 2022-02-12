@@ -13,6 +13,7 @@ int cmd_dig(int argc, char **argv)
     int expected_packages = -1;
     int passes = -1;
     int verbose = 0;
+    char *jsonfile = NULL;
     char *location = NULL;
 
     /* TODO: implement these options
@@ -33,6 +34,7 @@ int cmd_dig(int argc, char **argv)
                     "Packages to expect from digging job."),
         OPT_INTEGER('P', "passes", &passes, "Number of passes to make."),
         OPT_STRING('l', "location", &location, "Location of package dig job."),
+        OPT_STRING(0, "from-json", &jsonfile, "Read package dig config from JSON file"),
         OPT_BOOLEAN('v', "verbose", &verbose, "Verbose output"),
 
         /* TODO: Implement these options
@@ -54,6 +56,10 @@ int cmd_dig(int argc, char **argv)
     argparse_init(&ap, opts, NULL, 0);
     argparse_parse(&ap, argc, (const char **)argv);
 
+    if (jsonfile != NULL)
+    {
+        dig_from_json(jsonfile);
+    }
 
     if (has_missing_args(location, archaeologists, passes, expected_packages))
     {
