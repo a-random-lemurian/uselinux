@@ -17,8 +17,9 @@ typedef struct PackageDatingResult {
 
 int cmd_dig(int argc, char** argv);
 int cmd_date(int argc, char** argv);
+int dig_from_json(char* filename);
 int has_missing_args(char* location, int archaeologists,
                int passes, int expected_packages);
 int dig_common(int archaeologists, int expected_packages,
-               int verbose, int passes, char* location)
+               int verbose, int passes, char* location);
 #endif /* ANCIENTPKG_H */
