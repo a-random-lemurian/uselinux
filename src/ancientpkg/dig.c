@@ -35,7 +35,7 @@ int cmd_dig(int argc, char **argv)
                     "Packages to expect from digging job."),
         OPT_INTEGER('P', "passes", &passes, "Number of passes to make."),
         OPT_STRING('l', "location", &location, "Location of package dig job."),
-        OPT_BOOLEAN('v', "version", &verbose, "Verbose output"),
+        OPT_BOOLEAN('v', "verbose", &verbose, "Verbose output"),
 
         /* TODO: Implement these options
         OPT_BOOLEAN(0, "aggressive-diggers", &aggressive_diggers,
