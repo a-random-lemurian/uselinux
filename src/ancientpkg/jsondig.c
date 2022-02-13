@@ -75,9 +75,7 @@ void process_single_package(JSON_Object* package, size_t i)
 
         for (int i = 0; i < randint(30, 70); i++)
         {
-            printf("Get:%d:high-priority-packages:/%s stable (%d ms) "
-                   "[200 OK]\n", i, pkgname, sleep);
-
+            int pkg_delay = randint(40,133);
             if ((randint(1, sleep)) > ((int)ceil((sleep / 100) * 94)))
             {
                 printf(WARN "failed to get package shard %d %s (stable)\n",
@@ -102,6 +100,12 @@ void process_single_package(JSON_Object* package, size_t i)
                     }
                 }
             }
+            else
+            {
+                printf("Get:%d:high-priority-packages:/%s stable (%d ms) "
+                       "[200 OK]\n", i, pkgname, pkg_delay);
+            }
+
         }
     }
 }
