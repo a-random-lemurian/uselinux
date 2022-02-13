@@ -38,30 +38,6 @@ int validate_json_package(JSON_Object* package)
     return validate_package(&pkg);
 }
 
-void package_shard_failure(int i, char* pkgname)
-{
-    printf(WARN "failed to get package shard %d %s (stable)\n",
-       i, pkgname);
-
-    printf("attempting to resolve the situation....\n");
-    msleep(randint(100, 3000));
-    for (int n = 0; n < 400; n++)
-    {
-        printf("Checking package src %d.... ", n);
-        fflush(stdout);
-        msleep(randint(1,300));
-        if (randint(1, 100) > 90)
-        {
-            printf("shard found.\n");
-            break;
-        }
-        else
-        {
-            printf(" shard not found.\n");
-        }
-    }
-}
-
 void process_single_package(JSON_Object* package, size_t i)
 {
     if (validate_json_package(package))
