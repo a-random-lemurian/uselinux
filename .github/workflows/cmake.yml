@@ -29,3 +29,6 @@ jobs:
       
     - name: Run rmbloat
       run: ${{github.workspace}}/build/bin/rmbloat rm -l windows macos bloated-package-example "package name with spaces" libbloat
+
+    - name: Dig up some ancient Debian packages
+      run: ${{github.workspace}}/build/bin/ancientpkg dig --archaeologists=5000 --expected-pkgs=3900 --location=land-of-github-actions --verbose --passes=30
