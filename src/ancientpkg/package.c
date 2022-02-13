@@ -54,6 +54,7 @@ int create_package(Package* self, char* name, char* license)
 int set_pkg_maintainer(Package* self, char* maintainer)
 {
     self->maintainer = maintainer;
+    self->maintainers_ls = NULL;
     return 0;
 }
 
