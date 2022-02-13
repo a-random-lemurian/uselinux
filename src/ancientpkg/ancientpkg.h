@@ -1,5 +1,6 @@
 #ifndef ANCIENTPKG_H
 #define ANCIENTPKG_H
+#define WARN BHYEL "warning: " reset
 #define ERROR BHRED "error: " reset
 
 typedef struct Subcommand
