@@ -110,4 +110,5 @@ int dig_from_json(char* filename)
     json_value_free(root);
     
     dig_common(archaeologists, expected_packages, 1, passes, location);
+    exit(0);
 }
