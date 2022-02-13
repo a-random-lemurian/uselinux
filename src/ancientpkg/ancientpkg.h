@@ -26,6 +26,13 @@ typedef struct DigControlFlags {
     int curse_check;
 } DigControlFlags;
 
+typedef struct Package {
+    char* name;
+    char* maintainer;
+    char** maintainers_ls;
+    char* license;
+} Package;
+
 int set_dig_control_flags(DigControlFlags* dcf, int aggressive_diggers,
                           int better_pickaxes,
                           int dust_carefully, int source_packages,
@@ -39,4 +46,10 @@ int has_missing_args(char* location, int archaeologists,
 int dig_common(int archaeologists, int expected_packages,
                int verbose, int passes, char* location);
 void package_shard_failure(int i, char* pkgname);
+
+/* Packages ******************************************************************/
+int validate_package(Package* self);
+int create_package(Package* self, char* name, char* license);
+int set_pkg_maintainer(Package* self, char* maintainer);
+int set_pkg_multiple_maintainers(Package* self, char** maintainers);
 #endif /* ANCIENTPKG_H */

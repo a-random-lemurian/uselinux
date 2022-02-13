@@ -8,81 +8,45 @@
 #include <common/ansiescapes.h>
 #include <common/utils.h>
 
-int validate_package(JSON_Object* package)
+int validate_json_package(JSON_Object* package)
 {
-    int has_missing = 0;
     const char* maintainer = json_object_get_string(package, "maintainer");
-    if (maintainer == NULL)
-    {
-        printf(ERROR "Missing parameter \"maintainer\" in package.\n");
-        has_missing = 1;
-    }
-
     JSON_Array* maintainers = json_object_get_array(package, "maintainers");
-    if (!strcmp(maintainer, "multiple"))
-    {
-        if (maintainers == NULL)
-        {
-            printf(ERROR "Missing parameter \"maintainers\" in package.\n");
-            has_missing = 1;
-        }
-    }
-    else
-    {
-        if (maintainers != NULL)
-        {
-            printf(ERROR "Both \"maintainer\" and \"maintainers\" fields "
-                   "were filled in.\n");
-            has_missing = 1;
-        }
-    }
-
     const char* pkgname = json_object_get_string(package, "packageName");
-    if (pkgname == NULL)
-    {
-        printf(ERROR "Missing parameter \"packageName\" in package.\n");
-        has_missing = 1;
-    }
-
     const char* license = json_object_get_string(package, "license");
-    if (license == NULL)
+    size_t number_of_maintainers = json_array_get_count(maintainers);
+
+    char* maintainers_ls[number_of_maintainers];
+
+    if (maintainers != NULL)
     {
-        printf(ERROR "Missing parameter \"license\" in package.\n");
-        has_missing = 1;
-    }
-
-    return has_missing;
-}
-
-void package_shard_failure(int i, char* pkgname)
-{
-    printf(WARN "failed to get package shard %d %s (stable)\n",
-       i, pkgname);
-
-    printf("attempting to resolve the situation....\n");
-    msleep(randint(100, 3000));
-    for (int n = 0; n < 400; n++)
-    {
-        printf("Checking package src %d.... ", n);
-        fflush(stdout);
-        msleep(randint(1,300));
-        if (randint(1, 100) > 90)
+        for (size_t i = 0; i < number_of_maintainers; i++)
         {
-            printf("shard found.\n");
-            break;
-        }
-        else
-        {
-            printf(" shard not found.\n");
+            maintainers_ls[i] = json_array_get_string(maintainers, i);
         }
     }
+
+    Package pkg;
+    create_package(&pkg, pkgname, license);
+
+    set_pkg_maintainer(&pkg, maintainer);
+    if (maintainers != NULL && !strcmp(maintainer, "multiple"))
+    {
+        set_pkg_multiple_maintainers(&pkg, (char**)maintainers_ls);
+    }
+
+    return validate_package(&pkg);
 }
 
 void process_single_package(JSON_Object* package, size_t i)
 {
-    if (validate_package(package))
+    if (validate_json_package(package))
     {
-        printf("Error: missing package params (package %ld)\n",i);
+        const char* pkgname = json_object_get_string(package, "packageName");
+        printf("Error: missing package params. \n"
+               "package %ld:\n"
+               "   name: %s\n",
+               i, pkgname);
         exit(1);
     }
     else

@@ -21,10 +21,23 @@ int dig_common(int archaeologists, int expected_packages,
         {
             int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
             msleep(sleep);
-            printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) [200 OK]       "
-                   "       %c",
-                   i, n, location, sleep, endch);
+
+            printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ",
+                   i, n, location, sleep);
             fflush(stdout);
+            if ((randint(1, 10000)) > 9995)
+            {
+                printf(" [404 Not Found]");
+                printf("\n");
+                char pkgname[512];
+                sprintf(pkgname, "package-ancient:%d", i);
+                package_shard_failure(i, (char*)pkgname);
+            }
+            else
+            {
+                printf("[200 OK]");
+            }
+            printf("                            %c",endch);
             packages++;
         }
     }
@@ -78,4 +91,28 @@ int set_dig_control_flags(DigControlFlags* dcf, int aggressive_diggers, int bett
     dcf->virus_check = virus_check;
     dcf->curse_check = curse_check;
     return 0;
+}
+
+void package_shard_failure(int i, char* pkgname)
+{
+    printf(WARN "failed to get package shard %d %s (stable)\n",
+       i, pkgname);
+
+    printf("attempting to resolve the situation....\n");
+    msleep(randint(100, 3000));
+    for (int n = 0; n < 400; n++)
+    {
+        printf("Checking package src %d.... ", n);
+        fflush(stdout);
+        msleep(randint(1,300));
+        if (randint(1, 100) > 90)
+        {
+            printf("shard found.\n");
+            break;
+        }
+        else
+        {
+            printf(" shard not found.\n");
+        }
+    }
 }
