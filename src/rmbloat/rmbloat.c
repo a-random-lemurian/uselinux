@@ -23,7 +23,7 @@ struct cmd_struct
 };
 
 static struct cmd_struct subcommands[] = {
-    {"from-csv", 8, rmbloat_csv, "Remove bloated packages listed in a file"},
+    {"from-file", 8, rmbloat_from_file, "Remove bloated packages listed in a file"},
     {"rm", 2, rmbloat_rm, "Remove bloated packages from the command line"}};
 
 #define ARRSZ(a) sizeof(a) / sizeof(a[0])
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     argparse_init(&argparse, options, usages, ARGPARSE_STOP_AT_NON_OPTION);
     argc = argparse_parse(&argparse, argc, (const char **)argv);
 
-    if (flag_help || argc == 1)
+    if (flag_help || argc == 0)
     {
         argparse_help_cb_no_exit(&argparse, options);
 
