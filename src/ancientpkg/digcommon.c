@@ -40,6 +40,10 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
             printf("                            %c", endch);
             packages++;
         }
+        if (!verbose)
+        {
+            printf("\n");
+        }
     }
 
     return packages;
