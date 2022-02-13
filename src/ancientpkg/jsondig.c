@@ -66,7 +66,11 @@ void process_single_package(JSON_Object* package, size_t i)
 {
     if (validate_json_package(package))
     {
-        printf("Error: missing package params (package %ld)\n",i);
+        const char* pkgname = json_object_get_string(package, "packageName");
+        printf("Error: missing package params. \n"
+               "package %ld:\n"
+               "   name: %s\n",
+               i, pkgname);
         exit(1);
     }
     else
