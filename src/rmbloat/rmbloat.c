@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     argparse_init(&argparse, options, usages, ARGPARSE_STOP_AT_NON_OPTION);
     argc = argparse_parse(&argparse, argc, (const char **)argv);
 
-    if (flag_help || argc == 0)
+    if (flag_help || !argc)
     {
         argparse_help_cb_no_exit(&argparse, options);
 
