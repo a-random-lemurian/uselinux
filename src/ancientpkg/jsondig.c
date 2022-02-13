@@ -53,6 +53,37 @@ int validate_package(JSON_Object* package)
     return has_missing;
 }
 
+void process_single_package(JSON_Object* package, size_t i)
+{
+    if (validate_package(package))
+    {
+        printf("Error: missing package params (package %ld)\n",i);
+        exit(1);
+    }
+    else
+    {
+        const char* pkgname = 
+                json_object_get_string(package, "packageName");
+        const char* license =
+                json_object_get_string(package, "license");
+        printf("[PRIORITY] Prepare excavation of high-priority "
+               "package %s (License: %s)\n", pkgname, license);
+    }
+}
+
+void process_multiple_packages(JSON_Array* packages)
+{
+    JSON_Object* package;
+    for (size_t i = 0; i < json_array_get_count(packages); i++)
+    {
+        package = json_array_get_object(packages, i);
+        if (package != NULL)
+        {
+            process_single_package(package, i);
+        }
+    }
+}
+
 int dig_from_json(char* filename)
 {
     JSON_Value *job = json_parse_file_with_comments((const char*)filename);
@@ -85,30 +116,9 @@ int dig_from_json(char* filename)
     }
 
     JSON_Array* packages = json_object_get_array(root, "packages");
-    JSON_Object* package;
     if (packages != NULL)
     {
-        for (size_t i = 0; i < json_array_get_count(packages); i++)
-        {
-            package = json_array_get_object(packages, i);
-            if (package != NULL)
-            {
-                if (validate_package(package))
-                {
-                    printf("Error: missing package params (package %ld)\n",i);
-                    exit(1);
-                }
-                else
-                {
-                    const char* pkgname = 
-                            json_object_get_string(package, "packageName");
-                    const char* license =
-                            json_object_get_string(package, "license");
-                    printf("[PRIORITY] Prepare excavation of high-priority "
-                           "package %s (License: %s)\n", pkgname, license);
-                }
-            }
-        }
+        process_multiple_packages(packages);
     }
 
     json_value_free(root);
