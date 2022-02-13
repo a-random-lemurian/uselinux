@@ -42,7 +42,7 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
         }
         if (!verbose)
         {
-            printf("\n");
+            printf(" (clock: %ld ms)\n", clock());
         }
     }
 
