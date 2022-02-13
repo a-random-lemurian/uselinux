@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "rmbloatapi.h"
 
-#include <common/csv.h>
 #include <common/utils.h>
 #include <common/argparse.h>
 
@@ -21,7 +20,7 @@ static const char *const usage[] = {
 };
 
 
-int rmbloat_csv(int argc, const char** argv)
+int rmbloat_from_file(int argc, const char** argv)
 {
     if (argc == 1)
     {
@@ -38,7 +37,7 @@ int rmbloat_csv(int argc, const char** argv)
         OPT_GROUP("Basic options"),
         OPT_BOOLEAN('w', "wait", &wait, "wait 10 seconds before starting"),
         OPT_BOOLEAN('s', "fast", &fast, "remove bloat faster"),
-        OPT_STRING('f', "file", &file, "path to CSV file"),
+        OPT_STRING('f', "file", &file, "path to file"),
         OPT_END()
     };
 
@@ -55,9 +54,7 @@ int rmbloat_csv(int argc, const char** argv)
     ssize_t read;
     while ((read = getline(&line, &len, fp)) != -1)
     {
-        rm_pkgs = parse_csv(line);
-        pkg = rm_pkgs[0];
-        pkg[strcspn(pkg, "\r\n")] = 0;
-        remove_bloatware(pkg, fast);
+        line[strcspn(pkg, "\r\n")] = 0;
+        remove_bloatware(line, fast);
     }
 }
