@@ -80,7 +80,6 @@ void process_single_package(JSON_Object* package, size_t i)
             {
                 printf(WARN "failed to get package shard %d %s (stable)\n",
                        i, pkgname);
-                --i;
 
                 printf("attempting to resolve the situation....\n");
                 msleep(randint(100, 3000));
