@@ -88,8 +88,8 @@ void process_single_package(JSON_Object* package, size_t i)
                 {
                     printf("Checking package src %d.... ");
                     fflush(stdout);
-                    msleep(randint(1,30));
-                    if (randint(1, 100) > 20)
+                    msleep(randint(1,300));
+                    if (randint(1, 100) > 90)
                     {
                         printf("shard found.\n");
                         break;
