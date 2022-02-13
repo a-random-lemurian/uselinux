@@ -23,7 +23,8 @@ struct cmd_struct
 };
 
 static struct cmd_struct subcommands[] = {
-    {"from-file", 8, rmbloat_from_file, "Remove bloated packages listed in a file"},
+    {"from-file", 8, rmbloat_from_file,
+     "Remove bloated packages listed in a file"},
     {"rm", 2, rmbloat_rm, "Remove bloated packages from the command line"}};
 
 #define ARRSZ(a) sizeof(a) / sizeof(a[0])

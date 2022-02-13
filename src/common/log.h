@@ -39,12 +39,18 @@ enum
     LOGH_LOG_FATAL
 };
 
-#define log_trace(...) log_log(LOGH_LOG_TRACE, LOGGER_NAME, __LINE__, __VA_ARGS__)
-#define log_debug(...) log_log(LOGH_LOG_DEBUG, LOGGER_NAME, __LINE__, __VA_ARGS__)
-#define log_info(...) log_log(LOGH_LOG_INFO, LOGGER_NAME, __LINE__, __VA_ARGS__)
-#define log_warn(...) log_log(LOGH_LOG_WARN, LOGGER_NAME, __LINE__, __VA_ARGS__)
-#define log_error(...) log_log(LOGH_LOG_ERROR, LOGGER_NAME, __LINE__, __VA_ARGS__)
-#define log_fatal(...) log_log(LOGH_LOG_FATAL, LOGGER_NAME, __LINE__, __VA_ARGS__)
+#define log_trace(...)                                                        \
+    log_log(LOGH_LOG_TRACE, LOGGER_NAME, __LINE__, __VA_ARGS__)
+#define log_debug(...)                                                        \
+    log_log(LOGH_LOG_DEBUG, LOGGER_NAME, __LINE__, __VA_ARGS__)
+#define log_info(...)                                                         \
+    log_log(LOGH_LOG_INFO, LOGGER_NAME, __LINE__, __VA_ARGS__)
+#define log_warn(...)                                                         \
+    log_log(LOGH_LOG_WARN, LOGGER_NAME, __LINE__, __VA_ARGS__)
+#define log_error(...)                                                        \
+    log_log(LOGH_LOG_ERROR, LOGGER_NAME, __LINE__, __VA_ARGS__)
+#define log_fatal(...)                                                        \
+    log_log(LOGH_LOG_FATAL, LOGGER_NAME, __LINE__, __VA_ARGS__)
 
 const char *log_level_string(int level);
 void log_set_lock(log_LockFn fn, void *udata);

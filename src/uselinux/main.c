@@ -3,10 +3,8 @@
 #include "userspace.h"
 #include "yearoflinuxdesktop.h"
 
-
-#include <common/utils.h>
 #include <common/argparse.h>
-
+#include <common/utils.h>
 
 #include <argp.h>
 #include <stdio.h>
@@ -93,8 +91,7 @@ int main(int argc, const char **argv)
         OPT_GROUP("Other options"),
         OPT_BOOLEAN(0, "no-typewriter", &arg_no_typewriter,
                     "Do not print messages with typewriter effect"),
-        OPT_END()
-    };
+        OPT_END()};
 
     struct argparse argparse;
     argparse_init(&argparse, opts, usage, 0);

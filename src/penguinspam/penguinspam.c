@@ -11,8 +11,8 @@
 #include "penguinspam.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
+#include <time.h>
 
 #include <common/utils.h>
 
@@ -21,9 +21,9 @@
 
 // penguinspam Internals //////////////////////////////////////////////////////
 
-char* _get_linux_distro()
+char *_get_linux_distro()
 {
-    char* distro = malloc(64);
+    char *distro = malloc(64);
 
     char distros[][64] = {
         "MX Linux",     "EndeavourOS", "Manjaro",       "Mint",
@@ -51,7 +51,7 @@ char* _get_linux_distro()
 
     if (distro != NULL)
     {
-        strcpy(distro, distros[randint(1,LEN(distros)) - 1]);
+        strcpy(distro, distros[randint(1, LEN(distros)) - 1]);
     }
     else
     {
@@ -64,15 +64,9 @@ char* _get_linux_distro()
 
 int _is_valid_penguin(char *penguin_type)
 {
-    const char valid_penguins[][16] = {
-        "emperor",
-        "snares",
-        "little",
-        "yelloweyed",
-        "gentoo",
-        "african",
-        "mixed"
-    };
+    const char valid_penguins[][16] = {"emperor",    "snares", "little",
+                                       "yelloweyed", "gentoo", "african",
+                                       "mixed"};
 
     for (int i = 0; i < LEN(valid_penguins); i++)
     {
@@ -94,7 +88,7 @@ int _is_valid_penguin(char *penguin_type)
 void free_psj_mem(penguin_spam_job *job) { free(job->__error__); }
 
 int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location,
-                        char* penguin_type)
+                        char *penguin_type)
 {
     job->__error__ = malloc(512);
 
@@ -121,8 +115,9 @@ int mk_penguin_spam_job(penguin_spam_job *job, int penguins, char *location,
     if (!_is_valid_penguin(penguin_type))
     {
         sprintf(job->__error__,
-                 "Error: penguin type %s is invalid. Must be of: african, gentoo, yelloweyed, little, snares, emperor",
-                 penguin_type);
+                "Error: penguin type %s is invalid. Must be of: african, "
+                "gentoo, yelloweyed, little, snares, emperor",
+                penguin_type);
         return PENGUIN_SPAM_INVALID_PENGUIN;
     }
 
@@ -140,7 +135,6 @@ int execute_penguin_spam_job(penguin_spam_job *job)
     log_info("Acquired penguins.");
     log_info("Sending %d penguins to %s, done.", job->penguins, job->location);
 
-
     if (job->penguins >= 1000000)
     {
         log_warn("More than 1 million penguins. Lowering verbosity.");
@@ -149,20 +143,25 @@ int execute_penguin_spam_job(penguin_spam_job *job)
     {
         for (int i = 0; i < job->penguins; i++)
         {
-            if (randint(1,100000) > 99990)
+            if (randint(1, 100000) > 99990)
             {
-                log_error("%d: Corrupted partition caused by minor penguin action.", i);
+                log_error(
+                    "%d: Corrupted partition caused by minor penguin action.",
+                    i);
             }
-            else if (randint(1,100000) > 86800)
+            else if (randint(1, 100000) > 86800)
             {
-                char* distro = _get_linux_distro();
-                log_warn("%d: Microsoft employee refused to accept copy of %s from penguin.", i, distro);
+                char *distro = _get_linux_distro();
+                log_warn("%d: Microsoft employee refused to accept copy of %s "
+                         "from penguin.",
+                         i, distro);
                 free(distro);
             }
-            else if (randint(1,100000) > 43000)
+            else if (randint(1, 100000) > 43000)
             {
-                char* distro = _get_linux_distro();
-                log_info("%d: Convinced person to switch to %s successfully!", i, distro);
+                char *distro = _get_linux_distro();
+                log_info("%d: Convinced person to switch to %s successfully!",
+                         i, distro);
                 free(distro);
             }
             else
@@ -183,7 +182,7 @@ int finish_penguin_spam_job(penguin_spam_job *job)
     return PENGUIN_SPAM_OK;
 }
 
-int check_food_type(char* type)
+int check_food_type(char *type)
 {
     if (!strcasecmp(type, "squid"))
     {

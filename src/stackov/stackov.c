@@ -3,9 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include <common/argparse.h>
-
 
 #define STACKOV_SEARCH_URL "https://stackoverflow.com/search?q="
 

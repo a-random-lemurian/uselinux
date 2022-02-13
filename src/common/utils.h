@@ -31,7 +31,7 @@ void typewriter(const char *txt, int freq);
 /**
  * @brief Print text with a typewriter effect, with the time between the
  * printing of each individual character ranmdomized.
- * 
+ *
  * @param txt Text to print with typewriter effect.
  * @param min Minimum delay between each character.
  * @param max Maximum delay.
@@ -82,7 +82,7 @@ void segfault_or_abort(int threshold);
 
 /**
  * @brief Get the time.
- * 
+ *
  * @return struct tm The time.
  */
 struct tm get_time();

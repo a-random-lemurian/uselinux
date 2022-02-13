@@ -18,7 +18,8 @@ int main(int argc, char **argv)
         OPT_BOOLEAN('O', "old", &use_old_method,
                     "Call old method to snap at snaps"),
         OPT_END()};
-    const char *usages[] = {"antisnap [--anger-level=LVL] [--distro=DISTRO]", NULL};
+    const char *usages[] = {"antisnap [--anger-level=LVL] [--distro=DISTRO]",
+                            NULL};
     argparse_init(&argparse, options, usages, 0);
 
     if (argc == 1)
@@ -55,7 +56,8 @@ int main(int argc, char **argv)
             else if (anger_lvl > 201)
             {
                 printf("Are you really angry at snaps? That's a high anger "
-                       "level. (%d)\n",anger_lvl);
+                       "level. (%d)\n",
+                       anger_lvl);
             }
         }
         else

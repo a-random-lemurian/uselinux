@@ -3,10 +3,10 @@
 #include <common/log.h>
 #include <common/utils.h>
 
-#include <string.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <signal.h>
+#include <string.h>
 #include <unistd.h>
 
 #define LOGGER_NAME "deskenv"
@@ -17,19 +17,18 @@ void sigint_handler()
     exit(1);
 }
 
-void desktop_environments(char* desk)
+void desktop_environments(char *desk)
 {
     signal(SIGINT, sigint_handler);
-
 
     if (!strcasecmp(desk, "gnome"))
     {
         log_info("GNOME desktop detected.");
         log_warn("GNOME desktop is causing the CPU to overheat!");
-        for (int i = 0; i < randint(30,70); i++)
+        for (int i = 0; i < randint(30, 70); i++)
         {
             log_warn("CPU Temperature (celsius): %d", randint(50, 80));
-            msleep(randint(12,55));
+            msleep(randint(12, 55));
         }
         if (randint(1, 800) >= 400)
         {
@@ -37,7 +36,7 @@ void desktop_environments(char* desk)
 
             for (int i = 0; i < randint(6, 8); i++)
             {
-                log_info("Successfully redirected Coolant Source %d.", i+1);
+                log_info("Successfully redirected Coolant Source %d.", i + 1);
                 msleep(randint(100, 4000));
             }
 

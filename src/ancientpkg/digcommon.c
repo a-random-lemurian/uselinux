@@ -2,11 +2,11 @@
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>
 #include <common/utils.h>
-#include <time.h>
 #include <stdio.h>
+#include <time.h>
 
-int dig_common(int archaeologists, int expected_packages,
-               int verbose, int passes, char* location)
+int dig_common(int archaeologists, int expected_packages, int verbose,
+               int passes, char *location)
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
@@ -22,8 +22,8 @@ int dig_common(int archaeologists, int expected_packages,
             int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
             msleep(sleep);
 
-            printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ",
-                   i, n, location, sleep);
+            printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n,
+                   location, sleep);
             fflush(stdout);
             if ((randint(1, 10000)) > 9995)
             {
@@ -31,13 +31,13 @@ int dig_common(int archaeologists, int expected_packages,
                 printf("\n");
                 char pkgname[512];
                 sprintf(pkgname, "package-ancient:%d", i);
-                package_shard_failure(i, (char*)pkgname);
+                package_shard_failure(i, (char *)pkgname);
             }
             else
             {
                 printf("[200 OK]");
             }
-            printf("                            %c",endch);
+            printf("                            %c", endch);
             packages++;
         }
     }
@@ -45,8 +45,8 @@ int dig_common(int archaeologists, int expected_packages,
     return packages;
 }
 
-int has_missing_args(char* location, int archaeologists,
-               int passes, int expected_packages)
+int has_missing_args(char *location, int archaeologists, int passes,
+                     int expected_packages)
 {
     int had_fatal_err = 0;
     if (location == NULL)
@@ -78,10 +78,10 @@ int has_missing_args(char* location, int archaeologists,
     return had_fatal_err;
 }
 
-int set_dig_control_flags(DigControlFlags* dcf, int aggressive_diggers, int better_pickaxes,
-                          int dust_carefully, int source_packages,
-                          int no_proprietary_packages, int virus_check,
-                          int curse_check)
+int set_dig_control_flags(DigControlFlags *dcf, int aggressive_diggers,
+                          int better_pickaxes, int dust_carefully,
+                          int source_packages, int no_proprietary_packages,
+                          int virus_check, int curse_check)
 {
     dcf->aggressive_diggers = aggressive_diggers;
     dcf->better_pickaxes = better_pickaxes;
@@ -93,10 +93,9 @@ int set_dig_control_flags(DigControlFlags* dcf, int aggressive_diggers, int bett
     return 0;
 }
 
-void package_shard_failure(int i, char* pkgname)
+void package_shard_failure(int i, char *pkgname)
 {
-    printf(WARN "failed to get package shard %d %s (stable)\n",
-       i, pkgname);
+    printf(WARN "failed to get package shard %d %s (stable)\n", i, pkgname);
 
     printf("attempting to resolve the situation....\n");
     msleep(randint(100, 3000));
@@ -104,7 +103,7 @@ void package_shard_failure(int i, char* pkgname)
     {
         printf("Checking package src %d.... ", n);
         fflush(stdout);
-        msleep(randint(1,300));
+        msleep(randint(1, 300));
         if (randint(1, 100) > 90)
         {
             printf("shard found.\n");

@@ -87,7 +87,7 @@ int cmd_date(int argc, char **argv)
 
     if (odds < 16)
     {
-        printf("%d\n",odds);
+        printf("%d\n", odds);
         if (json_file != NULL)
         {
             FILE *fp = fopen(json_file, "w");
@@ -104,7 +104,7 @@ int cmd_date(int argc, char **argv)
             printf("Package " HWHT "%s" reset
                    " is %d years old (dated with %s)\n",
                    pkg, pkg_age, method);
-            
+
             if (pkg_age < 200)
             {
                 printf("That's a very young package. How rare, indeed.\n");
@@ -117,7 +117,7 @@ int cmd_date(int argc, char **argv)
             }
             else
             {
-                printf(BHYEL"warning:"reset" No historical context for %s.",
+                printf(BHYEL "warning:" reset " No historical context for %s.",
                        pkg);
             }
             exit(0);

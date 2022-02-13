@@ -25,7 +25,7 @@
 
 typedef struct penguin_food
 {
-    char* food;
+    char *food;
     int qty;
 } penguin_food;
 

@@ -19,5 +19,4 @@ double genRand(MTRand *rand);
 
 #endif /* #ifndef __MTWISTER_H */
 
-
 #endif /* MTWISTER_H */

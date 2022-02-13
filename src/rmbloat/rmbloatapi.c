@@ -3,8 +3,7 @@
 #include <common/utils.h>
 #include <stdio.h>
 
-
-void remove_bloatware(char* bloatware, int fast)
+void remove_bloatware(char *bloatware, int fast)
 {
     printf("removing %s....", bloatware);
     for (int i = 0; i < 65 - strlen(bloatware); i++)

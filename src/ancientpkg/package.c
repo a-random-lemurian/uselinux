@@ -4,8 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-
-int validate_package(Package* self)
+int validate_package(Package *self)
 {
     int has_missing = 0;
     if (self->maintainer == NULL)
@@ -26,7 +25,7 @@ int validate_package(Package* self)
         if (self->maintainers_ls != NULL)
         {
             printf(ERROR "Both \"maintainer\" and \"maintainers\" fields "
-                   "were filled in.\n");
+                         "were filled in.\n");
             has_missing = 1;
         }
     }
@@ -44,21 +43,21 @@ int validate_package(Package* self)
     return has_missing;
 }
 
-int create_package(Package* self, char* name, char* license)
+int create_package(Package *self, char *name, char *license)
 {
     self->name = name;
     self->license = license;
     return 0;
 }
 
-int set_pkg_maintainer(Package* self, char* maintainer)
+int set_pkg_maintainer(Package *self, char *maintainer)
 {
     self->maintainer = maintainer;
     self->maintainers_ls = NULL;
     return 0;
 }
 
-int set_pkg_multiple_maintainers(Package* self, char** maintainers)
+int set_pkg_multiple_maintainers(Package *self, char **maintainers)
 {
     self->maintainer = "multiple";
     self->maintainers_ls = maintainers;

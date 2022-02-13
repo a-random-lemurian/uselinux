@@ -6,6 +6,6 @@
  *
  * @param desk Name of desktop environment. Case insensitive.
  */
-void desktop_environments(char* desk);
+void desktop_environments(char *desk);
 
 #endif /* DESKENV_H */

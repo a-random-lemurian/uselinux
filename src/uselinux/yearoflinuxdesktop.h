@@ -2,10 +2,10 @@
 #define YEAROFLINUXDESKTOP_H
 
 #include "uselinuxcommon.h"
-#include <common/utils.h>
 #include <common/mtwister.h>
-#include <stdio.h>
+#include <common/utils.h>
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
@@ -25,7 +25,7 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr);
 
 /**
  * @brief Get the year of the Linux desktop. For real, this time.
- * 
+ *
  * @return int The year of the Linux desktop.
  */
 int get_year_of_linux_desktop();
