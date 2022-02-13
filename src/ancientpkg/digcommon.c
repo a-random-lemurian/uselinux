@@ -21,10 +21,19 @@ int dig_common(int archaeologists, int expected_packages,
         {
             int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
             msleep(sleep);
+
+            /* TODO: don't print 200 OK when package shard failure occurs */
             printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) [200 OK]       "
                    "       %c",
                    i, n, location, sleep, endch);
             fflush(stdout);
+            if ((randint(1, 10000)) > 9995)
+            {
+                printf("\n");
+                char pkgname[512];
+                sprintf(pkgname, "package-ancient:%d", i);
+                package_shard_failure(i, (char*)pkgname);
+            }
             packages++;
         }
     }
