@@ -17,7 +17,7 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 
     for (int n = 0; n < passes; n++)
     {
-        for (int i = 0; i < loops; i++)
+        for (int i = 0; i < ((loops) + randint(1, 10)); i++)
         {
             int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
             msleep(sleep);
