@@ -85,7 +85,7 @@ void process_single_package(JSON_Object* package, size_t i)
                 msleep(randint(100, 3000));
                 for (int n = 0; n < 400; n++)
                 {
-                    printf("Checking package src %d.... ");
+                    printf("Checking package src %d.... ", n);
                     fflush(stdout);
                     msleep(randint(1,300));
                     if (randint(1, 100) > 90)
