@@ -22,14 +22,14 @@ int validate_json_package(JSON_Object* package)
     {
         for (size_t i = 0; i < number_of_maintainers; i++)
         {
-            maintainers_ls[i] = json_array_get_string(maintainers, i);
+            maintainers_ls[i] = (char*)json_array_get_string(maintainers, i);
         }
     }
 
     Package pkg;
-    create_package(&pkg, pkgname, license);
+    create_package(&pkg, (char*)pkgname, (char*)license);
 
-    set_pkg_maintainer(&pkg, maintainer);
+    set_pkg_maintainer(&pkg, (char*)maintainer);
     if (maintainers != NULL && !strcmp(maintainer, "multiple"))
     {
         set_pkg_multiple_maintainers(&pkg, (char**)maintainers_ls);
@@ -66,7 +66,7 @@ void process_single_package(JSON_Object* package, size_t i)
             int pkg_delay = randint(40,133);
             if ((randint(1, sleep)) > ((int)ceil((sleep / 100) * 94)))
             {
-                package_shard_failure(i, pkgname);
+                package_shard_failure(i, (char*)pkgname);
             }
             else
             {
@@ -98,7 +98,7 @@ int dig_from_json(char* filename)
 
     /* Look for the required fields. */
     char* location = NULL;
-    location = json_object_get_string(root, "location");
+    location = (char*)json_object_get_string(root, "location");
 
     int archaeologists = -1;
     archaeologists = json_object_get_number(root, "archaeologists");
