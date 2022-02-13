@@ -32,6 +32,7 @@ int validate_package(JSON_Object* package)
         {
             printf(ERROR "Both \"maintainer\" and \"maintainers\" fields "
                    "were filled in.\n");
+            has_missing = 1;
         }
     }
 
@@ -48,6 +49,8 @@ int validate_package(JSON_Object* package)
         printf(ERROR "Missing parameter \"license\" in package.\n");
         has_missing = 1;
     }
+
+    return has_missing;
 }
 
 int dig_from_json(char* filename)
@@ -93,6 +96,7 @@ int dig_from_json(char* filename)
                 if (validate_package(package))
                 {
                     printf("Error: missing package params (package %ld)\n",i);
+                    exit(1);
                 }
                 else
                 {
