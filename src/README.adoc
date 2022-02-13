@@ -1,0 +1,10 @@
+# uselinux Source Directory
+Here lies the uselinux Source Directory.
+
+[horizontal]
+ancientpkg:: The package digging system. Debian packages are very old (the youngest packages are approximately 10,000 years old). Due to their age, they provide us insights into the early history of Debian. `ancientpkg` is the universal package archaeology system, and Debian is the universal operating system.
+penguinspam:: Spams areas with Linux penguins.
+rmbloat:: Removes bloated packages.
+stackov:: Opens Stack Overflow from the command line.
+uselinux:: Uses Linux. Prints out common memes about Linux.
+common:: Libraries and source files that all the parts of the application use, such as the argparse library.
