@@ -7,7 +7,7 @@
 #include <parson/parson.h>
 #include <common/ansiescapes.h>
 
-int has_missing_package_params(JSON_Object* package)
+int validate_package(JSON_Object* package)
 {
     int has_missing = 0;
     const char* maintainer = json_object_get_string(package, "maintainer");
@@ -17,14 +17,21 @@ int has_missing_package_params(JSON_Object* package)
         has_missing = 1;
     }
 
+    JSON_Array* maintainers = json_object_get_array(package, "maintainers");
     if (!strcmp(maintainer, "multiple"))
     {
-        JSON_Array* maintainers = json_object_get_array(package,
-                                                        "maintainers");
         if (maintainers == NULL)
         {
             printf(ERROR "Missing parameter \"maintainers\" in package.\n");
             has_missing = 1;
+        }
+    }
+    else
+    {
+        if (maintainers != NULL)
+        {
+            printf(ERROR "Both \"maintainer\" and \"maintainers\" fields "
+                   "were filled in.\n");
         }
     }
 
@@ -83,7 +90,7 @@ int dig_from_json(char* filename)
             package = json_array_get_object(packages, i);
             if (package != NULL)
             {
-                if (has_missing_package_params(package))
+                if (validate_package(package))
                 {
                     printf("Error: missing package params (package %ld)\n",i);
                 }
