@@ -23,4 +23,5 @@ int has_missing_args(char* location, int archaeologists,
                int passes, int expected_packages);
 int dig_common(int archaeologists, int expected_packages,
                int verbose, int passes, char* location);
+void package_shard_failure(int i, char* pkgname);
 #endif /* ANCIENTPKG_H */
