@@ -128,7 +128,7 @@ int dig_from_json(char* filename)
         process_multiple_packages(packages);
     }
 
-    json_value_free(root);
+    json_value_free(job);
     
     dig_common(archaeologists, expected_packages, 1, passes, location);
     exit(0);
