@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <parson/parson.h>
 #include <common/ansiescapes.h>
+#include <common/utils.h>
 
 int validate_package(JSON_Object* package)
 {
@@ -68,6 +69,40 @@ void process_single_package(JSON_Object* package, size_t i)
                 json_object_get_string(package, "license");
         printf("[PRIORITY] Prepare excavation of high-priority "
                "package %s (License: %s)\n", pkgname, license);
+
+        int sleep = randint(500, 1000);
+        msleep(sleep);
+
+        for (int i = 0; i < randint(30, 70); i++)
+        {
+            printf("Get:%d:high-priority-packages:/%s stable (%d ms) "
+                   "[200 OK]\n", i, pkgname, sleep);
+
+            if ((randint(1, sleep)) > ((int)ceil((sleep / 100) * 94)))
+            {
+                printf(WARN "failed to get package shard %d %s (stable)\n",
+                       i, pkgname);
+                --i;
+
+                printf("attempting to resolve the situation....\n");
+                msleep(randint(100, 3000));
+                for (int n = 0; n < 400; n++)
+                {
+                    printf("Checking package src %d.... ");
+                    fflush(stdout);
+                    msleep(randint(1,30));
+                    if (randint(1, 100) > 20)
+                    {
+                        printf("shard found.\n");
+                        break;
+                    }
+                    else
+                    {
+                        printf(" shard not found.\n");
+                    }
+                }
+            }
+        }
     }
 }
 
