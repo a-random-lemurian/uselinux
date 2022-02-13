@@ -64,3 +64,18 @@ int has_missing_args(char* location, int archaeologists,
 
     return had_fatal_err;
 }
+
+int set_dig_control_flags(DigControlFlags* dcf, int aggressive_diggers, int better_pickaxes,
+                          int dust_carefully, int source_packages,
+                          int no_proprietary_packages, int virus_check,
+                          int curse_check)
+{
+    dcf->aggressive_diggers = aggressive_diggers;
+    dcf->better_pickaxes = better_pickaxes;
+    dcf->dust_carefully = dust_carefully;
+    dcf->source_packages = source_packages;
+    dcf->no_proprietary_packages = no_proprietary_packages;
+    dcf->virus_check = virus_check;
+    dcf->curse_check = curse_check;
+    return 0;
+}
