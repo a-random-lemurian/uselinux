@@ -90,10 +90,31 @@ void process_multiple_packages(JSON_Array *packages)
     }
 }
 
+int get_flag(JSON_Object* dcf_flags, char* name)
+{
+    int value = json_object_get_boolean(dcf_flags, name);
+
+    return value;
+}
+
+void get_dig_control_flags_from_json(DigControlFlags *dcf,
+                                     JSON_Object *dcf_flags)
+{
+    dcf->virus_check = get_flag(dcf_flags, "virusCheck");
+    dcf->curse_check = get_flag(dcf_flags, "curseCheck");
+    dcf->aggressive_diggers = get_flag(dcf_flags, "aggressiveDiggers");
+    dcf->better_pickaxes = get_flag(dcf_flags, "betterPickaxes");
+}
+
 int dig_from_json(char *filename)
 {
     JSON_Value *job = json_parse_file_with_comments((const char *)filename);
     JSON_Object *root = json_object(job);
+    JSON_Object *flags = json_object_get_object(root, "flags");
+    DigControlFlags dcf;
+
+    set_default_dig_control_flags(&dcf);
+    get_dig_control_flags_from_json(&dcf, flags);
 
     /* Look for the required fields. */
     char *location = NULL;
@@ -128,6 +149,7 @@ int dig_from_json(char *filename)
 
     json_value_free(job);
 
-    dig_common(archaeologists, expected_packages, 1, passes, location);
+
+    dig_common(archaeologists, expected_packages, 1, passes, location, &dcf);
     exit(0);
 }

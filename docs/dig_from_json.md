@@ -9,7 +9,15 @@ JSON file to read a dig job from.
     "expectedPackages": 6500,
     "passes": 5,
     "location": "Egypt",
-
+    "flags": {
+        "aggressiveDiggers": null,
+        "betterPickaxes": null,
+        "dustCarefully": null,
+        "sourcePackages": null,
+        "noProprietaryPackage": null,
+        "virusCheck": null,
+        "curseCheck": null
+    }
     "packages": [
         // Package syntax
     ]
@@ -36,6 +44,9 @@ arguments to this parameter.
 
 The `packages` parameter is a list of package objects, whose syntax is
 described in the below **Packages** section.
+
+The `flags` object contains several flags, described in the **Flags**
+section.
 
 The command line has support for the above 4 parameters. Their command-line
 equivalent flags are `--archaeologists`, `--expected-pkgs`, `--passes`,
@@ -73,3 +84,22 @@ other maintainers may be unordered.
 
 All three fields are mandatory (`maintainers` is mandatory if `maintainer`
 is "multiple").
+
+## Flags
+
+```json
+{
+        "aggressiveDiggers": null,
+        "betterPickaxes": null,
+        "dustCarefully": null,
+        "sourcePackages": null,
+        "noProprietaryPackage": null,
+        "virusCheck": null,
+        "curseCheck": null
+}
+```
+
+Only the `virusCheck` flag is implemented. When the `virusCheck` flag is
+specified, each package will undergo several malware scans to prevent
+the re-emergence of ancient viruses that may still be on these Debian
+packages.

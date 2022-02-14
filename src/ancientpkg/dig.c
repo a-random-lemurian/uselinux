@@ -25,6 +25,9 @@ int cmd_dig(int argc, char **argv)
     int virus_check;
     int curse_check; */
 
+    DigControlFlags dcf;
+    set_default_dig_control_flags(&dcf);
+
     struct argparse ap;
     struct argparse_option opts[] = {
         OPT_HELP(),
@@ -37,22 +40,24 @@ int cmd_dig(int argc, char **argv)
         OPT_STRING(0, "from-json", &jsonfile,
                    "Read package dig config from JSON file"),
         OPT_BOOLEAN('v', "verbose", &verbose, "Verbose output"),
+        OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
+                    "Scan packages for viruses."),
+        OPT_BOOLEAN(0, "curse-check", &dcf.curse_check,
+                    "Scan packages for ancient curses."),
+        OPT_BOOLEAN(0, "aggressive-diggers", &dcf.aggressive_diggers,
+                    "Dig very aggressively."),
+        OPT_BOOLEAN(0, "better-pickaxes", &dcf.better_pickaxes,
+                    "Provide diggers with better pickaxes."),
+        OPT_BOOLEAN(0, "ignore-missing-shards", &dcf.ignore_missing_shards,
+                    "Ignore missing package shards"),
 
         /* TODO: Implement these options
-        OPT_BOOLEAN(0, "aggressive-diggers", &aggressive_diggers,
-                    "Dig very aggressively."),
-        OPT_BOOLEAN(0, "better-pickaxes", &better_pickaxes,
-                    "Provide diggers with better pickaxes."),
         OPT_BOOLEAN(0, "dust-carefully", &dust_carefully,
                     "Dust for packages more carefully."),
         OPT_BOOLEAN(0, "source-packages", &source_packages,
                     "Include source packages."),
         OPT_BOOLEAN(0, "no-proprietary-packages", &no_proprietary_packages,
-                    "Include only free software."),
-        OPT_BOOLEAN(0, "virus-check", &virus_check,
-                    "Scan packages for viruses."),
-        OPT_BOOLEAN(0, "curse-check", &curse_check,
-                    "Scan packages for ancient curses."), */
+                    "Include only free software."), */
         OPT_END()};
     argparse_init(&ap, opts, NULL, 0);
     argparse_parse(&ap, argc, (const char **)argv);
@@ -71,7 +76,7 @@ int cmd_dig(int argc, char **argv)
     printf("Sending %d archaeologists to %s...\n", archaeologists, location);
 
     int packages = dig_common(archaeologists, expected_packages, verbose,
-                              passes, location);
+                              passes, location, &dcf);
 
     printf("Found %d packages.\n", packages);
 }

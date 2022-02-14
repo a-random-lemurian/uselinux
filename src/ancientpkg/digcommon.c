@@ -5,8 +5,144 @@
 #include <stdio.h>
 #include <time.h>
 
+void perform_ritual(int i, int *ritual_success)
+{
+    printf("%ld:attempting cleansing ritual... attempt %d", clock(), i);
+
+    if ((randint(1, 1000)) > 230)
+    {
+        printf(", " BHRED "failed." reset "\n");
+    }
+    else
+    {
+        printf(", " BHGRN "success." reset);
+        *ritual_success = 1;
+    }
+
+    msleep((randint(244, 652)));
+}
+
+void curse_check(int loops)
+{
+    if ((randint(1, 100000)) > 91700)
+    {
+        printf("\n" WARN "curse detected in package.");
+        repeat(' ', 30);
+        printf("\n");
+        msleep((randint(35, 88)));
+
+        int n = randint(1, 1000);
+
+        printf(WARN "digsite %d lockdown initiated.\n", loops);
+        int ritual_success = 0;
+        int i = 0;
+        while (ritual_success == 0)
+        {
+            perform_ritual(i, &ritual_success);
+            i++;
+        }
+    }
+}
+
+void virus_check()
+{
+    if ((randint(1, 100000) > 95200))
+    {
+        printf("\n" WARN "Malware detected in package. Initializing "
+                    "virus removal procedure....\n");
+
+        int times = randint(30, 70);
+        for (int i = 0; i < times; i++)
+        {
+            printf("Removing malware... (attempt %d)", i);
+            msleep((randint(54, 134)));
+
+            if (i != times)
+            {
+                printf("\n");
+            }
+        }
+    }
+}
+
+int extract_packages(char *location, int n, int verbose, int *packages,
+                      int loops, char endch, MTRand mtw, DigControlFlags *dcf)
+{
+    int pkgs = 0;
+    int print_nl = 1;
+    for (int i = 0; i < ((loops) + randint(1, 10)); i++)
+    {
+        print_nl = 1;
+
+        int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
+        msleep(sleep);
+
+        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n, location,
+               sleep);
+        fflush(stdout);
+        if ((randint(1, 10000)) > 9995 && dcf->ignore_missing_shards == 0)
+        {
+            printf(" [404 Not Found]");
+            printf("\n");
+            char pkgname[512];
+            sprintf(pkgname, "package-ancient:%d", i);
+            package_shard_failure(i, (char *)pkgname);
+        }
+        else
+        {
+            printf("[200 OK]");
+        }
+
+        if (verbose)
+        {
+            printf(" (clock: %ld ms)", clock());
+        }
+
+        pkgs++;
+        if (dcf->aggressive_diggers)
+        {
+            if ((randint(1, 1000) > 980))
+            {
+                pkgs += randint(4, 20);
+            }
+        }
+        if (dcf->better_pickaxes)
+        {
+            if ((randint(1, 1000) > 980))
+            {
+                pkgs += randint(11, 45);
+
+                if (dcf->aggressive_diggers && (randint(1, 10000)) > 9780)
+                {
+                    pkgs += randint(53, 90);
+                }
+            }
+        }
+
+        if (dcf->curse_check)
+        {
+            curse_check(loops);
+            print_nl = 0;
+        }
+
+        if (dcf->virus_check)
+        {
+            virus_check();
+            print_nl = 0;
+        }
+
+
+        if (print_nl)
+        {
+            printf("%c", endch);
+        }
+    }
+
+    return pkgs;
+}
+
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location)
+               int passes, char *location, DigControlFlags *dcf)
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
@@ -17,35 +153,11 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 
     for (int n = 0; n < passes; n++)
     {
-        for (int i = 0; i < ((loops) + randint(1, 10)); i++)
-        {
-            int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
-            msleep(sleep);
-
-            printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n,
-                   location, sleep);
-            fflush(stdout);
-            if ((randint(1, 10000)) > 9995)
-            {
-                printf(" [404 Not Found]");
-                printf("\n");
-                char pkgname[512];
-                sprintf(pkgname, "package-ancient:%d", i);
-                package_shard_failure(i, (char *)pkgname);
-            }
-            else
-            {
-                printf("[200 OK]");
-            }
-            printf("                            %c", endch);
-            packages++;
-        }
-        if (!verbose)
-        {
-            printf(" (clock: %ld ms)\n", clock());
-        }
+        packages += extract_packages(location, n, verbose, &packages, loops,
+                                     endch, mtw, dcf);
     }
 
+    printf("\n");
     return packages;
 }
 
@@ -94,6 +206,19 @@ int set_dig_control_flags(DigControlFlags *dcf, int aggressive_diggers,
     dcf->no_proprietary_packages = no_proprietary_packages;
     dcf->virus_check = virus_check;
     dcf->curse_check = curse_check;
+    return 0;
+}
+
+int set_default_dig_control_flags(DigControlFlags *dcf)
+{
+    dcf->aggressive_diggers = 0;
+    dcf->better_pickaxes = 0;
+    dcf->dust_carefully = 0;
+    dcf->source_packages = 0;
+    dcf->no_proprietary_packages = 0;
+    dcf->virus_check = 0;
+    dcf->curse_check = 0;
+    dcf->ignore_missing_shards = 0;
     return 0;
 }
 
