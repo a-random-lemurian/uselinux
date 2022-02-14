@@ -94,13 +94,6 @@ int extract_packages(char *location, int n, int verbose, int *packages,
             package_shard_failure(i, (char *)pkgname);
         }
 
-        if (verbose)
-        {
-            printf(" (clock: %ld ms)", clock());
-        }
-
-        printf("%c", endch);
-
         pkgs++;
         if (dcf->aggressive_diggers)
         {
