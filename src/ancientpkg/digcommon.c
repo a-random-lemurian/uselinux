@@ -37,24 +37,24 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
             {
                 printf("[200 OK]");
             }
+            if (verbose)
+            {
+                printf(" (clock: %ld ms)", clock());
+            }
             printf("                            %c", endch);
             packages++;
-        }
-        if (verbose)
-        {
-            printf(" (clock: %ld ms)", clock());
-        }
-        if (dcf->virus_check)
-        {
-            if ((randint(1,100000) > 95200))
+            if (dcf->virus_check)
             {
-                printf(WARN "Malware detected in package. Initializing "
-                       "virus removal procedure....\n");
-
-                for (int i = 0; i < (randint(30, 70)); i++)
+                if ((randint(1,100000) > 95200))
                 {
-                    printf("Removing malware...\n");
-                    msleep((randint(54, 134)));
+                    printf(WARN "Malware detected in package. Initializing "
+                           "virus removal procedure....\n");
+
+                    for (int i = 0; i < (randint(30, 70)); i++)
+                    {
+                        printf("Removing malware...\n");
+                        msleep((randint(54, 134)));
+                    }
                 }
             }
         }
