@@ -28,6 +28,7 @@ typedef struct DigControlFlags
     int no_proprietary_packages;
     int virus_check;
     int curse_check;
+    int ignore_missing_shards;
 } DigControlFlags;
 
 typedef struct Package

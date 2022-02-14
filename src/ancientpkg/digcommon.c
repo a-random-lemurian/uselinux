@@ -76,7 +76,7 @@ void extract_packages(char *location, int n, int verbose, int *packages,
         printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n, location,
                sleep);
         fflush(stdout);
-        if ((randint(1, 10000)) > 9995)
+        if ((randint(1, 10000)) > 9995 && dcf->ignore_missing_shards == 0)
         {
             printf(" [404 Not Found]");
             printf("\n");
@@ -211,6 +211,7 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
     dcf->no_proprietary_packages = 0;
     dcf->virus_check = 0;
     dcf->curse_check = 0;
+    dcf->ignore_missing_shards = 0;
     return 0;
 }
 
