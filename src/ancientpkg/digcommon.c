@@ -6,7 +6,7 @@
 #include <time.h>
 
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location, DigControlFlags* dcf)
+               int passes, char *location, DigControlFlags *dcf)
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
@@ -39,6 +39,39 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
             }
             printf("                            %c", endch);
             packages++;
+            if (dcf->curse_check)
+            {
+                if ((randint(1, 100000)) > 88400)
+                {
+                    printf("\n" WARN "curse detected in package.");
+                    repeat(' ', 30);
+                    printf("\n");
+                    msleep((randint(35, 88)));
+
+                    int n = randint(1, 1000);
+
+                    printf(WARN "digsite %d lockdown initiated.\n", loops);
+                    int ritual_success = 0;
+                    int i = 0;
+                    while (ritual_success == 0)
+                    {
+                        printf("%ld:attempting cleansing ritual... attempt %d",
+                               clock(), i);
+
+                        if ((randint(1, 1000)) > 70)
+                        {
+                            printf(", " BHRED "failed." reset "\n");
+                        }
+                        else
+                        {
+                            printf(", " BHGRN "success." reset "\n");
+                            ritual_success = 1;
+                        }
+                        msleep((randint(244, 652)));
+                        i++;
+                    }
+                }
+            }
         }
         if (verbose)
         {
@@ -46,10 +79,10 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
         }
         if (dcf->virus_check)
         {
-            if ((randint(1,100000) > 95200))
+            if ((randint(1, 100000) > 95200))
             {
                 printf(WARN "Malware detected in package. Initializing "
-                       "virus removal procedure....\n");
+                            "virus removal procedure....\n");
 
                 for (int i = 0; i < (randint(30, 70)); i++)
                 {
@@ -58,7 +91,6 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
                 }
             }
         }
-
         if (!verbose)
         {
             printf("\n");

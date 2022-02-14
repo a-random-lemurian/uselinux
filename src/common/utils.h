@@ -86,4 +86,12 @@ void segfault_or_abort(int threshold);
  * @return struct tm The time.
  */
 struct tm get_time();
+
+/**
+ * @brief Repeatedly print a single character `times` times.
+ * 
+ * @param ch Character to repeat.
+ * @param times How many times to print character.
+ */
+void repeat(char ch, int times);
 #endif /* UTILS_H */
