@@ -92,6 +92,6 @@ void repeat(char ch, int times)
 {
     for (int i = 0; i < times; i++)
     {
-        printf("%c",ch);
+        printf("%c", ch);
     }
 }

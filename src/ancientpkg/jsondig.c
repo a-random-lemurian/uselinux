@@ -90,7 +90,7 @@ void process_multiple_packages(JSON_Array *packages)
     }
 }
 
-int get_flag(JSON_Object* dcf_flags, char* name)
+int get_flag(JSON_Object *dcf_flags, char *name)
 {
     int value = json_object_get_boolean(dcf_flags, name);
 
@@ -148,7 +148,6 @@ int dig_from_json(char *filename)
     }
 
     json_value_free(job);
-
 
     dig_common(archaeologists, expected_packages, 1, passes, location, &dcf);
     exit(0);

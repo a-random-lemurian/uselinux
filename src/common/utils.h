@@ -89,7 +89,7 @@ struct tm get_time();
 
 /**
  * @brief Repeatedly print a single character `times` times.
- * 
+ *
  * @param ch Character to repeat.
  * @param times How many times to print character.
  */

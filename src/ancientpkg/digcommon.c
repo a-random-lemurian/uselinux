@@ -49,7 +49,7 @@ void virus_check()
     if ((randint(1, 100000) > 95200))
     {
         printf("\n" WARN "Malware detected in package. Initializing "
-                    "virus removal procedure....\n");
+               "virus removal procedure....\n");
 
         int times = randint(30, 70);
         for (int i = 0; i < times; i++)
@@ -66,7 +66,7 @@ void virus_check()
 }
 
 int extract_packages(char *location, int n, int verbose, int *packages,
-                      int loops, char endch, MTRand mtw, DigControlFlags *dcf)
+                     int loops, char endch, MTRand mtw, DigControlFlags *dcf)
 {
     int pkgs = 0;
     int print_nl = 1;
@@ -130,7 +130,6 @@ int extract_packages(char *location, int n, int verbose, int *packages,
             virus_check();
             print_nl = 0;
         }
-
 
         if (print_nl)
         {
