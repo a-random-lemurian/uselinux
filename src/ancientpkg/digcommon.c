@@ -124,7 +124,7 @@ int extract_packages(char *location, int n, int verbose, int *packages,
             has_missing_shard = 1;
             status = "[404 Not Found]";
         }
-        else if (rand > 8600)
+        else if (rand > 8600 && dcf->ignore_broken_shards == 0)
         {
             broken_package_shard = 1;
             status = "[500 Internal Server Error]";
@@ -145,7 +145,7 @@ int extract_packages(char *location, int n, int verbose, int *packages,
             sprintf(pkgname, "package-ancient:%d", i);
             package_shard_failure(i, (char *)pkgname);
         }
-        else if (broken_package_shard)
+        else if (broken_package_shard && dcf->ignore_broken_shards == 0)
         {
             char pkgname[512];
             sprintf(pkgname, "package-ancient:%d", i);
@@ -265,6 +265,7 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
     dcf->virus_check = 0;
     dcf->curse_check = 0;
     dcf->ignore_missing_shards = 0;
+    dcf->ignore_broken_shards = 0;
     return 0;
 }
 
