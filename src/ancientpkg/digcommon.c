@@ -65,15 +65,30 @@ void virus_check()
     }
 }
 
+int dust_carefully()
+{
+    int slp = randint(30, 140);
+    msleep(slp);
+
+    return slp;
+}
+
 int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf)
 {
     int pkgs = 0;
     char* status;
     int has_missing_shard;
+    int dc_slp = 0;
 
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
+        clock_t t1_before = clock();
+        if (dcf->dust_carefully)
+        {
+            dc_slp = dust_carefully();
+        }
+
         int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
         msleep(sleep);
         has_missing_shard = 0;
@@ -84,8 +99,9 @@ int extract_packages(char *location, int n, int verbose, int *packages,
             has_missing_shard = 1;
             status = "[404 Not Found]";
         }
-        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) %s\n", i, n, location,
-               sleep, status);
+
+        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) %s\n",
+               i, n, location, (sleep + dc_slp), status);
         fflush(stdout);
         if (has_missing_shard && dcf->ignore_missing_shards == 0)
         {
@@ -95,6 +111,8 @@ int extract_packages(char *location, int n, int verbose, int *packages,
         }
 
         pkgs++;
+
+
         if (dcf->aggressive_diggers)
         {
             if ((randint(1, 1000) > 980))
