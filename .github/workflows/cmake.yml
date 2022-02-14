@@ -33,15 +33,10 @@ jobs:
     - name: Dig up some ancient Debian packages
 
     - name: Prepare artifacts
-      run: |
-        mkdir uselinux;
-        cp src uselinux/src -r;
-        cp build/bin uselinux/bin -r;
-        cp build/lib uselinux/lib -r;
-        tar cvf uselinux-distrib.tar.gz uselinux/;
+      run: mkdir uselinux; cp src uselinux/src -r; cp build/bin uselinux/bin -r; cp build/lib uselinux/lib -r;
 
     - name: Upload artifacts
-    - uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2.3.1
       with:
-        name: my-artifact
-        path: ${{github.workspace}}/uselinux/**/*
+        name: uselinux-distrib.tar.gz
+        path: uselinux/*
