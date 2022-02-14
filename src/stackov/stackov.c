@@ -18,7 +18,7 @@ const char *mkstr(char str1[], char str2[])
 
 int main(int argc, char **argv)
 {
-    char *query = "";
+    char *query = NULL;
     int flag_dry_run = 0;
 
     struct argparse parser;
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 
     printf("Opening %s in your browser.\n", stackov_url);
 
-    if (!flag_dry_run)
+    if (!flag_dry_run && query != NULL)
     {
         opener(stackov_url);
     }
