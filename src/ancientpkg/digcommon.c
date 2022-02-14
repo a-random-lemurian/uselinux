@@ -93,6 +93,13 @@ void extract_packages(char *location, int n, int verbose, int *packages,
             printf(" (clock: %ld ms)", clock());
         }
         *packages++;
+        if (dcf->aggressive_diggers)
+        {
+            if ((randint(1, 1000) > 980))
+            {
+                *packages += randint(4, 20);
+            }
+        }
         if (dcf->curse_check)
         {
             curse_check(loops);
