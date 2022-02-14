@@ -31,4 +31,17 @@ jobs:
       run: ${{github.workspace}}/build/bin/rmbloat rm -l windows macos bloated-package-example "package name with spaces" libbloat
 
     - name: Dig up some ancient Debian packages
-      run: ${{github.workspace}}/build/bin/ancientpkg dig --archaeologists=34 --expected-pkgs=3900 --location=land-of-github-actions --verbose --passes=10
+
+    - name: Prepare artifacts
+      run: |
+        mkdir uselinux;
+        cp src uselinux/src -r;
+        cp build/bin uselinux/bin -r;
+        cp build/lib uselinux/lib -r;
+        tar cvf uselinux-distrib.tar.gz uselinux/;
+
+    - name: Upload artifacts
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ${{github.workspace}}/uselinux/**/*
