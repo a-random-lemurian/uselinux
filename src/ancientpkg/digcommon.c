@@ -6,7 +6,7 @@
 #include <time.h>
 
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location)
+               int passes, char *location, DigControlFlags* dcf)
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
@@ -40,12 +40,32 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
             printf("                            %c", endch);
             packages++;
         }
+        if (verbose)
+        {
+            printf(" (clock: %ld ms)", clock());
+        }
+        if (dcf->virus_check)
+        {
+            if ((randint(1,100000) > 95200))
+            {
+                printf(WARN "Malware detected in package. Initializing "
+                       "virus removal procedure....\n");
+
+                for (int i = 0; i < (randint(30, 70)); i++)
+                {
+                    printf("Removing malware...\n");
+                    msleep((randint(54, 134)));
+                }
+            }
+        }
+
         if (!verbose)
         {
-            printf(" (clock: %ld ms)\n", clock());
+            printf("\n");
         }
     }
 
+    printf("\n");
     return packages;
 }
 
@@ -94,6 +114,18 @@ int set_dig_control_flags(DigControlFlags *dcf, int aggressive_diggers,
     dcf->no_proprietary_packages = no_proprietary_packages;
     dcf->virus_check = virus_check;
     dcf->curse_check = curse_check;
+    return 0;
+}
+
+int set_default_dig_control_flags(DigControlFlags *dcf)
+{
+    dcf->aggressive_diggers = 0;
+    dcf->better_pickaxes = 0;
+    dcf->dust_carefully = 0;
+    dcf->source_packages = 0;
+    dcf->no_proprietary_packages = 0;
+    dcf->virus_check = 0;
+    dcf->curse_check = 0;
     return 0;
 }
 
