@@ -76,9 +76,10 @@ int extract_packages(char *location, int n, int verbose, int *packages,
     {
         int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
         msleep(sleep);
+        has_missing_shard = 0;
 
         status = "[200 OK]";
-        if ((randint(1, 10000)) > 999)
+        if ((randint(1, 10000)) > 9775)
         {
             has_missing_shard = 1;
             status = "[404 Not Found]";
