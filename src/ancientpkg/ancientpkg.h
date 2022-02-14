@@ -1,5 +1,6 @@
 #ifndef ANCIENTPKG_H
 #define ANCIENTPKG_H
+#include <parson/parson.h>
 #define WARN BHYEL "warning: " reset
 #define ERROR BHRED "error: " reset
 
@@ -47,8 +48,11 @@ int set_default_dig_control_flags(DigControlFlags *dcf);
 int has_missing_args(char *location, int archaeologists, int passes,
                      int expected_packages);
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location);
+               int passes, char *location, DigControlFlags* dcf);
 void package_shard_failure(int i, char *pkgname);
+int get_flag(JSON_Object* dcf_flags, char* name);
+void get_dig_control_flags_from_json(DigControlFlags *dcf,
+                                     JSON_Object *dcf_flags);
 
 /* Packages ******************************************************************/
 int validate_package(Package *self);

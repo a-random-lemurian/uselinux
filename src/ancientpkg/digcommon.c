@@ -6,7 +6,7 @@
 #include <time.h>
 
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location)
+               int passes, char *location, DigControlFlags* dcf)
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
@@ -40,6 +40,21 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
             printf("                            %c", endch);
             packages++;
         }
+        if (dcf->virus_check)
+        {
+            if ((randint(1,100000) > 95200))
+            {
+                printf(WARN "Malware detected in package. Initializing "
+                       "virus removal procedure....\n");
+
+                for (int i = 0; i < (randint(30, 70)); i++)
+                {
+                    printf("Removing malware...\n");
+                    msleep((randint(54, 134)));
+                }
+            }
+        }
+
         if (!verbose)
         {
             printf(" (clock: %ld ms)\n", clock());
