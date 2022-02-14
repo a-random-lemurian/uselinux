@@ -65,6 +65,34 @@ void virus_check()
     }
 }
 
+int dust_carefully()
+{
+    int slp = randint(30, 140);
+    msleep(slp);
+
+    return slp;
+}
+
+
+void find_alternative_sources_for_shards()
+{
+    for (int n = 0; n < 400; n++)
+    {
+        printf("Checking package src %d.... ", n);
+        fflush(stdout);
+        msleep(randint(1, 300));
+        if (randint(1, 100) > 90)
+        {
+            printf("shard found.\n");
+            break;
+        }
+        else
+        {
+            printf(" shard not found.\n");
+        }
+    }
+}
+
 int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf)
 {
@@ -216,19 +244,5 @@ void package_shard_failure(int i, char *pkgname)
 
     printf("attempting to resolve the situation....\n");
     msleep(randint(100, 3000));
-    for (int n = 0; n < 400; n++)
-    {
-        printf("Checking package src %d.... ", n);
-        fflush(stdout);
-        msleep(randint(1, 300));
-        if (randint(1, 100) > 90)
-        {
-            printf("shard found.\n");
-            break;
-        }
-        else
-        {
-            printf(" shard not found.\n");
-        }
-    }
+    find_alternative_sources_for_shards();
 }
