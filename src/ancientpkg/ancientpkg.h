@@ -53,6 +53,10 @@ void package_shard_failure(int i, char *pkgname);
 int get_flag(JSON_Object* dcf_flags, char* name);
 void get_dig_control_flags_from_json(DigControlFlags *dcf,
                                      JSON_Object *dcf_flags);
+void perform_ritual(int i, int *ritual_success);
+void curse_check(int loops);
+void virus_check();
+void extract_packages(char *location, int n, int verbose, int *packages, int loops, char endch, MTRand mtw, DigControlFlags *dcf);
 
 /* Packages ******************************************************************/
 int validate_package(Package *self);
