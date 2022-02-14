@@ -51,6 +51,13 @@ int has_missing_args(char *location, int archaeologists, int passes,
                      int expected_packages);
 int dig_common(int archaeologists, int expected_packages, int verbose,
                int passes, char *location, DigControlFlags *dcf);
+
+/**
+ * @brief Resolve a package shard failure (a shard of a package was not found.)
+ * 
+ * @param i Identifier of package shard.
+ * @param pkgname Name of package with missing shard.
+ */
 void package_shard_failure(int i, char *pkgname);
 int get_flag(JSON_Object *dcf_flags, char *name);
 void get_dig_control_flags_from_json(DigControlFlags *dcf,
@@ -58,6 +65,23 @@ void get_dig_control_flags_from_json(DigControlFlags *dcf,
 void perform_ritual(int i, int *ritual_success);
 void curse_check(int loops);
 void virus_check();
+
+/**
+ * @brief Extract packages from a dig site. Debian packages can get very old.
+ *
+ * @note This is an internal function.
+ *
+ * @param location Location of dig site.
+ * @param n The number of "passes" made
+ * @param verbose (Deprecated) To be verbose, or to be silent.
+ * @param packages (Deprecated) Pointer to an `int` variable, incremented
+ * when packages are found.
+ * @param loops Number of loops to make.
+ * @param endch Character to print ('\r' or '\n').
+ * @param mtw MTRand struct.
+ * @param dcf DCF (Dig Control Flags) struct.
+ * @return int Packages extracted.
+ */
 int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf);
 
