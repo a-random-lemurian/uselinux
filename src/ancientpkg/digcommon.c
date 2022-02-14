@@ -15,7 +15,7 @@ void perform_ritual(int i, int *ritual_success)
     }
     else
     {
-        printf(", " BHGRN "success." reset "\n");
+        printf(", " BHGRN "success." reset);
         *ritual_success = 1;
     }
 
@@ -48,7 +48,7 @@ void virus_check()
 {
     if ((randint(1, 100000) > 95200))
     {
-        printf(WARN "Malware detected in package. Initializing "
+        printf("\n" WARN "Malware detected in package. Initializing "
                     "virus removal procedure....\n");
 
         int times = randint(30, 70);
@@ -68,14 +68,18 @@ void virus_check()
 void extract_packages(char *location, int n, int verbose, int *packages,
                       int loops, char endch, MTRand mtw, DigControlFlags *dcf)
 {
+    int print_nl = 1;
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
+        print_nl = 1;
+
         int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
         msleep(sleep);
 
         printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n, location,
                sleep);
         fflush(stdout);
+
         if ((randint(1, 10000)) > 9995)
         {
             printf(" [404 Not Found]");
@@ -88,10 +92,12 @@ void extract_packages(char *location, int n, int verbose, int *packages,
         {
             printf("[200 OK]");
         }
+
         if (verbose)
         {
             printf(" (clock: %ld ms)", clock());
         }
+
         *packages++;
         if (dcf->aggressive_diggers)
         {
@@ -100,15 +106,24 @@ void extract_packages(char *location, int n, int verbose, int *packages,
                 *packages += randint(4, 20);
             }
         }
+
         if (dcf->curse_check)
         {
             curse_check(loops);
+            print_nl = 0;
         }
+
         if (dcf->virus_check)
         {
             virus_check();
+            print_nl = 0;
         }
-        printf("                            %c", endch);
+
+
+        if (print_nl)
+        {
+            printf("%c", endch);
+        }
     }
 }
 
