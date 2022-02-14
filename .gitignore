@@ -69,4 +69,6 @@ stackov
 
 !src/*
 
+.codelite
+*.workspace
 .cache
