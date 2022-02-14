@@ -5,6 +5,112 @@
 #include <stdio.h>
 #include <time.h>
 
+void perform_ritual(int i, int *ritual_success)
+{
+    printf("%ld:attempting cleansing ritual... attempt %d", clock(), i);
+
+    if ((randint(1, 1000)) > 230)
+    {
+        printf(", " BHRED "failed." reset "\n");
+    }
+    else
+    {
+        printf(", " BHGRN "success." reset "\n");
+        *ritual_success = 1;
+    }
+
+    msleep((randint(244, 652)));
+}
+
+void curse_check(int loops)
+{
+    if ((randint(1, 100000)) > 91700)
+    {
+        printf("\n" WARN "curse detected in package.");
+        repeat(' ', 30);
+        printf("\n");
+        msleep((randint(35, 88)));
+
+        int n = randint(1, 1000);
+
+        printf(WARN "digsite %d lockdown initiated.\n", loops);
+        int ritual_success = 0;
+        int i = 0;
+        while (ritual_success == 0)
+        {
+            perform_ritual(i, &ritual_success);
+            i++;
+        }
+    }
+}
+
+void virus_check()
+{
+    if ((randint(1, 100000) > 95200))
+    {
+        printf(WARN "Malware detected in package. Initializing "
+                    "virus removal procedure....\n");
+
+        for (int i = 0; i < (randint(30, 70)); i++)
+        {
+            printf(WARN "Malware detected in package. Initializing "
+                        "virus removal procedure....\n");
+
+            int times = (randint(30, 70));
+            for (int i = 0; i < times; i++)
+            {
+                printf("Removing malware... (attempt %d)", i);
+                msleep((randint(54, 134)));
+
+                if (i != times)
+                {
+                    printf("\n");
+                }
+            }
+        }
+    }
+}
+
+void extract_packages(char *location, int n, int verbose, int *packages,
+                      int loops, char endch, MTRand mtw, DigControlFlags *dcf)
+{
+    for (int i = 0; i < ((loops) + randint(1, 10)); i++)
+    {
+        int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
+        msleep(sleep);
+
+        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n, location,
+               sleep);
+        fflush(stdout);
+        if ((randint(1, 10000)) > 9995)
+        {
+            printf(" [404 Not Found]");
+            printf("\n");
+            char pkgname[512];
+            sprintf(pkgname, "package-ancient:%d", i);
+            package_shard_failure(i, (char *)pkgname);
+        }
+        else
+        {
+            printf("[200 OK]");
+        }
+        if (verbose)
+        {
+            printf(" (clock: %ld ms)", clock());
+        }
+        *packages++;
+        if (dcf->curse_check)
+        {
+            curse_check(loops);
+        }
+        if (dcf->virus_check)
+        {
+            virus_check();
+        }
+        printf("                            %c", endch);
+    }
+}
+
 int dig_common(int archaeologists, int expected_packages, int verbose,
                int passes, char *location, DigControlFlags *dcf)
 {
@@ -17,92 +123,9 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 
     for (int n = 0; n < passes; n++)
     {
-        for (int i = 0; i < ((loops) + randint(1, 10)); i++)
-        {
-            int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
-            msleep(sleep);
+        extract_packages(location, n, verbose, &packages, loops, endch, mtw,
+                         dcf);
 
-            printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n,
-                   location, sleep);
-            fflush(stdout);
-            if ((randint(1, 10000)) > 9995)
-            {
-                printf(" [404 Not Found]");
-                printf("\n");
-                char pkgname[512];
-                sprintf(pkgname, "package-ancient:%d", i);
-                package_shard_failure(i, (char *)pkgname);
-            }
-            else
-            {
-                printf("[200 OK]");
-            }
-            if (verbose)
-            {
-                printf(" (clock: %ld ms)", clock());
-            }
-            packages++;
-            if (dcf->curse_check)
-            {
-                if ((randint(1, 100000)) > 91700)
-                {
-                    printf("\n" WARN "curse detected in package.");
-                    repeat(' ', 30);
-                    printf("\n");
-                    msleep((randint(35, 88)));
-
-                    int n = randint(1, 1000);
-
-                    printf(WARN "digsite %d lockdown initiated.\n", loops);
-                    int ritual_success = 0;
-                    int i = 0;
-                    while (ritual_success == 0)
-                    {
-                        printf("%ld:attempting cleansing ritual... attempt %d",
-                               clock(), i);
-
-                        if ((randint(1, 1000)) > 230)
-                        {
-                            printf(", " BHRED "failed." reset "\n");
-                        }
-                        else
-                        {
-                            printf(", " BHGRN "success." reset "\n");
-                            ritual_success = 1;
-                        }
-                        msleep((randint(244, 652)));
-                        i++;
-                    }
-                }
-            }
-            if (dcf->virus_check)
-            {
-                if ((randint(1, 100000) > 95200))
-                {
-                    printf(WARN "Malware detected in package. Initializing "
-                                "virus removal procedure....\n");
-
-                    for (int i = 0; i < (randint(30, 70)); i++)
-                    {
-                        printf(WARN "Malware detected in package. Initializing "
-                               "virus removal procedure....\n");
-
-                        int times = (randint(30, 70));
-                        for (int i = 0; i < times; i++)
-                        {
-                            printf("Removing malware... (attempt %d)", i);
-                            msleep((randint(54, 134)));
-
-                            if (i != times)
-                            {
-                                printf("\n");
-                            }
-                        }
-                    }
-                }
-            }
-            printf("                            %c", endch);
-        }
         if (verbose)
         {
             printf(" (clock: %ld ms)", clock());
