@@ -58,6 +58,23 @@ void get_dig_control_flags_from_json(DigControlFlags *dcf,
 void perform_ritual(int i, int *ritual_success);
 void curse_check(int loops);
 void virus_check();
+
+/**
+ * @brief Extract packages from a dig site. Debian packages can get very old.
+ *
+ * @note This is an internal function.
+ *
+ * @param location Location of dig site.
+ * @param n The number of "passes" made
+ * @param verbose (Deprecated) To be verbose, or to be silent.
+ * @param packages (Deprecated) Pointer to an `int` variable, incremented
+ * when packages are found.
+ * @param loops Number of loops to make.
+ * @param endch Character to print ('\r' or '\n').
+ * @param mtw MTRand struct.
+ * @param dcf DCF (Dig Control Flags) struct.
+ * @return int Packages extracted.
+ */
 int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf);
 
