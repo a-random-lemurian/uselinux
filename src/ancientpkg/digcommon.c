@@ -40,6 +40,10 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
             printf("                            %c", endch);
             packages++;
         }
+        if (verbose)
+        {
+            printf(" (clock: %ld ms)", clock());
+        }
         if (dcf->virus_check)
         {
             if ((randint(1,100000) > 95200))
@@ -57,10 +61,11 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 
         if (!verbose)
         {
-            printf(" (clock: %ld ms)\n", clock());
+            printf("\n");
         }
     }
 
+    printf("\n");
     return packages;
 }
 
