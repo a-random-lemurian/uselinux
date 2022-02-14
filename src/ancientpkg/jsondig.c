@@ -101,6 +101,7 @@ void get_dig_control_flags_from_json(DigControlFlags *dcf,
                                      JSON_Object *dcf_flags)
 {
     dcf->virus_check = get_flag(dcf_flags, "virusCheck");
+    dcf->curse_check = get_flag(dcf_flags, "curseCheck");
 }
 
 int dig_from_json(char *filename)

@@ -42,6 +42,8 @@ int cmd_dig(int argc, char **argv)
         OPT_BOOLEAN('v', "verbose", &verbose, "Verbose output"),
         OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
                     "Scan packages for viruses."),
+        OPT_BOOLEAN(0, "curse-check", &dcf.curse_check,
+                    "Scan packages for ancient curses."),
 
         /* TODO: Implement these options
         OPT_BOOLEAN(0, "aggressive-diggers", &aggressive_diggers,
@@ -53,9 +55,7 @@ int cmd_dig(int argc, char **argv)
         OPT_BOOLEAN(0, "source-packages", &source_packages,
                     "Include source packages."),
         OPT_BOOLEAN(0, "no-proprietary-packages", &no_proprietary_packages,
-                    "Include only free software."),
-        OPT_BOOLEAN(0, "curse-check", &curse_check,
-                    "Scan packages for ancient curses."), */
+                    "Include only free software."), */
         OPT_END()};
     argparse_init(&ap, opts, NULL, 0);
     argparse_parse(&ap, argc, (const char **)argv);
