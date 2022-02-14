@@ -1,5 +1,6 @@
 #ifndef ANCIENTPKG_H
 #define ANCIENTPKG_H
+#include <common/mtwister.h>
 #include <parson/parson.h>
 #define WARN BHYEL "warning: " reset
 #define ERROR BHRED "error: " reset
