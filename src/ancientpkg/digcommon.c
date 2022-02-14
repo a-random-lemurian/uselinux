@@ -65,9 +65,10 @@ void virus_check()
     }
 }
 
-void extract_packages(char *location, int n, int verbose, int *packages,
+int extract_packages(char *location, int n, int verbose, int *packages,
                       int loops, char endch, MTRand mtw, DigControlFlags *dcf)
 {
+    int pkgs = 0;
     int print_nl = 1;
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
@@ -97,23 +98,23 @@ void extract_packages(char *location, int n, int verbose, int *packages,
             printf(" (clock: %ld ms)", clock());
         }
 
-        *packages++;
+        pkgs++;
         if (dcf->aggressive_diggers)
         {
             if ((randint(1, 1000) > 980))
             {
-                *packages += randint(4, 20);
+                pkgs += randint(4, 20);
             }
         }
         if (dcf->better_pickaxes)
         {
             if ((randint(1, 1000) > 980))
             {
-                *packages += randint(11, 45);
+                pkgs += randint(11, 45);
 
                 if (dcf->aggressive_diggers && (randint(1, 10000)) > 9780)
                 {
-                    *packages += randint(53, 90);
+                    pkgs += randint(53, 90);
                 }
             }
         }
@@ -136,6 +137,8 @@ void extract_packages(char *location, int n, int verbose, int *packages,
             printf("%c", endch);
         }
     }
+
+    return pkgs;
 }
 
 int dig_common(int archaeologists, int expected_packages, int verbose,
@@ -150,17 +153,8 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 
     for (int n = 0; n < passes; n++)
     {
-        extract_packages(location, n, verbose, &packages, loops, endch, mtw,
-                         dcf);
-
-        if (verbose)
-        {
-            printf(" (clock: %ld ms)", clock());
-        }
-        if (!verbose)
-        {
-            printf("\n");
-        }
+        packages += extract_packages(location, n, verbose, &packages, loops,
+                                     endch, mtw, dcf);
     }
 
     printf("\n");
