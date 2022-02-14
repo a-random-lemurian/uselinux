@@ -29,6 +29,7 @@ typedef struct DigControlFlags
     int virus_check;
     int curse_check;
     int ignore_missing_shards;
+    int ignore_broken_shards;
 } DigControlFlags;
 
 typedef struct Package
@@ -60,7 +61,8 @@ void curse_check(int loops);
 void virus_check();
 int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf);
-
+void deal_with_broken_package_shard(int i, char* pkgname);
+void find_alternative_sources_for_shards();
 /* Packages ******************************************************************/
 int validate_package(Package *self);
 int create_package(Package *self, char *name, char *license);

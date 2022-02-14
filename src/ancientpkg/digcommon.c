@@ -65,33 +65,91 @@ void virus_check()
     }
 }
 
+int dust_carefully()
+{
+    int slp = randint(30, 140);
+    msleep(slp);
+
+    return slp;
+}
+
+void deal_with_broken_package_shard(int i, char* pkgname)
+{
+    printf(WARN "Package shard %i of %s is broken!\n", i, pkgname);
+    printf("Looking for alternative sources...\n");
+    find_alternative_sources_for_shards();
+}
+
+void find_alternative_sources_for_shards()
+{
+    for (int n = 0; n < 400; n++)
+    {
+        printf("Checking package src %d.... ", n);
+        fflush(stdout);
+        msleep(randint(1, 300));
+        if (randint(1, 100) > 90)
+        {
+            printf("shard found.\n");
+            break;
+        }
+        else
+        {
+            printf(" shard not found.\n");
+        }
+    }
+}
+
 int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf)
 {
     int pkgs = 0;
     char* status;
     int has_missing_shard;
+    int dc_slp = 0;
+    int broken_package_shard = 0;
 
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
         int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
         msleep(sleep);
+
+        broken_package_shard = 0;
         has_missing_shard = 0;
 
         status = "[200 OK]";
-        if ((randint(1, 10000)) > 9775)
+        
+        int rand = randint(1, 10000);
+        if (rand > 9775)
         {
             has_missing_shard = 1;
             status = "[404 Not Found]";
         }
-        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) %s\n", i, n, location,
-               sleep, status);
+        else if (rand > 8600 && dcf->ignore_broken_shards == 0)
+        {
+            broken_package_shard = 1;
+            status = "[500 Internal Server Error]";
+        }
+        else
+        {
+            msleep(1);
+        }
+
+
+        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) %s\n",
+               i, n, location, (sleep + dc_slp), status);
         fflush(stdout);
+
         if (has_missing_shard && dcf->ignore_missing_shards == 0)
         {
             char pkgname[512];
             sprintf(pkgname, "package-ancient:%d", i);
             package_shard_failure(i, (char *)pkgname);
+        }
+        else if (broken_package_shard && dcf->ignore_broken_shards == 0)
+        {
+            char pkgname[512];
+            sprintf(pkgname, "package-ancient:%d", i);
+            deal_with_broken_package_shard(i, (char *)pkgname);
         }
 
         pkgs++;
@@ -207,6 +265,7 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
     dcf->virus_check = 0;
     dcf->curse_check = 0;
     dcf->ignore_missing_shards = 0;
+    dcf->ignore_broken_shards = 0;
     return 0;
 }
 
@@ -216,19 +275,5 @@ void package_shard_failure(int i, char *pkgname)
 
     printf("attempting to resolve the situation....\n");
     msleep(randint(100, 3000));
-    for (int n = 0; n < 400; n++)
-    {
-        printf("Checking package src %d.... ", n);
-        fflush(stdout);
-        msleep(randint(1, 300));
-        if (randint(1, 100) > 90)
-        {
-            printf("shard found.\n");
-            break;
-        }
-        else
-        {
-            printf(" shard not found.\n");
-        }
-    }
+    find_alternative_sources_for_shards();
 }

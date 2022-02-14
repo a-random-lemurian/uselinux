@@ -50,6 +50,8 @@ int cmd_dig(int argc, char **argv)
                     "Provide diggers with better pickaxes."),
         OPT_BOOLEAN(0, "ignore-missing-shards", &dcf.ignore_missing_shards,
                     "Ignore missing package shards"),
+        OPT_BOOLEAN(0, "ignore-broken-shards", &dcf.ignore_broken_shards,
+                    "Ignore physically broken package shards"),
 
         /* TODO: Implement these options
         OPT_BOOLEAN(0, "dust-carefully", &dust_carefully,
