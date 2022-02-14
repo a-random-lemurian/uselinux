@@ -41,11 +41,10 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
             {
                 printf(" (clock: %ld ms)", clock());
             }
-            printf("                            %c", endch);
             packages++;
             if (dcf->curse_check)
             {
-                if ((randint(1, 100000)) > 88400)
+                if ((randint(1, 100000)) > 91700)
                 {
                     printf("\n" WARN "curse detected in package.");
                     repeat(' ', 30);
@@ -62,7 +61,7 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
                         printf("%ld:attempting cleansing ritual... attempt %d",
                                clock(), i);
 
-                        if ((randint(1, 1000)) > 70)
+                        if ((randint(1, 1000)) > 230)
                         {
                             printf(", " BHRED "failed." reset "\n");
                         }
@@ -88,14 +87,21 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
                         printf(WARN "Malware detected in package. Initializing "
                                "virus removal procedure....\n");
 
-                        for (int i = 0; i < (randint(30, 70)); i++)
+                        int times = (randint(30, 70));
+                        for (int i = 0; i < times; i++)
                         {
-                            printf("Removing malware...\n");
+                            printf("Removing malware... (attempt %d)", i);
                             msleep((randint(54, 134)));
+
+                            if (i != times)
+                            {
+                                printf("\n");
+                            }
                         }
                     }
                 }
             }
+            printf("                            %c", endch);
         }
         if (verbose)
         {
