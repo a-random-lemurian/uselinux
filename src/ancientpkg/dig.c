@@ -46,10 +46,10 @@ int cmd_dig(int argc, char **argv)
                     "Scan packages for ancient curses."),
         OPT_BOOLEAN(0, "aggressive-diggers", &dcf.aggressive_diggers,
                     "Dig very aggressively."),
+        OPT_BOOLEAN(0, "better-pickaxes", &dcf.better_pickaxes,
+                    "Provide diggers with better pickaxes."),
 
         /* TODO: Implement these options
-        OPT_BOOLEAN(0, "better-pickaxes", &better_pickaxes,
-                    "Provide diggers with better pickaxes."),
         OPT_BOOLEAN(0, "dust-carefully", &dust_carefully,
                     "Dust for packages more carefully."),
         OPT_BOOLEAN(0, "source-packages", &source_packages,

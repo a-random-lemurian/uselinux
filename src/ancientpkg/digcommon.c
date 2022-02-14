@@ -100,6 +100,19 @@ void extract_packages(char *location, int n, int verbose, int *packages,
                 *packages += randint(4, 20);
             }
         }
+        if (dcf->better_pickaxes)
+        {
+            if ((randint(1, 1000) > 980))
+            {
+                *packages += randint(11, 45);
+
+                if (dcf->aggressive_diggers && (randint(1, 10000)) > 9780)
+                {
+                    *packages += randint(53, 90);
+                }
+            }
+        }
+
         if (dcf->curse_check)
         {
             curse_check(loops);
