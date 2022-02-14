@@ -51,21 +51,15 @@ void virus_check()
         printf(WARN "Malware detected in package. Initializing "
                     "virus removal procedure....\n");
 
-        for (int i = 0; i < (randint(30, 70)); i++)
+        int times = randint(30, 70);
+        for (int i = 0; i < times; i++)
         {
-            printf(WARN "Malware detected in package. Initializing "
-                        "virus removal procedure....\n");
+            printf("Removing malware... (attempt %d)", i);
+            msleep((randint(54, 134)));
 
-            int times = (randint(30, 70));
-            for (int i = 0; i < times; i++)
+            if (i != times)
             {
-                printf("Removing malware... (attempt %d)", i);
-                msleep((randint(54, 134)));
-
-                if (i != times)
-                {
-                    printf("\n");
-                }
+                printf("\n");
             }
         }
     }
