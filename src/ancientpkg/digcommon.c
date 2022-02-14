@@ -97,6 +97,18 @@ int set_dig_control_flags(DigControlFlags *dcf, int aggressive_diggers,
     return 0;
 }
 
+int set_default_dig_control_flags(DigControlFlags *dcf)
+{
+    dcf->aggressive_diggers = 0;
+    dcf->better_pickaxes = 0;
+    dcf->dust_carefully = 0;
+    dcf->source_packages = 0;
+    dcf->no_proprietary_packages = 0;
+    dcf->virus_check = 0;
+    dcf->curse_check = 0;
+    return 0;
+}
+
 void package_shard_failure(int i, char *pkgname)
 {
     printf(WARN "failed to get package shard %d %s (stable)\n", i, pkgname);
