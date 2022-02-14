@@ -15,7 +15,7 @@ void perform_ritual(int i, int *ritual_success)
     }
     else
     {
-        printf(", " BHGRN "success." reset);
+        printf(", " BHGRN "success.\n" reset);
         *ritual_success = 1;
     }
 
@@ -69,34 +69,36 @@ int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf)
 {
     int pkgs = 0;
-    int print_nl = 1;
+    char* status;
+    int has_missing_shard;
+
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
-        print_nl = 1;
-
         int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
         msleep(sleep);
 
-        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) ", i, n, location,
-               sleep);
-        fflush(stdout);
-        if ((randint(1, 10000)) > 9995 && dcf->ignore_missing_shards == 0)
+        status = "[200 OK]";
+        if ((randint(1, 10000)) > 999)
         {
-            printf(" [404 Not Found]");
-            printf("\n");
+            has_missing_shard = 1;
+            status = "[404 Not Found]";
+        }
+        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) %s\n", i, n, location,
+               sleep, status);
+        fflush(stdout);
+        if (has_missing_shard && dcf->ignore_missing_shards == 0)
+        {
             char pkgname[512];
             sprintf(pkgname, "package-ancient:%d", i);
             package_shard_failure(i, (char *)pkgname);
-        }
-        else
-        {
-            printf("[200 OK]");
         }
 
         if (verbose)
         {
             printf(" (clock: %ld ms)", clock());
         }
+
+        printf("%c", endch);
 
         pkgs++;
         if (dcf->aggressive_diggers)
@@ -122,18 +124,11 @@ int extract_packages(char *location, int n, int verbose, int *packages,
         if (dcf->curse_check)
         {
             curse_check(loops);
-            print_nl = 0;
         }
 
         if (dcf->virus_check)
         {
             virus_check();
-            print_nl = 0;
-        }
-
-        if (print_nl)
-        {
-            printf("%c", endch);
         }
     }
 
@@ -148,7 +143,7 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
     MTRand mtw = seedRand(clock());
 
     int packages = 0;
-    char endch = verbose ? '\n' : '\r';
+    char endch = '\n';
 
     for (int n = 0; n < passes; n++)
     {
