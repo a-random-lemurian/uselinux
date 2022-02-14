@@ -110,6 +110,12 @@ int extract_packages(char *location, int n, int verbose, int *packages,
 
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
+        clock_t t1_before = clock();
+        if (dcf->dust_carefully)
+        {
+            dc_slp = dust_carefully();
+        }
+
         int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
         msleep(sleep);
 
@@ -153,6 +159,8 @@ int extract_packages(char *location, int n, int verbose, int *packages,
         }
 
         pkgs++;
+
+
         if (dcf->aggressive_diggers)
         {
             if ((randint(1, 1000) > 980))

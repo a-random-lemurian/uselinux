@@ -105,6 +105,7 @@ void get_dig_control_flags_from_json(DigControlFlags *dcf,
     dcf->aggressive_diggers = get_flag(dcf_flags, "aggressiveDiggers");
     dcf->better_pickaxes = get_flag(dcf_flags, "betterPickaxes");
     dcf->ignore_broken_shards = get_flag(dcf_flags, "ignoreBrokenShards");
+    dcf->dust_carefully = get_flag(dcf_flags, "dustCarefully");
 }
 
 int dig_from_json(char *filename)

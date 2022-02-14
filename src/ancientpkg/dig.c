@@ -52,10 +52,10 @@ int cmd_dig(int argc, char **argv)
                     "Ignore missing package shards"),
         OPT_BOOLEAN(0, "ignore-broken-shards", &dcf.ignore_broken_shards,
                     "Ignore physically broken package shards"),
+        OPT_BOOLEAN(0, "dust-carefully", &dcf.dust_carefully,
+                    "Dust for packages more carefully."),
 
         /* TODO: Implement these options
-        OPT_BOOLEAN(0, "dust-carefully", &dust_carefully,
-                    "Dust for packages more carefully."),
         OPT_BOOLEAN(0, "source-packages", &source_packages,
                     "Include source packages."),
         OPT_BOOLEAN(0, "no-proprietary-packages", &no_proprietary_packages,

@@ -57,6 +57,7 @@ int get_flag(JSON_Object *dcf_flags, char *name);
 void get_dig_control_flags_from_json(DigControlFlags *dcf,
                                      JSON_Object *dcf_flags);
 void perform_ritual(int i, int *ritual_success);
+int dust_carefully();
 void curse_check(int loops);
 void virus_check();
 int extract_packages(char *location, int n, int verbose, int *packages,
