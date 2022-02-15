@@ -12,6 +12,7 @@ void print_dig_stats_report(DigStatistics *dst)
     printf("Cursed packages: %d\n", dst->cursed_packages);
     printf("Cleansing rituals performed: %d\n",
            dst->cleansing_rituals_performed);
+    printf("Total salt used in kilograms: %Lf\n", dst->salt_used_kg);
 }
 
 void initialize_dig_stats(DigStatistics *dst)
@@ -21,7 +22,5 @@ void initialize_dig_stats(DigStatistics *dst)
     dst->packages = 0;
     dst->cleansing_rituals_performed = 0;
     dst->cursed_packages = 0;
-    
-    /* TODO: keep track of salt used during cleansing of cursed packages */
     dst->salt_used_kg = 0;
 }

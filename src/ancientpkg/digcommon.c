@@ -23,7 +23,9 @@ long double perform_ritual(int i, int *ritual_success, DigStatistics *dst)
 
     msleep((randint(244, 652)));
 
-    return randint(1, 8);
+    MTRand mtw = seedRand(clock());
+
+    return (genRand(&mtw) * randint(10, 20));
 }
 
 int curse_check(int loops, DigStatistics *dst)
