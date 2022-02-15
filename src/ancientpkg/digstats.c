@@ -6,16 +6,11 @@
 void print_dig_stats_report(DigStatistics *dst)
 {
     /* TODO: only show statistics relevant to flags passed for job */
-    printf("Broken package shards: %d\n"
-           "Missing package shards: %d\n"
-           "Total packages found: %d\n"
-           "Cursed packages: %d\n"
-           "Cleansing rituals performed: %d\n",
-           
-           dst->broken_shards,
-           dst->missing_shards,
-           dst->packages,
-           dst->cursed_packages,
+    printf("Broken package shards: %d\n", dst->broken_shards);
+    printf("Missing package shards: %d\n", dst->missing_shards);
+    printf("Total packages found: %d\n", dst->packages);
+    printf("Cursed packages: %d\n", dst->cursed_packages);
+    printf("Cleansing rituals performed: %d\n",
            dst->cleansing_rituals_performed);
 }
 
