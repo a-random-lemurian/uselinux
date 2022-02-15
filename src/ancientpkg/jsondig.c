@@ -152,6 +152,10 @@ int dig_from_json(char *filename)
 
     json_value_free(job);
 
-    dig_common(archaeologists, expected_packages, 1, passes, location, &dcf);
+    DigStatistics dst;
+    initialize_dig_stats(&dst);
+
+    dig_common(archaeologists, expected_packages,
+               1, passes, location, &dcf, &dst);
     exit(0);
 }

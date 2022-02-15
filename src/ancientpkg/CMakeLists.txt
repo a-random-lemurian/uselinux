@@ -1,2 +1,3 @@
-add_executable(ancientpkg dig.c package.c main.c date.c digcommon.c jsondig.c)
+add_executable(ancientpkg dig.c package.c main.c date.c digcommon.c jsondig.c
+                          digstats.c)
 target_link_libraries(ancientpkg argparse common parson)

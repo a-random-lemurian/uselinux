@@ -5,8 +5,11 @@
 #include <stdio.h>
 #include <time.h>
 
-void perform_ritual(int i, int *ritual_success, int dry_run)
+long double perform_ritual(int i, int *ritual_success, DigStatistics *dst,
+                           DigControlFlags* dcf)
 {
+    dst->cleansing_rituals_performed++;
+
     printf("%ld:attempting cleansing ritual... attempt %d", clock(), i);
 
     if ((randint(1, 1000)) > 230)
@@ -19,16 +22,25 @@ void perform_ritual(int i, int *ritual_success, int dry_run)
         *ritual_success = 1;
     }
 
-    if (!dry_run)
+    if (!dcf->dry_run)
     {
         msleep((randint(244, 652)));
     }
+
+    MTRand mtw = seedRand(clock());
+
+    return (genRand(&mtw) * randint(10, 20));
 }
 
-void curse_check(DigControlFlags* dcf, int loops)
+int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf)
 {
+
+    int i = 0;
+
     if ((randint(1, 100000)) > 91700)
     {
+        dst->cursed_packages++;
+
         printf("\n" WARN "curse detected in package.");
         repeat(' ', 30);
         printf("\n");
@@ -42,13 +54,14 @@ void curse_check(DigControlFlags* dcf, int loops)
 
         printf(WARN "digsite %d lockdown initiated.\n", loops);
         int ritual_success = 0;
-        int i = 0;
         while (ritual_success == 0)
         {
-            perform_ritual(i, &ritual_success, dcf->dry_run);
+            dst->salt_used_kg += perform_ritual(i, &ritual_success, dst, dcf);
             i++;
         }
     }
+
+    return i;
 }
 
 void virus_check(DigControlFlags* dcf)
@@ -115,8 +128,9 @@ void find_alternative_sources_for_shards(DigControlFlags *dcf)
     }
 }
 
-int extract_packages(char *location, int n, int loops, char endch,
-                     MTRand mtw, DigControlFlags *dcf)
+int extract_packages(char *location, int n,
+                     int loops, char endch, MTRand mtw, DigControlFlags *dcf,
+                     DigStatistics* dst)
 {
     int pkgs = 0;
     char* status;
@@ -174,12 +188,16 @@ int extract_packages(char *location, int n, int loops, char endch,
             char pkgname[512];
             sprintf(pkgname, "package-ancient:%d", i);
             package_shard_failure(dcf, i, (char *)pkgname);
+
+            dst->missing_shards++;
         }
         else if (broken_package_shard && dcf->ignore_broken_shards == 0)
         {
             char pkgname[512];
             sprintf(pkgname, "package-ancient:%d", i);
             deal_with_broken_package_shard(dcf, i, (char *)pkgname);
+        
+            dst->broken_shards++;
         }
 
         pkgs++;
@@ -208,7 +226,7 @@ int extract_packages(char *location, int n, int loops, char endch,
 
         if (dcf->curse_check)
         {
-            curse_check(dcf, loops);
+            curse_check(loops, dst, dcf);
         }
 
         if (dcf->virus_check)
@@ -217,11 +235,13 @@ int extract_packages(char *location, int n, int loops, char endch,
         }
     }
 
+    dst->packages += pkgs;
     return pkgs;
 }
 
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location, DigControlFlags *dcf)
+               int passes, char *location, DigControlFlags *dcf,
+               DigStatistics* dst)
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
@@ -232,7 +252,7 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 
     for (int n = 0; n < passes; n++)
     {
-        packages += extract_packages(location, n, loops, endch, mtw, dcf);
+        packages += extract_packages(location, n, loops, endch, mtw, dcf, dst);
     }
 
     printf("\n");

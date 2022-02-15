@@ -91,8 +91,13 @@ int cmd_dig(int argc, char **argv)
 
     printf("Sending %d archaeologists to %s...\n", archaeologists, location);
 
-    int packages = dig_common(archaeologists, expected_packages, verbose,
-                              passes, location, &dcf);
+    DigStatistics dst;
+    initialize_dig_stats(&dst);
 
-    printf("Found %d packages.\n", packages);
+    dig_common(archaeologists, expected_packages, verbose,
+               passes, location, &dcf, &dst);
+
+    print_dig_stats_report(&dst);
+
+    return 0;
 }
