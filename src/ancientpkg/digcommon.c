@@ -86,15 +86,17 @@ void find_alternative_sources_for_shards()
     {
         printf("Checking package src %d.... ", n);
         fflush(stdout);
+
         msleep(randint(1, 300));
+
         if (randint(1, 100) > 90)
         {
-            printf("shard found.\n");
+            printf("shard " BHGRN "found." reset "\n");
             break;
         }
         else
         {
-            printf(" shard not found.\n");
+            printf("shard " BHRED "not found." reset "\n");
         }
     }
 }
