@@ -38,6 +38,7 @@ int cmd_dig(int argc, char **argv)
         OPT_INTEGER('P', "passes", &passes, "Number of passes to make."),
         OPT_STRING('l', "location", &location, "Location of package dig job."),
         OPT_BOOLEAN('v', "verbose", &verbose, "Verbose output"),
+        OPT_BOOLEAN(0, "dry-run", &dcf.dry_run, "Don't wait"),
         OPT_STRING(0, "from-json", &jsonfile,
                    "Read package dig config from JSON file"),
         OPT_GROUP("Flags that control the package excavation job"),

@@ -30,6 +30,10 @@ typedef struct DigControlFlags
     int curse_check;
     int ignore_missing_shards;
     int ignore_broken_shards;
+
+
+    /* Don't wait */
+    int dry_run;
 } DigControlFlags;
 
 typedef struct Package
@@ -59,32 +63,18 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
  * @param i Identifier of package shard.
  * @param pkgname Name of package with missing shard.
  */
-void package_shard_failure(int i, char *pkgname);
+void package_shard_failure(DigControlFlags* dcf, int i, char *pkgname);
 int get_flag(JSON_Object *dcf_flags, char *name);
 void get_dig_control_flags_from_json(DigControlFlags *dcf,
                                      JSON_Object *dcf_flags);
-void perform_ritual(int i, int *ritual_success);
+void perform_ritual(int i, int *ritual_success, int dry_run);
 int dust_carefully();
-void curse_check(int loops);
-void virus_check();
-
-/**
- * @brief Extract packages from a dig site. Debian packages can get very old.
- *
- * @note This is an internal function.
- *
- * @param location Location of dig site.
- * @param n The number of "passes" made
- * @param loops Number of loops to make.
- * @param endch Character to print ('\r' or '\n').
- * @param mtw MTRand struct.
- * @param dcf DCF (Dig Control Flags) struct.
- * @return int Packages extracted.
- */
-int extract_packages(char *location, int n, int loops, char endch,
-                     MTRand mtw, DigControlFlags *dcf);
-void deal_with_broken_package_shard(int i, char* pkgname);
-void find_alternative_sources_for_shards();
+void curse_check(DigControlFlags *dcf, int loops);
+void virus_check(DigControlFlags *dcf);
+int extract_packages(char *location, int n, int verbose, int *packages,
+                     int loops, char endch, MTRand mtw, DigControlFlags *dcf);
+void deal_with_broken_package_shard(DigControlFlags* dcf, int i, char* pkgname);
+void find_alternative_sources_for_shards(DigControlFlags* dcf);
 /* Packages ******************************************************************/
 int validate_package(Package *self);
 int create_package(Package *self, char *name, char *license);
