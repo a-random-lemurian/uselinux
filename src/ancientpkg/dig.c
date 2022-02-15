@@ -37,9 +37,10 @@ int cmd_dig(int argc, char **argv)
                     "Packages to expect from digging job."),
         OPT_INTEGER('P', "passes", &passes, "Number of passes to make."),
         OPT_STRING('l', "location", &location, "Location of package dig job."),
+        OPT_BOOLEAN('v', "verbose", &verbose, "Verbose output"),
         OPT_STRING(0, "from-json", &jsonfile,
                    "Read package dig config from JSON file"),
-        OPT_BOOLEAN('v', "verbose", &verbose, "Verbose output"),
+        OPT_GROUP("Flags that control the package excavation job"),
         OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
                     "Scan packages for viruses."),
         OPT_BOOLEAN(0, "curse-check", &dcf.curse_check,
@@ -61,7 +62,19 @@ int cmd_dig(int argc, char **argv)
         OPT_BOOLEAN(0, "no-proprietary-packages", &no_proprietary_packages,
                     "Include only free software."), */
         OPT_END()};
-    argparse_init(&ap, opts, NULL, 0);
+
+    const char* usages[] = {
+        "ancientpkg dig [--help] [--passes=<int>] [--location=<str>] \n"
+                "       [--expected-pkgs=<int>] [--archaeologists=<int>] "
+                       "[<FLAGS>]\n", 
+        NULL};
+
+    argparse_init(&ap, opts, usages, 0);
+    argparse_describe(&ap, "The universal package excavation system "
+                           "(Debian has ancient packages, anyway)",
+                           /**********************************************/
+                           "Packages may contain ancient curses leading to "
+                           "injury or death.");
     argparse_parse(&ap, argc, (const char **)argv);
 
     if (jsonfile != NULL)
