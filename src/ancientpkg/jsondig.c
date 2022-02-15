@@ -38,7 +38,8 @@ int validate_json_package(JSON_Object *package)
     return validate_package(&pkg);
 }
 
-void process_single_package(JSON_Object *package, size_t i)
+void process_single_package(DigControlFlags* dcf, JSON_Object *package,
+                            size_t i)
 {
     if (validate_json_package(package))
     {
@@ -65,7 +66,7 @@ void process_single_package(JSON_Object *package, size_t i)
             int pkg_delay = randint(40, 133);
             if ((randint(1, sleep)) > ((int)ceil((sleep / 100) * 94)))
             {
-                package_shard_failure(i, (char *)pkgname);
+                package_shard_failure(dcf, i, (char *)pkgname);
             }
             else
             {
@@ -77,7 +78,7 @@ void process_single_package(JSON_Object *package, size_t i)
     }
 }
 
-void process_multiple_packages(JSON_Array *packages)
+void process_multiple_packages(DigControlFlags* dcf, JSON_Array *packages)
 {
     JSON_Object *package;
     for (size_t i = 0; i < json_array_get_count(packages); i++)
@@ -85,7 +86,7 @@ void process_multiple_packages(JSON_Array *packages)
         package = json_array_get_object(packages, i);
         if (package != NULL)
         {
-            process_single_package(package, i);
+            process_single_package(dcf, package, i);
         }
     }
 }
@@ -104,6 +105,8 @@ void get_dig_control_flags_from_json(DigControlFlags *dcf,
     dcf->curse_check = get_flag(dcf_flags, "curseCheck");
     dcf->aggressive_diggers = get_flag(dcf_flags, "aggressiveDiggers");
     dcf->better_pickaxes = get_flag(dcf_flags, "betterPickaxes");
+    dcf->ignore_broken_shards = get_flag(dcf_flags, "ignoreBrokenShards");
+    dcf->dust_carefully = get_flag(dcf_flags, "dustCarefully");
 }
 
 int dig_from_json(char *filename)
@@ -144,11 +147,15 @@ int dig_from_json(char *filename)
     JSON_Array *packages = json_object_get_array(root, "packages");
     if (packages != NULL)
     {
-        process_multiple_packages(packages);
+        process_multiple_packages(&dcf, packages);
     }
 
     json_value_free(job);
 
-    dig_common(archaeologists, expected_packages, 1, passes, location, &dcf);
+    DigStatistics dst;
+    initialize_dig_stats(&dst);
+
+    dig_common(archaeologists, expected_packages,
+               1, passes, location, &dcf, &dst);
     exit(0);
 }
