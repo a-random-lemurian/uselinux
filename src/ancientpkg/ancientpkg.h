@@ -40,6 +40,13 @@ typedef struct Package
     char *license;
 } Package;
 
+typedef struct DigStatistics
+{
+    int packages;
+    int broken_shards;
+    int missing_shards;
+} DigStatistics;
+
 int set_dig_control_flags(DigControlFlags *dcf, int aggressive_diggers,
                           int better_pickaxes, int dust_carefully,
                           int source_packages, int no_proprietary_packages,
@@ -51,7 +58,8 @@ int set_default_dig_control_flags(DigControlFlags *dcf);
 int has_missing_args(char *location, int archaeologists, int passes,
                      int expected_packages);
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location, DigControlFlags *dcf);
+               int passes, char *location, DigControlFlags *dcf,
+               DigStatistics* dst);
 void package_shard_failure(int i, char *pkgname);
 int get_flag(JSON_Object *dcf_flags, char *name);
 void get_dig_control_flags_from_json(DigControlFlags *dcf,
@@ -61,9 +69,12 @@ int dust_carefully();
 void curse_check(int loops);
 void virus_check();
 int extract_packages(char *location, int n, int verbose, int *packages,
-                     int loops, char endch, MTRand mtw, DigControlFlags *dcf);
+                     int loops, char endch, MTRand mtw, DigControlFlags *dcf,
+                     DigStatistics* dst);
 void deal_with_broken_package_shard(int i, char* pkgname);
 void find_alternative_sources_for_shards();
+void initialize_dig_stats(DigStatistics *dst);
+void print_dig_stats_report(DigStatistics *dst);
 /* Packages ******************************************************************/
 int validate_package(Package *self);
 int create_package(Package *self, char *name, char *license);

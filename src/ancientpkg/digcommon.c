@@ -102,7 +102,8 @@ void find_alternative_sources_for_shards()
 }
 
 int extract_packages(char *location, int n, int verbose, int *packages,
-                     int loops, char endch, MTRand mtw, DigControlFlags *dcf)
+                     int loops, char endch, MTRand mtw, DigControlFlags *dcf,
+                     DigStatistics* dst)
 {
     int pkgs = 0;
     char* status;
@@ -153,12 +154,16 @@ int extract_packages(char *location, int n, int verbose, int *packages,
             char pkgname[512];
             sprintf(pkgname, "package-ancient:%d", i);
             package_shard_failure(i, (char *)pkgname);
+
+            dst->missing_shards++;
         }
         else if (broken_package_shard && dcf->ignore_broken_shards == 0)
         {
             char pkgname[512];
             sprintf(pkgname, "package-ancient:%d", i);
             deal_with_broken_package_shard(i, (char *)pkgname);
+        
+            dst->broken_shards++;
         }
 
         pkgs++;
@@ -196,11 +201,13 @@ int extract_packages(char *location, int n, int verbose, int *packages,
         }
     }
 
+    dst->packages += pkgs;
     return pkgs;
 }
 
 int dig_common(int archaeologists, int expected_packages, int verbose,
-               int passes, char *location, DigControlFlags *dcf)
+               int passes, char *location, DigControlFlags *dcf,
+               DigStatistics* dst)
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
@@ -212,7 +219,7 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
     for (int n = 0; n < passes; n++)
     {
         packages += extract_packages(location, n, verbose, &packages, loops,
-                                     endch, mtw, dcf);
+                                     endch, mtw, dcf, dst);
     }
 
     printf("\n");
