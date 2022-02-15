@@ -5,8 +5,10 @@
 #include <stdio.h>
 #include <time.h>
 
-void perform_ritual(int i, int *ritual_success)
+long double perform_ritual(int i, int *ritual_success, DigStatistics *dst)
 {
+    dst->cleansing_rituals_performed++;
+
     printf("%ld:attempting cleansing ritual... attempt %d", clock(), i);
 
     if ((randint(1, 1000)) > 230)
@@ -20,12 +22,19 @@ void perform_ritual(int i, int *ritual_success)
     }
 
     msleep((randint(244, 652)));
+
+    return randint(1, 8);
 }
 
-void curse_check(int loops)
+int curse_check(int loops, DigStatistics *dst)
 {
+
+    int i = 0;
+
     if ((randint(1, 100000)) > 91700)
     {
+        dst->cursed_packages++;
+
         printf("\n" WARN "curse detected in package.");
         repeat(' ', 30);
         printf("\n");
@@ -35,13 +44,14 @@ void curse_check(int loops)
 
         printf(WARN "digsite %d lockdown initiated.\n", loops);
         int ritual_success = 0;
-        int i = 0;
         while (ritual_success == 0)
         {
-            perform_ritual(i, &ritual_success);
+            dst->salt_used_kg += perform_ritual(i, &ritual_success, dst);
             i++;
         }
     }
+
+    return i;
 }
 
 void virus_check()
@@ -192,7 +202,7 @@ int extract_packages(char *location, int n, int verbose, int *packages,
 
         if (dcf->curse_check)
         {
-            curse_check(loops);
+            curse_check(loops, dst);
         }
 
         if (dcf->virus_check)

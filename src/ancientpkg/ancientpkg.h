@@ -45,6 +45,10 @@ typedef struct DigStatistics
     int packages;
     int broken_shards;
     int missing_shards;
+
+    int cursed_packages;
+    int cleansing_rituals_performed;
+    long double salt_used_kg;
 } DigStatistics;
 
 int set_dig_control_flags(DigControlFlags *dcf, int aggressive_diggers,
@@ -64,9 +68,9 @@ void package_shard_failure(int i, char *pkgname);
 int get_flag(JSON_Object *dcf_flags, char *name);
 void get_dig_control_flags_from_json(DigControlFlags *dcf,
                                      JSON_Object *dcf_flags);
-void perform_ritual(int i, int *ritual_success);
+long double perform_ritual(int i, int *ritual_success, DigStatistics* dst);
 int dust_carefully();
-void curse_check(int loops);
+int curse_check(int loops, DigStatistics *dst);
 void virus_check();
 int extract_packages(char *location, int n, int verbose, int *packages,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf,
