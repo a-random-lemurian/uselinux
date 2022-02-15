@@ -111,6 +111,7 @@ int extract_packages(char *location, int n, int verbose, int *packages,
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
         clock_t t1_before = clock();
+
         if (dcf->dust_carefully)
         {
             dc_slp = dust_carefully();
@@ -168,6 +169,7 @@ int extract_packages(char *location, int n, int verbose, int *packages,
                 pkgs += randint(4, 20);
             }
         }
+
         if (dcf->better_pickaxes)
         {
             if ((randint(1, 1000) > 980))
@@ -224,21 +226,25 @@ int has_missing_args(char *location, int archaeologists, int passes,
         printf(ERROR "location must be specified\n");
         had_fatal_err = 1;
     }
+    
     if (archaeologists <= 1)
     {
         printf(ERROR "need more than 1 archaeologist.\n");
         had_fatal_err = 1;
     }
+    
     if (passes <= 0)
     {
         printf(ERROR "need more than 1 pass.\n");
         had_fatal_err = 1;
     }
+    
     if (expected_packages <= 0)
     {
         printf(ERROR "need to expect more than 1 package.\n");
         had_fatal_err = 1;
     }
+    
     if (had_fatal_err)
     {
         printf("use --help for help.\n");
