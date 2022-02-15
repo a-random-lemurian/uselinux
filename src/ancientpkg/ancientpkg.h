@@ -75,17 +75,14 @@ void virus_check();
  *
  * @param location Location of dig site.
  * @param n The number of "passes" made
- * @param verbose (Deprecated) To be verbose, or to be silent.
- * @param packages (Deprecated) Pointer to an `int` variable, incremented
- * when packages are found.
  * @param loops Number of loops to make.
  * @param endch Character to print ('\r' or '\n').
  * @param mtw MTRand struct.
  * @param dcf DCF (Dig Control Flags) struct.
  * @return int Packages extracted.
  */
-int extract_packages(char *location, int n, int verbose, int *packages,
-                     int loops, char endch, MTRand mtw, DigControlFlags *dcf);
+int extract_packages(char *location, int n, int loops, char endch,
+                     MTRand mtw, DigControlFlags *dcf);
 void deal_with_broken_package_shard(int i, char* pkgname);
 void find_alternative_sources_for_shards();
 /* Packages ******************************************************************/

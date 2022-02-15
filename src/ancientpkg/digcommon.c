@@ -101,8 +101,8 @@ void find_alternative_sources_for_shards()
     }
 }
 
-int extract_packages(char *location, int n, int verbose, int *packages,
-                     int loops, char endch, MTRand mtw, DigControlFlags *dcf)
+int extract_packages(char *location, int n, int loops, char endch,
+                     MTRand mtw, DigControlFlags *dcf)
 {
     int pkgs = 0;
     char* status;
@@ -211,8 +211,7 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 
     for (int n = 0; n < passes; n++)
     {
-        packages += extract_packages(location, n, verbose, &packages, loops,
-                                     endch, mtw, dcf);
+        packages += extract_packages(location, n, loops, endch, mtw, dcf);
     }
 
     printf("\n");
