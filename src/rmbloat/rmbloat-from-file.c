@@ -13,8 +13,8 @@ void print_help()
 }
 
 static const char *const usage[] = {
-    "rmbloat-csv [options] [[--] args]",
-    "rmbloat-csv [options]",
+    "rmbloat from-file [options] [[--] args]",
+    "rmbloat from-file [options]",
     NULL,
 };
 
