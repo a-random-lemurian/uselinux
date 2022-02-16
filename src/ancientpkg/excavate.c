@@ -60,8 +60,13 @@ int cmd_excavate(int argc, char **argv)
     int package_found = 0;
     while (package_found == 0)
     {
-        printf("Checking source %10d (%.12ld:%.12ld)\n", i, genRandLong(&mtw),
-               genRandLong(&mtw));
+        printf("Checking source %10d "
+               "(%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:"
+               "%.12ld:%.12ld:%.12ld:%.12ld)\n",
+               i, genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
+               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
+               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
+               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw));
         i++;
 
         if (i > args.attempts && args.attempts != -1)
