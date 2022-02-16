@@ -15,12 +15,14 @@ typedef struct arguments
 {
     char *target;
     int attempts;
+    int dry_run;
 } arguments;
 
 void init_args(arguments *arg)
 {
     arg->attempts = -1;
     arg->target = NULL;
+    arg->dry_run = 0;
 }
 
 int cmd_excavate(int argc, char **argv)
@@ -34,6 +36,8 @@ int cmd_excavate(int argc, char **argv)
         OPT_STRING('t', "target", &args.target, "Target package to find."),
         OPT_INTEGER('a', "attempts", &args.attempts,
                     "Number of attempts to make while trying to find package"),
+        OPT_BOOLEAN('n', "dry-run", &args.dry_run,
+                    "Dry run (don't wait)"),
         OPT_END()};
 
     argparse_init(&ap, options, usages, 0);
@@ -60,8 +64,13 @@ int cmd_excavate(int argc, char **argv)
     int package_found = 0;
     while (package_found == 0)
     {
-        printf("Checking source %10d (%.12ld:%.12ld)\n", i, genRandLong(&mtw),
-               genRandLong(&mtw));
+        printf("Checking source %10d "
+               "(%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:"
+               "%.12ld:%.12ld:%.12ld:%.12ld)\n",
+               i, genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
+               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
+               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
+               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw));
         i++;
 
         if (i > args.attempts && args.attempts != -1)
@@ -70,7 +79,10 @@ int cmd_excavate(int argc, char **argv)
             exit(1);
         }
 
-        msleep(randint(30, 90));
+        if (args.dry_run)
+        {
+            msleep(randint(30, 90));
+        }
 
         if (randint(1, 1000) > 950)
         {
