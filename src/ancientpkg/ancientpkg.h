@@ -48,6 +48,7 @@ typedef struct DigStatistics
     int packages;
     int broken_shards;
     int missing_shards;
+    int source_packages;
 
     int cursed_packages;
     int cleansing_rituals_performed;

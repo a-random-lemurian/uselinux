@@ -183,6 +183,16 @@ int extract_packages(char *location, int n,
                i, n, location, (sleep + dc_slp), status);
         fflush(stdout);
 
+        if (dcf->source_packages)
+        {
+            printf("Get:%d:s%d.digsites.site-3/site/src/%s (%d ms) %s "
+                   "<SOURCE>\n",
+                   i, n, location, (sleep + dc_slp), status);
+            fflush(stdout);
+            dst->source_packages++;
+            dst->packages++;
+        }
+
         if (has_missing_shard && dcf->ignore_missing_shards == 0)
         {
             char pkgname[512];
