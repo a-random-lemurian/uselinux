@@ -107,6 +107,7 @@ void get_dig_control_flags_from_json(DigControlFlags *dcf,
     dcf->better_pickaxes = get_flag(dcf_flags, "betterPickaxes");
     dcf->ignore_broken_shards = get_flag(dcf_flags, "ignoreBrokenShards");
     dcf->dust_carefully = get_flag(dcf_flags, "dustCarefully");
+    dcf->source_packages = get_flag(dcf_flags, "sourcePackages");
 }
 
 int dig_from_json(char *filename)

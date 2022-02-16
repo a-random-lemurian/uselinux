@@ -245,6 +245,11 @@ int dig_common(int archaeologists, int expected_packages, int verbose,
 {
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
+    if (dcf->source_packages)
+    {
+        loops += (int)ceil(loops * 0.76);
+    }
+
     MTRand mtw = seedRand(clock());
 
     int packages = 0;
