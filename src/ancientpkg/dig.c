@@ -64,18 +64,19 @@ int cmd_dig(int argc, char **argv)
                     "Include only free software."), */
         OPT_END()};
 
-    const char* usages[] = {
+    const char *usages[] = {
         "ancientpkg dig [--help] [--passes=<int>] [--location=<str>] \n"
-                "       [--expected-pkgs=<int>] [--archaeologists=<int>] "
-                       "[<FLAGS>]\n", 
+        "       [--expected-pkgs=<int>] [--archaeologists=<int>] "
+        "[<FLAGS>]\n",
         NULL};
 
     argparse_init(&ap, opts, usages, 0);
-    argparse_describe(&ap, "The universal package excavation system "
-                           "(Debian has ancient packages, anyway)",
-                           /**********************************************/
-                           "Packages may contain ancient curses leading to "
-                           "injury or death.");
+    argparse_describe(&ap,
+                      "The universal package excavation system "
+                      "(Debian has ancient packages, anyway)",
+                      /**********************************************/
+                      "Packages may contain ancient curses leading to "
+                      "injury or death.");
     argparse_parse(&ap, argc, (const char **)argv);
 
     if (jsonfile != NULL)
@@ -94,8 +95,8 @@ int cmd_dig(int argc, char **argv)
     DigStatistics dst;
     initialize_dig_stats(&dst);
 
-    dig_common(archaeologists, expected_packages, verbose,
-               passes, location, &dcf, &dst);
+    dig_common(archaeologists, expected_packages, verbose, passes, location,
+               &dcf, &dst);
 
     print_dig_stats_report(&dst);
 
