@@ -9,12 +9,23 @@ void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf)
         return;
     }
 
+    if (dcf->ignore_broken_shards == 0)
+    {
+        printf("Broken package shards: %d\n", dst->broken_shards);
+    }
 
-    printf("Broken package shards: %d\n", dst->broken_shards);
-    printf("Missing package shards: %d\n", dst->missing_shards);
+    if (dcf->ignore_missing_shards == 0)
+    {
+        printf("Missing package shards: %d\n", dst->missing_shards);
+    }
+
     printf("Total packages found: %d\n", dst->packages);
-    printf("Proprietary packages purged and removed: %d\n",
-           dst->proprietary_packages_purged);
+
+    if (dcf->no_proprietary_packages)
+    {
+        printf("Proprietary packages purged and removed: %d\n",
+               dst->proprietary_packages_purged);
+    }
 
     if (dcf->curse_check && !dcf->show_all_stats)
     {
