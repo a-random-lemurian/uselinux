@@ -33,6 +33,9 @@ typedef struct DigControlFlags
     /* Always show all stats */
     int show_all_stats;
 
+    /* Never show stats */
+    int no_stats;
+
     /* Don't wait */
     int dry_run;
 } DigControlFlags;

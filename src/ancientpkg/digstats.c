@@ -2,9 +2,14 @@
 #include <stdio.h>
 #include <time.h>
 
-
 void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf)
 {
+    if (dcf->no_stats)
+    {
+        return;
+    }
+
+
     printf("Broken package shards: %d\n", dst->broken_shards);
     printf("Missing package shards: %d\n", dst->missing_shards);
     printf("Total packages found: %d\n", dst->packages);

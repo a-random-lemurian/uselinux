@@ -43,6 +43,8 @@ int cmd_dig(int argc, char **argv)
                    "Read package dig config from JSON file"),
         OPT_BOOLEAN(0, "show-all-stats", &dcf.show_all_stats,
                     "Show all dig statistics"),
+        OPT_BOOLEAN(0, "no-stats", &dcf.no_stats, 
+                    "Don't show any stats at all"),
         OPT_GROUP("Flags that control the package excavation job"),
         OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
                     "Scan packages for viruses."),
