@@ -53,4 +53,5 @@ void initialize_dig_stats(DigStatistics *dst)
     dst->cursed_packages = 0;
     dst->salt_used_kg = 0;
     dst->source_packages = 0;
+    dst->proprietary_packages_purged = 0;
 }
