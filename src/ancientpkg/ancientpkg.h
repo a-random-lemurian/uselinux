@@ -30,6 +30,8 @@ typedef struct DigControlFlags
     int ignore_missing_shards;
     int ignore_broken_shards;
 
+    /* Always show all stats */
+    int show_all_stats;
 
     /* Don't wait */
     int dry_run;

@@ -9,7 +9,7 @@ void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf)
     printf("Missing package shards: %d\n", dst->missing_shards);
     printf("Total packages found: %d\n", dst->packages);
 
-    if (dcf->curse_check)
+    if (dcf->curse_check && !dcf->show_all_stats)
     {
         printf("Cursed packages: %d\n", dst->cursed_packages);
         printf("Cleansing rituals performed: %d\n",
@@ -17,7 +17,7 @@ void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf)
         printf("Total salt used in kilograms: %Lf\n", dst->salt_used_kg);
     }
 
-    if (dcf->source_packages)
+    if (dcf->source_packages && !dcf->show_all_stats)
     {
         printf("Total source packages: %d\n", dst->source_packages);
     }

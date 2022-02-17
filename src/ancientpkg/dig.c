@@ -41,6 +41,8 @@ int cmd_dig(int argc, char **argv)
         OPT_BOOLEAN(0, "dry-run", &dcf.dry_run, "Don't wait"),
         OPT_STRING(0, "from-json", &jsonfile,
                    "Read package dig config from JSON file"),
+        OPT_BOOLEAN(0, "show-all-stats", &dcf.show_all_stats,
+                    "Show all dig statistics"),
         OPT_GROUP("Flags that control the package excavation job"),
         OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
                     "Scan packages for viruses."),
