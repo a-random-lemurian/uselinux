@@ -9,17 +9,20 @@ void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf)
         return;
     }
 
+    printf("Packages:\n");
     if (dcf->ignore_broken_shards == 0)
     {
-        printf("Broken package shards: %d\n", dst->broken_shards);
+        printf("    Broken shards:  %d\n", dst->broken_shards);
     }
 
     if (dcf->ignore_missing_shards == 0)
     {
-        printf("Missing package shards: %d\n", dst->missing_shards);
+        printf("    Missing shards: %d\n", dst->missing_shards);
     }
+    printf("    Usable shards:  %d\n",
+           (dst->packages - (dst->broken_shards + dst->missing_shards)));
 
-    printf("Total packages found: %d\n", dst->packages);
+    printf("    Total:          %d\n", dst->packages);
 
     if (dcf->no_proprietary_packages)
     {
