@@ -67,11 +67,6 @@ int cmd_dig(int argc, char **argv);
 int cmd_date(int argc, char **argv);
 int cmd_excavate(int argc, char **argv);
 
-
-int set_dig_control_flags(DigControlFlags *dcf, int aggressive_diggers,
-                          int better_pickaxes, int dust_carefully,
-                          int source_packages, int no_proprietary_packages,
-                          int virus_check, int curse_check);
 int dig_from_json(char *filename);
 int set_default_dig_control_flags(DigControlFlags *dcf);
 int has_missing_args(char *location, int archaeologists, int passes,
