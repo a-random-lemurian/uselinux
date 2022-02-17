@@ -249,10 +249,30 @@ int extract_packages(char *location, int n,
     return pkgs;
 }
 
+int validate_archaeologists(int archaeologists)
+{
+    int had_fatal_err;
+    int rc;
+
+    if (archaeologists > 7000000000)
+    {
+        printf(ERROR "Too many archaeologists (not everyone in the world is "
+                                              "one,)\n");
+        rc = 1;
+    }
+
+    if (had_fatal_err)
+    {
+        exit(rc);
+    }
+}
+
 int dig_common(int archaeologists, int expected_packages, int verbose,
                int passes, char *location, DigControlFlags *dcf,
                DigStatistics* dst)
 {
+    validate_archaeologists(archaeologists);
+
     int loops = (int)ceil((archaeologists * 10) + expected_packages);
 
     if (dcf->source_packages)
