@@ -88,7 +88,7 @@ int extract_packages(char *location, int n,
 void deal_with_broken_package_shard(DigControlFlags* dcf, int i, char* pkgname);
 void find_alternative_sources_for_shards();
 void initialize_dig_stats(DigStatistics *dst);
-void print_dig_stats_report(DigStatistics *dst);
+void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf);
 /* Packages ******************************************************************/
 int validate_package(Package *self);
 int create_package(Package *self, char *name, char *license);

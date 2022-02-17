@@ -98,7 +98,7 @@ int cmd_dig(int argc, char **argv)
     dig_common(archaeologists, expected_packages, verbose, passes, location,
                &dcf, &dst);
 
-    print_dig_stats_report(&dst);
+    print_dig_stats_report(&dst, &dcf);
 
     return 0;
 }
