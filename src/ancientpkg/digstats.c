@@ -14,6 +14,8 @@ void print_dig_stats_report(DigStatistics *dst)
            dst->cleansing_rituals_performed);
     printf("Total salt used in kilograms: %Lf\n", dst->salt_used_kg);
     printf("Total source packages: %d\n", dst->source_packages);
+    printf("Proprietary packages purged and removed: %d\n",
+           dst->proprietary_packages_purged);
 }
 
 void initialize_dig_stats(DigStatistics *dst)

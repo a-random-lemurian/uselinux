@@ -16,15 +16,6 @@ int cmd_dig(int argc, char **argv)
     char *jsonfile = NULL;
     char *location = NULL;
 
-    /* TODO: implement these options
-    int aggressive_diggers = 0;
-    int better_pickaxes;
-    int dust_carefully;
-    int source_packages;
-    int no_proprietary_packages;
-    int virus_check;
-    int curse_check; */
-
     DigControlFlags dcf;
     set_default_dig_control_flags(&dcf);
 
@@ -58,10 +49,8 @@ int cmd_dig(int argc, char **argv)
                     "Dust for packages more carefully."),
         OPT_BOOLEAN(0, "source-packages", &dcf.source_packages,
                     "Include source packages."),
-
-        /* TODO: Implement these options
-        OPT_BOOLEAN(0, "no-proprietary-packages", &no_proprietary_packages,
-                    "Include only free software."), */
+        OPT_BOOLEAN(0, "no-proprietary-packages", &dcf.no_proprietary_packages,
+                    "Include only free software."),
         OPT_END()};
 
     const char *usages[] = {

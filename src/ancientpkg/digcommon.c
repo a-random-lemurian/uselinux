@@ -97,6 +97,16 @@ int dust_carefully()
     return slp;
 }
 
+int purge_proprietary_package(DigControlFlags *dcf, DigStatistics *dst)
+{
+    printf(WARN "proprietary package detected. searching for free/libre "
+                "alternative...\n");
+
+    find_alternative_sources_for_shards(dcf);
+
+    dst->proprietary_packages_purged++;
+}
+
 void deal_with_broken_package_shard(DigControlFlags* dcf, int i, char* pkgname)
 {
     printf(WARN "Package shard %i of %s is broken!\n", i, pkgname);
@@ -212,6 +222,13 @@ int extract_packages(char *location, int n,
 
         pkgs++;
 
+        if (dcf->no_proprietary_packages)
+        {
+            if ((randint(1, 1000) > 960))
+            {
+                purge_proprietary_package(dcf, dst);
+            }
+        }
 
         if (dcf->aggressive_diggers)
         {
