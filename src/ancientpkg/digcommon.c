@@ -344,6 +344,8 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
     dcf->ignore_missing_shards = 0;
     dcf->ignore_broken_shards = 0;
     dcf->dry_run = 0;
+    dcf->show_all_stats = 0;
+    dcf->no_stats = 0;
     return 0;
 }
 
