@@ -147,6 +147,12 @@ int extract_packages(char *location, int n,
     int has_missing_shard;
     int dc_slp = 0;
     int broken_package_shard = 0;
+    int broken_shard_chance = 8600;
+
+    if (dcf->aggressive_diggers)
+    {
+        broken_shard_chance -= 5000;
+    }
 
     for (int i = 0; i < ((loops) + randint(1, 10)); i++)
     {
@@ -175,7 +181,7 @@ int extract_packages(char *location, int n,
             has_missing_shard = 1;
             status = "[404 Not Found]";
         }
-        else if (rand > 8600 && dcf->ignore_broken_shards == 0)
+        else if (rand > broken_shard_chance && dcf->ignore_broken_shards == 0)
         {
             broken_package_shard = 1;
             status = "[500 Internal Server Error]";
@@ -375,6 +381,8 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
     dcf->ignore_missing_shards = 0;
     dcf->ignore_broken_shards = 0;
     dcf->dry_run = 0;
+    dcf->show_all_stats = 0;
+    dcf->no_stats = 0;
     return 0;
 }
 

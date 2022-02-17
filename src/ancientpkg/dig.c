@@ -32,6 +32,10 @@ int cmd_dig(int argc, char **argv)
         OPT_BOOLEAN(0, "dry-run", &dcf.dry_run, "Don't wait"),
         OPT_STRING(0, "from-json", &jsonfile,
                    "Read package dig config from JSON file"),
+        OPT_BOOLEAN(0, "show-all-stats", &dcf.show_all_stats,
+                    "Show all dig statistics"),
+        OPT_BOOLEAN(0, "no-stats", &dcf.no_stats, 
+                    "Don't show any stats at all"),
         OPT_GROUP("Flags that control the package excavation job"),
         OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
                     "Scan packages for viruses."),
@@ -87,7 +91,7 @@ int cmd_dig(int argc, char **argv)
     dig_common(archaeologists, expected_packages, verbose, passes, location,
                &dcf, &dst);
 
-    print_dig_stats_report(&dst);
+    print_dig_stats_report(&dst, &dcf);
 
     return 0;
 }
