@@ -48,7 +48,12 @@ more verbose output.
 
 .SS --dry-run 
 Don't wait at all, just pretend the packages are there, lying out in the open,
-pre-excavated by Ancientpkg.
+pre-excavated by Ancientpkg. This significantly increases job time (but you
+won't have any packages to install), which allows for debugging or testing.
+
+The program will run much faster than when it was ran without --dry-run, but
+it will still take time due to the overhead of printing and flushing the
+stdout buffer.
 
 .SS --from-json=<str> 
 Read the specifics of a package excavation job from a JSON file.
