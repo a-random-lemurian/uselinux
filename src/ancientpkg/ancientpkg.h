@@ -61,6 +61,13 @@ typedef struct DigStatistics
     long double salt_used_kg;
 } DigStatistics;
 
+typedef struct PackageCurse
+{
+    char* type;
+    char* name;
+    int (*fn)(int, DigControlFlags*, DigStatistics*);
+} PackageCurse;
+
 
 int set_default_dig_control_flags(DigControlFlags *dcf);
 
