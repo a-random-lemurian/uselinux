@@ -1,0 +1,89 @@
+.TH ancientpkg-dig 1 "The universal package digging system" "February 17, 2022" Ancientpkg
+
+.SH DESCRIPTION
+The 
+.B dig
+subcommand of Ancientpkg initializes a digging job at any digsite on Earth,
+and assigns archaeologists to retrieve ancient Debian packages for
+installation on modern-day systems. Examples of ancient packages retrieved
+by Ancientpkg dig jobs include libhomosapiens (200,000 years old), libbacteria
+(approx. 3.0-4.3 billion years old), libuniverse (13 billion years old), and
+libchurch (approx. 2,000 years old).
+
+Overwhelmingly, packages excavated by Ancientpkg are those meant for the
+GNU/Linux distribution Debian, alongside other distributions which are
+based on Debian. The discovery of an RPM or AUR package is rare, and in the
+rare cases it does happen, constitute undefined behavior.
+
+
+.SH FLAGS
+.SS -h, --help 
+Shows a help message.
+
+.SS -a, --archaeologists=<int> 
+This flag specifies how many archaeologists should be sent to a particular
+dig site. Ancientpkg automatically manages labor and food costs. Sending more
+archaeologists than the entire population of the world may result in undefined
+behavior in approximately 0.000000049345 of dig jobs ran.
+
+.SS -p, --expected-pkgs=<int> 
+How many packages are expected to be retrieved from the dig site. The total
+package yield will always exceed any value passed via this flag, since the
+standards set by Ancientpkg for archaeologists are high.
+
+
+.SS -P, --passes=<int> 
+How many passes over the dig site are expected to be made. This often helps
+increase package output.
+
+.SS -l, --location=<str> 
+Location of package dig job. Location should be on Earth for best results. No
+undefined behavior is caused by misuse of this flag. Locations in warzones,
+disputed territories, warzones, or highly dangerous homes are strongly not
+recommended.
+
+.SS -v, --verbose 
+This option is deprecated. Before it was deprecated, this option would enable
+more verbose output.
+
+.SS --dry-run 
+Don't wait at all, just pretend the packages are there, lying out in the open,
+pre-excavated by Ancientpkg. This significantly increases job time (but you
+won't have any packages to install), which allows for debugging or testing.
+
+The program will run much faster than when it was ran without --dry-run, but
+it will still take time due to the overhead of printing and flushing the
+stdout buffer.
+
+.SS --from-json=<str> 
+Read the specifics of a package excavation job from a JSON file.
+
+.SS --virus-check 
+Scan packages for several types of malware.
+
+.SS --curse-check 
+Scan packages for ancient curses.
+
+.SS --aggressive-diggers 
+Dig very aggressively.
+
+.SS --better-pickaxes 
+Provide diggers with better pickaxes.
+
+.SS --ignore-missing-shards 
+Ignore missing package shards
+
+.SS --ignore-broken-shards 
+Ignore physically broken package shards
+
+.SS --dust-carefully 
+Dust for packages more carefully.
+
+.SS --source-packages 
+Include source packages.
+q
+
+.SH DISCLAIMER
+Ancientpkg virus removal messages do not actually remove or install
+viruses on your system. This program pokes fun at the age of Debian
+packages (all of them date back to the Stone Age anyway).
