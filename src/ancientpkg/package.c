@@ -1,4 +1,4 @@
-#include "ancientpkg.h"
+#include <ancientpkg.h>
 #include <common/ansiescapes.h>
 #include <stddef.h>
 #include <stdio.h>

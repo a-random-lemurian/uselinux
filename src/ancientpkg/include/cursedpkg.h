@@ -1,6 +1,6 @@
 #ifndef CURSEDPKG_H
 #define CURSEDPKG_H
-#include "ancientpkg.h"
+#include <ancientpkg.h>
 
 
 int cmit_diseased_pkg(int n, DigControlFlags *dcf, DigStatistics *dst);

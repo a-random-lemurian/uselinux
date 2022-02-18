@@ -1,4 +1,4 @@
-#include "ancientpkg.h"
+#include <ancientpkg.h>
 #include "cursedpkg.h"
 #include <common/utils.h>
 #include <stdio.h>
@@ -30,7 +30,8 @@ int cmit_infohazard(int n, DigControlFlags *dcf, DigStatistics *dst)
     printf(WARN "package contains an infohazard.\n");
     printf(WARN "To prevent infohazard harm, hiding output.\n");
 
-    uint64_t n = 0;
+    /* mka = [m]emetic [k]ill [a]gent */
+    uint64_t suppressed_mka_bytes = 0;
 
     for (int i = 0; i < randint(30, 140); i++)
     {
