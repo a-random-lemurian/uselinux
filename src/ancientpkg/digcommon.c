@@ -154,7 +154,7 @@ int extract_packages(char *location, int n,
         broken_shard_chance -= 5000;
     }
 
-    for (int i = 0; i < ((loops) + randint(1, 10)); i++)
+    for (int i = 0; i < loops + randint(1, 10); i++)
     {
         clock_t t1_before = clock();
 
