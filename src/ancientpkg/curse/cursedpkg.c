@@ -1,5 +1,5 @@
 #include <ancientpkg.h>
-#include "cursedpkg.h"
+#include <cursedpkg.h>
 #include <common/utils.h>
 #include <stdio.h>
 #include <stdint.h>
