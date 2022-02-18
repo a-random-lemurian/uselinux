@@ -24,22 +24,3 @@ int cmit_diseased_pkg(int n, DigControlFlags *dcf, DigStatistics *dst)
 
     return 0;
 }
-
-int cmit_infohazard(int n, DigControlFlags *dcf, DigStatistics *dst)
-{
-    printf(WARN "package contains an infohazard.\n");
-    printf(WARN "To prevent infohazard harm, hiding output.\n");
-
-    /* mka = [m]emetic [k]ill [a]gent */
-    uint64_t suppressed_mka_bytes = 0;
-
-    for (int i = 0; i < randint(30, 140); i++)
-    {
-        if (!dcf->dry_run)
-        {
-            msleep(randint(40, 90));
-        }
-    }
-
-    return 0;
-}
