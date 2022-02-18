@@ -1,35 +1,22 @@
-#include "ancientpkg.h"
+#include <ancientpkg.h>
+#include "cursedpkg.h"
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>
 #include <common/utils.h>
 #include <stdio.h>
 #include <time.h>
 
-long double perform_ritual(int i, int *ritual_success, DigStatistics *dst,
-                           DigControlFlags* dcf)
+static PackageCurse curses[] = {
+    {"disease", "Diseased package", cmit_diseased_pkg},
+    {"memetic", "Infohazardous package", cmit_infohazard}
+};
+
+int mitigate_curse(DigStatistics *dst, DigControlFlags *dcf)
 {
-    dst->cleansing_rituals_performed++;
-
-    printf("%ld:attempting cleansing ritual... attempt %d", clock(), i);
-
-    if ((randint(1, 1000)) > 230)
-    {
-        printf(", " BHRED "failed." reset "\n");
-    }
-    else
-    {
-        printf(", " BHGRN "success.\n" reset);
-        *ritual_success = 1;
-    }
-
-    if (!dcf->dry_run)
-    {
-        msleep((randint(244, 652)));
-    }
-
     MTRand mtw = seedRand(clock());
 
-    return (genRand(&mtw) * randint(10, 20));
+    curses[(int)floor(genRand(&mtw) * (sizeof(curses)/sizeof(curses[0])))]
+         .fn(0, dcf, dst);
 }
 
 int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf)
@@ -53,12 +40,8 @@ int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf)
         int n = randint(1, 1000);
 
         printf(WARN "digsite %d lockdown initiated.\n", loops);
-        int ritual_success = 0;
-        while (ritual_success == 0)
-        {
-            dst->salt_used_kg += perform_ritual(i, &ritual_success, dst, dcf);
-            i++;
-        }
+
+        mitigate_curse(dst, dcf);
     }
 
     return i;
