@@ -62,26 +62,28 @@ Read the specifics of a package excavation job from a JSON file.
 Scan packages for several types of malware.
 
 .SS --curse-check 
-Scan packages for ancient curses.
+Scan packages for ancient curses, infohazards or anything that may harm the
+archaeologist opening it (excludes physical harm and viruses/malware).
 
 .SS --aggressive-diggers 
-Dig very aggressively.
+Dig very aggressively. This may result in packages being damaged, however this
+results in more packages being extracted.
 
 .SS --better-pickaxes 
 Provide diggers with better pickaxes.
 
 .SS --ignore-missing-shards 
-Ignore missing package shards
+Ignore missing package shards.
 
 .SS --ignore-broken-shards 
-Ignore physically broken package shards
+Ignore physically broken package shards.
 
 .SS --dust-carefully 
 Dust for packages more carefully.
 
 .SS --source-packages 
-Include source packages.
-q
+Include source packages, which contain the source code of installed packages,
+in addition to binary packages.
 
 .SH DISCLAIMER
 Ancientpkg virus removal messages do not actually remove or install
