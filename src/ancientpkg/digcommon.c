@@ -274,7 +274,7 @@ int validate_archaeologists(int archaeologists)
     }
 }
 
-int dig_common(int archaeologists, int expected_packages, int verbose,
+int dig_common(int archaeologists, int expected_packages,
                int passes, char *location, DigControlFlags *dcf,
                DigStatistics* dst)
 {
