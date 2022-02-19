@@ -131,6 +131,7 @@ int extract_packages(char *location, int n,
     int dc_slp = 0;
     int broken_package_shard = 0;
     int broken_shard_chance = 8600;
+    long total_time = 0;
 
     if (dcf->aggressive_diggers)
     {
@@ -141,6 +142,7 @@ int extract_packages(char *location, int n,
     for (int i = 0; i < loops; i++)
     {
         clock_t t1_before = clock();
+        total_time = 0;
 
         if (dcf->dust_carefully && !dcf->dry_run)
         {
@@ -179,8 +181,10 @@ int extract_packages(char *location, int n,
         }
 
 
-        printf("Get:%d:s%d.digsites.site-3/site/%s (%d ms) %s\n",
-               i, n, location, (sleep + dc_slp), status);
+        total_time += sleep;
+        total_time += dc_slp;
+        printf("Get:%d:s%d.digsites.site-3/site/%s (%ld ms) %s\n",
+               i, n, location, total_time, status);
         fflush(stdout);
 
         if (dcf->source_packages)
