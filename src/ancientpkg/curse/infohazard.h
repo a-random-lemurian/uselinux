@@ -9,6 +9,7 @@ typedef struct Infohazard {
 } Infohazard;
 
 int ih_berryman_langford(DigControlFlags *dcf, DigStatistics *dst);
+int ih_amnestic(DigControlFlags *dcf, DigStatistics *dst);
 int print_infohazard_message(Infohazard* ih);
 
 #endif /* INFOHAZARD_H */
