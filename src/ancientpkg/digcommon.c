@@ -147,12 +147,14 @@ int extract_packages(char *location, int n,
         if (dcf->dust_carefully && !dcf->dry_run)
         {
             dc_slp = dust_carefully();
+            total_time += dc_slp;
         }
 
         int sleep = 0;
         if (!dcf->dry_run)
         {
             int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
+            total_time += sleep;
             msleep(sleep);
         }
 
@@ -180,9 +182,6 @@ int extract_packages(char *location, int n,
             }
         }
 
-
-        total_time += sleep;
-        total_time += dc_slp;
         printf("Get:%d:s%d.digsites.site-3/site/%s (%ld ms) %s\n",
                i, n, location, total_time, status);
         fflush(stdout);
