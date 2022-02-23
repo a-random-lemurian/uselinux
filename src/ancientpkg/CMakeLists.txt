@@ -7,6 +7,7 @@ add_executable(ancientpkg dig.c
                           jsondig.c
                           digstats.c
                           excavate.c
+                          "install.c"
                           curse/cursedpkg.c
                           curse/infohazard.c)
 

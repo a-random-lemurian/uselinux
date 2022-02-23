@@ -74,6 +74,7 @@ int set_default_dig_control_flags(DigControlFlags *dcf);
 int cmd_dig(int argc, char **argv);
 int cmd_date(int argc, char **argv);
 int cmd_excavate(int argc, char **argv);
+int cmd_install(int argc, char** argv);
 
 
 int dig_common(int archaeologists, int expected_packages,

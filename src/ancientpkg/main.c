@@ -9,7 +9,8 @@
 static Subcommand subcommands[] = {
     {"dig", cmd_dig, "Dig for ancient packages"},
     {"date", cmd_date, "Determine the age of a package"},
-    {"excavate", cmd_excavate, "Excavate a single package"}};
+    {"excavate", cmd_excavate, "Excavate a single package"},
+    {"install", cmd_install, "Install extracted packages"}};
 
 int main(int argc, char **argv)
 {
