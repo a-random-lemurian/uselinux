@@ -11,6 +11,10 @@ static PackageCurse curses[] = {
     {"memetic", "Infohazardous package", cmit_infohazard}
 };
 
+/*
+ * Mitigate a package curse, by calling a function that can deploy a more
+ * specialized response to the type of curse on the package.
+ */
 int mitigate_curse(DigStatistics *dst, DigControlFlags *dcf)
 {
     MTRand mtw = seedRand(clock());
@@ -19,6 +23,10 @@ int mitigate_curse(DigStatistics *dst, DigControlFlags *dcf)
          .fn(0, dcf, dst);
 }
 
+/*
+ * Check a package for a curse, and then call mitigate_curse() if the package
+ * is detected to be cursed.
+ */
 int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf)
 {
 
@@ -264,6 +272,10 @@ int validate_archaeologists(int archaeologists)
     int had_fatal_err;
     int rc;
 
+    /*
+     * We cannot have more archaeologists than the population of the entire
+     * world.
+     */
     if (archaeologists > 7000000000)
     {
         printf(ERROR "Too many archaeologists (not everyone in the world is "
@@ -304,6 +316,10 @@ int dig_common(int archaeologists, int expected_packages,
     return packages;
 }
 
+/*
+ * Check the archaeologists, passes, location, and expected_packages variables
+ * and ensure that they are valid.
+ */
 int has_missing_args(char *location, int archaeologists, int passes,
                      int expected_packages)
 {
@@ -341,6 +357,11 @@ int has_missing_args(char *location, int archaeologists, int passes,
     return had_fatal_err;
 }
 
+/*
+ * Set the dig control flags to their default values. Always call this method
+ * when preparing a DigControlFlags struct to prevent undefined values and
+ * behavior.
+ */
 int set_default_dig_control_flags(DigControlFlags *dcf)
 {
     dcf->aggressive_diggers = 0;
@@ -358,6 +379,9 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
     return 0;
 }
 
+/*
+ * Notify the user that there was a failure in retrieving a package shard.
+ */
 void package_shard_failure(DigControlFlags* dcf, int i, char *pkgname)
 {
     printf(WARN "failed to get package shard %d %s (stable)\n", i, pkgname);
