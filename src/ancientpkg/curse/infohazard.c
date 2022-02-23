@@ -7,7 +7,8 @@
 #include "infohazard.h"
 
 static Infohazard infohazards[] = {
-    {10, "Berryman-Langford Memetic Kill Agent", ih_berryman_langford}
+    {10, "Berryman-Langford Memetic Kill Agent", ih_berryman_langford},
+    {6, "Amnestics", ih_amnestic}
 };
 
 int random_infohazard(DigControlFlags *dcf, DigStatistics *dst)
@@ -65,4 +66,31 @@ int ih_berryman_langford(DigControlFlags *dcf, DigStatistics *dst)
             msleep(randint(30, 50));
         }
     }
+}
+
+int ih_amnestic(DigControlFlags *dcf, DigStatistics *dst)
+{
+    int n = randint(2, 10);
+
+    printf(WARN "Detected amnestic of type %d in package. Leaks may cause "
+                "memory loss to any nearby archaeologists.", n);
+
+    if (!dcf->dry_run)
+    {
+        msleep(randint(100, 250));
+    }
+
+    printf("Clearing archaeologists from site....\n");
+    if (!dcf->dry_run)
+    {
+        msleep(randint(100, 300));
+    }
+
+    int max = (n * 5) + randint(2, 5);
+    for (int i = 0; i < max; i++)
+    {
+        printf("Neutralizing amnestic (%d/%d)\n", i, max);
+    }
+
+    printf("Amnestic neutralized.");
 }
