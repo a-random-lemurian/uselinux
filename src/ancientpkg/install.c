@@ -18,7 +18,7 @@ int install_package(char *name)
         msleep(randint(40, 70));
     }
 
-    printf("\"Installed\" package %s.\n", name);
+    printf("Installed package %s.\n", name);
 }
 
 int cmd_install(int argc, char **argv)
