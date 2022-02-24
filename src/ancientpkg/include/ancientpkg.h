@@ -38,6 +38,9 @@ typedef struct DigControlFlags
 
     /* Don't wait */
     int dry_run;
+
+    /* Location */
+    char* location;
 } DigControlFlags;
 
 typedef struct Package

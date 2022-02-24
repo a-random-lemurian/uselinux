@@ -83,6 +83,8 @@ int cmd_dig(int argc, char **argv)
         exit(1);
     }
 
+    dcf.location = location;
+
     printf("Sending %d archaeologists to %s...\n", archaeologists, location);
 
     DigStatistics dst;

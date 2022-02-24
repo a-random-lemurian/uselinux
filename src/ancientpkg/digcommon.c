@@ -9,6 +9,10 @@
 static PackageCurse curses[] = {
     {"disease", "Diseased package", cmit_diseased_pkg},
     {"memetic", "Infohazardous package", cmit_infohazard}
+
+#ifndef OMIT_ANCIENT_EGYPT_CURSE
+    ,{"ancient-egyptian-curse", "Ancient Egyptian curse", cmit_ancient_egypt_curse}
+#endif
 };
 
 /*
