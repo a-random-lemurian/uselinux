@@ -16,10 +16,10 @@ static int first_failed_hglyph = 0;
 int deal_with_single_hglyph_error(int i, int rc)
 {
 
-    char endch = '\r';
+    char endch = '\n';
 
-    printf("[Decode] "BHRED"Error:"reset" Failed to decode hieroglyph %d-%d.",
-           first_failed_hglyph, i);
+    printf("[Decode] "BHRED"Error:"reset" Failed to decode hieroglyph %d.",
+           i);
 
     if (last_decode_attempt_was_error == 2)
     {
