@@ -90,7 +90,7 @@ int decode_hieroglyphs(DigControlFlags* dcf, DigStatistics* dst)
         {
             remove_error_state();
 
-            printf("\n[Decode] Decoded hieroglyph %d.\n", i);
+            printf("[Decode] Decoded hieroglyph %d.\n", i);
             hglyphs_decoded++;
         }
 
