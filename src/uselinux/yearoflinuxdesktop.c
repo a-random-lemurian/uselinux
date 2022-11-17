@@ -52,7 +52,7 @@ void year_of_linux_desktop(int current_year, int linux_desktop_year)
         }
         exit(1);
     }
-    else if (linux_desktop_year > current_year)
+    else if (linux_desktop_year >= current_year)
     {
         int diff = linux_desktop_year - current_year;
 
