@@ -19,28 +19,28 @@ void year_of_linux_desktop_segfault()
     trigger_segfault();
 }
 
-void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
+void year_of_linux_desktop(int current_year, int linux_desktop_year)
 {
-    if (linux_desktop_yr > ANALYTICAL_ENGINE_YEAR &&
-        linux_desktop_yr < ANALYTICAL_ENGINE_YEAR + 50)
+    if (linux_desktop_year > ANALYTICAL_ENGINE_YEAR &&
+        linux_desktop_year < ANALYTICAL_ENGINE_YEAR + 50)
     {
         printf("Not sure if you can run %s on the Analytical Engine, that "
                "thing doesn't even support %s!",
                LINUXREF, LINUXREF);
         exit(1);
     }
-    else if (linux_desktop_yr < LINUX_KERNEL_FIRST_RELEASE)
+    else if (linux_desktop_year < LINUX_KERNEL_FIRST_RELEASE)
     {
         printf("%d was in the past. And that definitely "
                "wasn't the year of the %s desktop, because the Linux kernel "
                "didn't even exist back then!\n",
-               linux_desktop_yr, LINUXREF);
+               linux_desktop_year, LINUXREF);
         exit(1);
     }
-    else if (linux_desktop_yr > LINUX_KERNEL_FIRST_RELEASE &&
-             linux_desktop_yr < currentyr)
+    else if (linux_desktop_year > LINUX_KERNEL_FIRST_RELEASE &&
+             linux_desktop_year < current_year)
     {
-        if (currentyr - linux_desktop_yr == 1)
+        if (current_year - linux_desktop_year == 1)
         {
             printf("Last year wasn't the year of the " LINUXREF " desktop.");
         }
@@ -48,13 +48,13 @@ void year_of_linux_desktop(int currentyr, int linux_desktop_yr)
         {
             printf("That was %d years ago. Definitely wasn't the year of "
                    "the " LINUXREF " desktop.",
-                   currentyr - linux_desktop_yr);
+                   current_year - linux_desktop_year);
         }
         exit(1);
     }
-    else if (linux_desktop_yr > currentyr)
+    else if (linux_desktop_year > current_year)
     {
-        int diff = linux_desktop_yr - currentyr;
+        int diff = linux_desktop_year - current_year;
 
         if (diff == 0)
         {
