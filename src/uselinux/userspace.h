@@ -2,6 +2,17 @@
 // Typos have been preserved for accuracy.
 
 /**
+ * @brief Break userspace. Prints out a message between Linus Torvalds and a
+ * Linux kernel programmer known as Mauro Carvalho Chehab who broke userspace
+ * and blamed it on a bug at pulseaudio. Linus Torvalds didn't exactly use the
+ * prettiest language in this email.
+ * 
+ * @param arg_no_typewriter Whether to print the message with a typewriter
+ * effect
+ */
+void break_userspace(int arg_no_typewriter);
+
+/**
  * @brief WE DO NOT BREAK USERSPACE! This variable contains a message sent by
  * Linus Torvalds to a Linux kernel developer named "Mauro", roasting him for
  * breaking userspace.
