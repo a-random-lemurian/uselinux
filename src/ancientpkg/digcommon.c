@@ -121,7 +121,7 @@ void find_alternative_sources_for_shards(DigControlFlags *dcf)
             msleep(randint(1, 300));
         }
 
-        if (randint(1, 100) > 90)
+        if (randint(1, 100) > randint(60, 85))
         {
             printf("shard " BHGRN "found." reset "\n");
             break;
