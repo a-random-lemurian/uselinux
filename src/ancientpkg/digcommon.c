@@ -280,7 +280,7 @@ int validate_archaeologists(int archaeologists)
      * We cannot have more archaeologists than the population of the entire
      * world.
      */
-    if (archaeologists > 7000000000)
+    if (archaeologists > 8000000000)
     {
         printf(ERROR "Too many archaeologists (not everyone in the world is "
                                               "one,)\n");
