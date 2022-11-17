@@ -56,7 +56,7 @@ int main(int argc, const char **argv)
     int arg_hackerman = -100;
     char *arg_distro = "";
     char *arg_desk = "";
-    int arg_year_of_linux_desktop = -100;
+    int arg_year_of_linux_desktop = NULL;
     int arg_compile_everything = -100;
     int arg_no_typewriter = -100;
     int arg_get_yold = -100;
@@ -87,6 +87,10 @@ int main(int argc, const char **argv)
                     "Print the year of the Linux desktop"),
         OPT_BOOLEAN(0, "hackerman", &arg_hackerman,
                     "Be a hackerman (requires Kali)"),
+        OPT_INTEGER(0, "predict-yold", &arg_year_of_linux_desktop,
+                    "Predict the year of the Linux desktop"),
+        OPT_INTEGER(0, "year-of-linux-desktop", &arg_year_of_linux_desktop,
+                    "Same as --predict-yold"),
         OPT_BOOLEAN(0, "segfault", &arg_segfault,
                     "Trigger a segmentation fault"),
 
@@ -136,7 +140,7 @@ int main(int argc, const char **argv)
         printf("I use Arch btw\n");
     }
 
-    if (arg_year_of_linux_desktop != -100)
+    if (arg_year_of_linux_desktop != NULL)
     {
         year_of_linux_desktop(current_time->tm_year + 1900,
                               arg_year_of_linux_desktop);
