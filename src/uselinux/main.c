@@ -87,6 +87,10 @@ int main(int argc, const char **argv)
                     "Print the year of the Linux desktop"),
         OPT_BOOLEAN(0, "hackerman", &arg_hackerman,
                     "Be a hackerman (requires Kali)"),
+        OPT_INTEGER(0, "predict-yold", &arg_year_of_linux_desktop,
+                    "Predict the year of the Linux desktop"),
+        OPT_INTEGER(0, "year-of-linux-desktop", &arg_year_of_linux_desktop,
+                    "Same as --predict-yold"),
         OPT_BOOLEAN(0, "segfault", &arg_segfault,
                     "Trigger a segmentation fault"),
 
