@@ -1,6 +1,11 @@
 #ifndef DESKENV_H
 #define DESKENV_H
 
+struct uselinux_de {
+  const char* string;
+  void (*responder)(void);
+};
+
 /**
  * @brief React to a desktop environment supplied by the user.
  *
