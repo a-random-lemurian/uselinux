@@ -1,4 +1,5 @@
 #include "deskenv.h"
+#include "hackerman.h"
 #include "uselinuxcommon.h"
 #include "userspace.h"
 #include "yearoflinuxdesktop.h"

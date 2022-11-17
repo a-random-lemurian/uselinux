@@ -1,25 +1,6 @@
 #include "uselinuxcommon.h"
 
 /**
- * @brief Activate Hackerman mode. Requires Kali Linux, a distribution that
- * comes preinstalled with several tools for hacking.
- *
- * @param distro Distribution being used. Must be Kali Linux.
- */
-void hackerman(char *distro)
-{
-    if (!strcasecmp(distro, "kali"))
-    {
-        printf("Activating Hackerman mode....\n");
-    }
-    else
-    {
-        printf("fatal: --hackerman requires Kali Linux (use -d kali)\n");
-        exit(1);
-    }
-}
-
-/**
  * @brief Bash an operating system, insulting it.
  *
  * @param os The operating system to bash.
