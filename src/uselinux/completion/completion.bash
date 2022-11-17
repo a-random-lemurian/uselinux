@@ -18,6 +18,7 @@ function _uselinux {
    "--segfault[Trigger a segmentation fault]" \
    "--snap-at-snaps[Get annoyed at constant Ubuntu snap updates]" \
    "--year-of-linux-desktop[Specify the year of the Linux desktop]" \
+   "--family-friendly[Use with --break-userspace, for strict parents]"
 }
 
 compdef _uselinux uselinux 

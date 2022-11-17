@@ -32,6 +32,7 @@
 #define ARG_AP_LIMIT_LOCS 1014
 #define ARG_AP_LIMIT_SITES 1015
 #define ARG_GET_YOLD 1016
+#define ARG_FAMILY_FRIENDLY 1017
 
 #define PROGNAME "uselinux"
 static const char *cmd_doc_footer =
@@ -63,6 +64,7 @@ int main(int argc, const char **argv)
     int arg_ap_limit_locs = -100;
     int arg_ap_limit_sites = -100;
     int arg_segfault = -100;
+    int arg_family_friendly = -100;
 
     struct argparse_option opts[] = {
         OPT_HELP(),
@@ -91,6 +93,8 @@ int main(int argc, const char **argv)
         OPT_GROUP("Other options"),
         OPT_BOOLEAN(0, "no-typewriter", &arg_no_typewriter,
                     "Do not print messages with typewriter effect"),
+        OPT_BOOLEAN(0, "family-friendly", &arg_family_friendly,
+                    "Don't use strong language"),
         OPT_END()};
 
     struct argparse argparse;
@@ -161,7 +165,7 @@ int main(int argc, const char **argv)
 
     if (arg_break_userspace == 1)
     {
-        break_userspace(arg_no_typewriter);
+        break_userspace(arg_no_typewriter, arg_family_friendly);
     }
 
     exit(0);
