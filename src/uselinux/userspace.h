@@ -30,7 +30,7 @@ void print_userspace_msg(const char* msg, int arg_no_typewriter);
  * Linus Torvalds to a Linux kernel developer named "Mauro", roasting him for
  * breaking userspace.
  */
-const char *WE_DO_NOT_BREAK_USERSPACE =
+static const char *WE_DO_NOT_BREAK_USERSPACE =
     "From	Linus Torvalds <>\n"
     "Date	Sun, 23 Dec 2012 09:36:15 -0800\n"
     "Subject	Re: [Regression w/ patch] Media commit causes user space to "
@@ -89,7 +89,7 @@ const char *WE_DO_NOT_BREAK_USERSPACE =
     "\n"
     "               Linus\n";
 
-const char *WE_DO_NOT_BREAK_USERSPACE_family_friendly =
+static const char *WE_DO_NOT_BREAK_USERSPACE_family_friendly =
     "From	Linus Torvalds <>\n"
     "Date	Sun, 23 Dec 2012 09:36:15 -0800\n"
     "Subject	Re: [Regression w/ patch] Media commit causes user space to "
