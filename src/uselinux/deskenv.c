@@ -113,9 +113,22 @@ void desktop_environment_kde()
     }
 }
 
+
+void desktop_environment_xfce()
+{
+    log_info("Xfce desktop detected.");
+}
+
+void desktop_environment_unity()
+{
+    log_info("Unity desktop detected.");
+}
+
 static struct uselinux_de deskenvs[] = {
   {"gnome", desktop_environment_gnome },
-  {"kde",   desktop_environment_kde   }
+  {"kde",   desktop_environment_kde   },
+  {"xfce",  desktop_environment_xfce  },
+  {"unity", desktop_environment_unity },
 };
 
 void desktop_environments(char *desk)
