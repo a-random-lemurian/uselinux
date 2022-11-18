@@ -20,8 +20,8 @@ static char* places_to_hack[] = {
 
 void hackerman_mode()
 {
-    printf("AUGMENTATIONS ACTIVATED");
-    printf("HACKING IN PROGRESS");
+    printf("AUGMENTATIONS ACTIVATED\n");
+    printf("HACKING IN PROGRESS\n");
 
     for (size_t i = 0; i < LEN(places_to_hack); i++)
     {
