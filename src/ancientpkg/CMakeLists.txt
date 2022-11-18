@@ -7,9 +7,10 @@ add_executable(ancientpkg dig.c
                           jsondig.c
                           digstats.c
                           excavate.c
-                          "install.c"
-                          curse/cursedpkg.c
-                          curse/infohazard.c
-                          curse/ae-curse.c)
+                          infohazard.c
+                          cursedpkg.c
+                          ae-curse.c
+                          ancientpkg_utils.c
+                          "install.c")
 
 target_link_libraries(ancientpkg argparse common parson)
