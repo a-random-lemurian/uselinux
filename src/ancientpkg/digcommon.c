@@ -21,9 +21,9 @@ static PackageCurse curses[] = {
  */
 int mitigate_curse(DigStatistics *dst, DigControlFlags *dcf)
 {
-    MTRand mtw = seedRand(clock());
+    MTRand mtw = seed_rand(clock());
 
-    curses[(int)floor(genRand(&mtw) * (sizeof(curses)/sizeof(curses[0])))]
+    curses[(int)floor(gen_rand(&mtw) * (sizeof(curses)/sizeof(curses[0])))]
          .fn(0, dcf, dst);
 }
 
@@ -165,7 +165,7 @@ int extract_packages(char *location, int n,
         int sleep = 0;
         if (!dcf->dry_run)
         {
-            int sleep = ((int)ceil(genRand(&mtw) * 5) + 10);
+            int sleep = ((int)ceil(gen_rand(&mtw) * 5) + 10);
             total_time += sleep;
             msleep(sleep);
         }
@@ -306,7 +306,7 @@ int dig_common(int archaeologists, int expected_packages,
         loops += (int)ceil(loops * 0.76);
     }
 
-    MTRand mtw = seedRand(clock());
+    MTRand mtw = seed_rand(clock());
 
     int packages = 0;
     char endch = '\n';

@@ -58,7 +58,7 @@ int cmd_excavate(int argc, char **argv)
                     "infinity\n");
     }
 
-    MTRand mtw = seedRand(clock());
+    MTRand mtw = seed_rand(clock());
 
     int i = 0;
     int package_found = 0;
@@ -67,10 +67,10 @@ int cmd_excavate(int argc, char **argv)
         printf("Checking source %10d "
                "(%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:"
                "%.12ld:%.12ld:%.12ld:%.12ld)\n",
-               i, genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
-               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
-               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw),
-               genRandLong(&mtw), genRandLong(&mtw), genRandLong(&mtw));
+               i, gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
+               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
+               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
+               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw));
         i++;
 
         if (i > args.attempts && args.attempts != -1)

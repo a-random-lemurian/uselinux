@@ -13,9 +13,9 @@ typedef struct tagMTRand
     int index;
 } MTRand;
 
-MTRand seedRand(unsigned long seed);
-unsigned long genRandLong(MTRand *rand);
-double genRand(MTRand *rand);
+MTRand seed_rand(unsigned long seed);
+unsigned long gen_rand_long(MTRand *rand);
+double gen_rand(MTRand *rand);
 
 #endif /* #ifndef __MTWISTER_H */
 

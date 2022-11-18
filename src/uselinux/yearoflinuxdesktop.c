@@ -11,9 +11,9 @@ void year_of_linux_desktop_segfault()
         "I'm sure this year will be the year of the " LINUXREF " desktop!",
         "I'm sure next year will be the year of the " LINUXREF " desktop!"};
 
-    MTRand mtw = seedRand(clock());
+    MTRand mtw = seed_rand(clock());
 
-    char *HISTORY_MSG = messages[(int)floor(genRand(&mtw) * LEN(messages))];
+    char *HISTORY_MSG = messages[(int)floor(gen_rand(&mtw) * LEN(messages))];
 
     printf("I hereby sentence you to a segfault. %s\n", HISTORY_MSG);
     trigger_segfault();
