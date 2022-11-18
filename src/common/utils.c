@@ -30,10 +30,10 @@ void typewriter_randomized(const char *txt, int min, int max)
 
 int randint(int min, int max)
 {
-    MTRand mtw = seedRand(clock());
+    MTRand mtw = seed_rand(clock());
     int out = 0;
 
-    out = ceil(genRand(&mtw) * max - min) + min;
+    out = ceil(gen_rand(&mtw) * max - min) + min;
 
     return out;
 }
@@ -52,7 +52,7 @@ void trigger_segfault()
 
 void segfault_or_abort(int threshold)
 {
-    int finalthreshold = 250;
+    int final_threshold = 250;
 
     if (threshold == 500)
     {
@@ -65,10 +65,10 @@ void segfault_or_abort(int threshold)
 
     if (threshold >= 0 && threshold <= 500)
     {
-        finalthreshold = threshold;
+        final_threshold = threshold;
     }
 
-    if (randint(0, 500) >= finalthreshold)
+    if (randint(0, 500) >= final_threshold)
     {
         abort();
     }

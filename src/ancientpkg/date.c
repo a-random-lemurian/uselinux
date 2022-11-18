@@ -69,9 +69,9 @@ int cmd_date(int argc, char **argv)
     }
 
     PackageDatingResult pdr;
-    MTRand mtw = seedRand(clock());
+    MTRand mtw = seed_rand(clock());
 
-    int pkg_age = (int)ceil((genRand(&mtw) * 200000) + 10000);
+    int pkg_age = (int)ceil((gen_rand(&mtw) * 200000) + 10000);
 
     int chance = 1;
 
@@ -83,7 +83,7 @@ int cmd_date(int argc, char **argv)
         }
     }
 
-    int odds = (int)ceil((genRand(&mtw) * chance));
+    int odds = (int)ceil((gen_rand(&mtw) * chance));
 
     if (odds < 16)
     {

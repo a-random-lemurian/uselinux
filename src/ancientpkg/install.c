@@ -8,9 +8,9 @@
 
 int install_package(char *name)
 {
-    MTRand mtw = seedRand(clock());
+    MTRand mtw = seed_rand(clock());
 
-    int n = (int)ceil(genRand(&mtw) * 500) + 200;
+    int n = (int)ceil(gen_rand(&mtw) * 500) + 200;
 
     for (int i = 0; i < n; i++)
     {
