@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "ancientpkg_utils.h"
+
 int install_package(char *name)
 {
     MTRand mtw = seed_rand(clock());
@@ -15,7 +17,7 @@ int install_package(char *name)
     for (int i = 0; i < n; i++)
     {
         printf("Scanning site %d for package %s.\n", i, name);
-        msleep(randint(40, 70));
+        ancientpkg_msleep(randint(40, 70));
     }
 
     printf("Installed package %s.\n", name);

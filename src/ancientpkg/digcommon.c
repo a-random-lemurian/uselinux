@@ -1,4 +1,5 @@
 #include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 #include "cursedpkg.h"
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>
@@ -46,7 +47,7 @@ int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf)
 
         if (!dcf->dry_run)
         {
-            msleep((randint(35, 88)));
+            ancientpkg_msleep((randint(35, 88)));
         }
 
         int n = randint(1, 1000);
@@ -73,7 +74,7 @@ void virus_check(DigControlFlags* dcf)
 
             if (!dcf->dry_run)
             {
-                msleep((randint(54, 134)));
+                ancientpkg_msleep((randint(54, 134)));
             }
 
             if (i != times)
@@ -87,7 +88,7 @@ void virus_check(DigControlFlags* dcf)
 int dust_carefully()
 {
     int slp = randint(30, 140);
-    msleep(slp);
+    ancientpkg_msleep(slp);
 
     return slp;
 }
@@ -118,7 +119,7 @@ void find_alternative_sources_for_shards(DigControlFlags *dcf)
 
         if (!dcf->dry_run)
         {
-            msleep(randint(1, 300));
+            ancientpkg_msleep(randint(1, 300));
         }
 
         if (randint(1, 100) > randint(60, 85))
@@ -145,6 +146,11 @@ int extract_packages(char *location, int n,
     int broken_shard_chance = 8600;
     long total_time = 0;
 
+    if (dcf->dry_run)
+    {
+        ancientpkg_set_dry_run(1);
+    }
+
     if (dcf->aggressive_diggers)
     {
         broken_shard_chance -= 5000;
@@ -167,8 +173,9 @@ int extract_packages(char *location, int n,
         {
             int sleep = ((int)ceil(gen_rand(&mtw) * 5) + 10);
             total_time += sleep;
-            msleep(sleep);
         }
+
+        ancientpkg_msleep(sleep);
 
         broken_package_shard = 0;
         has_missing_shard = 0;
@@ -190,7 +197,7 @@ int extract_packages(char *location, int n,
         {
             if (!dcf->dry_run)
             {
-                msleep(1);
+                ancientpkg_msleep(1);
             }
         }
 
@@ -394,7 +401,7 @@ void package_shard_failure(DigControlFlags* dcf, int i, char *pkgname)
 
     if (!dcf->dry_run)
     {
-        msleep(randint(100, 3000));
+        ancientpkg_msleep(randint(100, 3000));
     }
 
     find_alternative_sources_for_shards(dcf);

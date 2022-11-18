@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "ancientpkg_utils.h"
+
 static const char *usages[] = {
     "ancientpkg excavate [--target=TARGET] [<FLAGS>]", NULL};
 
@@ -81,7 +83,7 @@ int cmd_excavate(int argc, char **argv)
 
         if (args.dry_run)
         {
-            msleep(randint(30, 90));
+            ancientpkg_msleep(randint(30, 90));
         }
 
         if (randint(1, 1000) > 950)
