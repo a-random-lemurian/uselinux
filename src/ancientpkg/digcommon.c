@@ -1,4 +1,4 @@
-#include <ancientpkg.h>
+#include "ancientpkg.h"
 #include "cursedpkg.h"
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>

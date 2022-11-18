@@ -1,6 +1,6 @@
 /* Documentation in docs/dig_from_json.md */
 
-#include <ancientpkg.h>
+#include "ancientpkg.h"
 #include <common/ansiescapes.h>
 #include <common/utils.h>
 #include <parson/parson.h>
