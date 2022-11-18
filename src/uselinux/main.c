@@ -119,7 +119,7 @@ int main(int argc, const char **argv)
     s = time(NULL);
     current_time = localtime(&s);
 
-    if (arg_segfault == 1)
+    if (arg_segfault == 0)
     {
         trigger_segfault();
     }
@@ -129,13 +129,13 @@ int main(int argc, const char **argv)
         desktop_environments(arg_desk);
     }
 
-    if (arg_get_yold == 1)
+    if (arg_get_yold == 0)
     {
         int yr = get_year_of_linux_desktop();
         printf("%d", yr);
     }
 
-    if (arg_arch_btw == 1)
+    if (arg_arch_btw == 0)
     {
         printf("I use Arch btw\n");
     }
@@ -146,7 +146,7 @@ int main(int argc, const char **argv)
                               arg_year_of_linux_desktop);
     }
 
-    if (arg_hackerman == 1)
+    if (arg_hackerman == 0)
     {
         if (!strcmp(arg_distro, ""))
         {
@@ -157,17 +157,17 @@ int main(int argc, const char **argv)
         hackerman(arg_distro);
     }
 
-    if (arg_bash_macos == 1)
+    if (arg_bash_macos == 0)
     {
         bash_os("macOS");
     }
 
-    if (arg_bash_windows == 1)
+    if (arg_bash_windows == 0)
     {
         bash_os("Windows");
     }
 
-    if (arg_break_userspace == 1)
+    if (arg_break_userspace == 0)
     {
         break_userspace(arg_no_typewriter, arg_family_friendly);
     }
