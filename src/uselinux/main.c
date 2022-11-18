@@ -45,26 +45,26 @@ static const char *cmd_doc = "Linux good, Windows bad";
 static const char *const usage[] = {PROGNAME " --year-of-linux-desktop 2023",
                                     PROGNAME " --arch-btw", NULL};
 
+static int arg_ancient_packages = -100;
+static int arg_break_userspace = -100;
+static int arg_arch_btw = -100;
+static int arg_bash_windows = -100;
+static int arg_bash_macos = -100;
+static int arg_hackerman = -100;
+static char *arg_distro = "";
+static char *arg_desk = "";
+static int arg_year_of_linux_desktop = NULL;
+static int arg_compile_everything = -100;
+static int arg_no_typewriter = -100;
+static int arg_get_yold = -100;
+static int arg_ancient_debian_packages_v2 = -100;
+static int arg_ap_limit_locs = -100;
+static int arg_ap_limit_sites = -100;
+static int arg_segfault = -100;
+static int arg_family_friendly = -100;
+
 int main(int argc, const char **argv)
 {
-
-    int arg_ancient_packages = -100;
-    int arg_break_userspace = -100;
-    int arg_arch_btw = -100;
-    int arg_bash_windows = -100;
-    int arg_bash_macos = -100;
-    int arg_hackerman = -100;
-    char *arg_distro = "";
-    char *arg_desk = "";
-    int arg_year_of_linux_desktop = NULL;
-    int arg_compile_everything = -100;
-    int arg_no_typewriter = -100;
-    int arg_get_yold = -100;
-    int arg_ancient_debian_packages_v2 = -100;
-    int arg_ap_limit_locs = -100;
-    int arg_ap_limit_sites = -100;
-    int arg_segfault = -100;
-    int arg_family_friendly = -100;
 
     struct argparse_option opts[] = {
         OPT_HELP(),
