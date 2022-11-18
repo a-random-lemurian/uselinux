@@ -26,7 +26,7 @@ void hackerman_mode()
     for (size_t i = 0; i < LEN(places_to_hack); i++)
     {
         printf("%s...", places_to_hack[i]);
-        msleep(randint(40, 80));
+        msleep(randint(140, 280));
         printf("HACKED\n");
     }
 }
