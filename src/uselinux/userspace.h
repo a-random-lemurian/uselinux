@@ -1,8 +1,12 @@
 #ifndef USELINUX_USERSPACE_H
 #define USELINUX_USERSPACE_H
 
-// WE DO NOT BREAK USERSPACE!
-// Typos have been preserved for accuracy.
+/* WE DO NOT BREAK USERSPACE!
+ * Typos have been preserved for accuracy.
+ *
+ * "misbehave" was misspelled as "misbahave". This typo is present
+ * in the original source.
+ */
 
 /**
  * @brief Break userspace. Prints out a message between Linus Torvalds and a
