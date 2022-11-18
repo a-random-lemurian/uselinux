@@ -1,10 +1,10 @@
 /* AE = [A]ncient [E]gypt */
 #ifndef OMIT_ANCIENT_EGYPT_CURSE
 
-#include <ancientpkg.h>
+#include "ancientpkg.h"
 #include <assert.h>
 #include <common/utils.h>
-#include <cursedpkg.h>
+#include "cursedpkg.h"
 #include <stdio.h>
 #include <string.h>
 #include <strings.h>

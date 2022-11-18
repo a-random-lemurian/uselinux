@@ -1,6 +1,6 @@
 #ifndef INFOHAZARD_H
 #define INFOHAZARD_H
-#include <ancientpkg.h>
+#include "ancientpkg.h"
 
 typedef struct Infohazard {
     int danger;
