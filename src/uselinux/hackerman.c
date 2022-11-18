@@ -13,7 +13,7 @@
 #include "hackerman.h"
 #include <common/utils.h>
 
-static char* places_to_hack = {
+static char* places_to_hack[] = {
     "UNATCO", "AREA 51", "STATUE OF LIBERTY",
     "ILLUMINATI", "BANKS"
 };
