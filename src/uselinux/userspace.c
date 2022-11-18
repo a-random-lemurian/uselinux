@@ -21,7 +21,7 @@ void break_userspace(int arg_no_typewriter, int arg_family_friendly)
     printf("But it seems like your kernel patch broke userspace again!\n");
     printf("New mail: 1\n\n\n");
 
-    if (arg_family_friendly)
+    if (!arg_family_friendly)
     {
         print_userspace_msg(WE_DO_NOT_BREAK_USERSPACE_family_friendly,
                             arg_no_typewriter);
