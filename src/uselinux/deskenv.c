@@ -20,6 +20,7 @@ void sigint_handler()
 
 int redirect_one_coolant_source(int i)
 {
+    msleep(randint(145, 287));
     if (randint(1, 10) > 5)
     {
         log_info("Successfully redirected Coolant Source %d.", i + 1);
