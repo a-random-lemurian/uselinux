@@ -38,7 +38,12 @@ int main(int argc, char **argv)
                       ".\n"
                       "Created by Lemuria as part of uselinux:\n"
                       "<https://github.com/a-random-lemurian/uselinux>");
-    argparse_parse(&parser, argc, (const char **)argv);
+    argc = argparse_parse(&parser, argc, (const char **)argv);
+
+    if (argc == 1)
+    {
+        query = argv[0];
+    }
 
     const char *stackov_url = mkstr(STACKOV_SEARCH_URL, query);
 
