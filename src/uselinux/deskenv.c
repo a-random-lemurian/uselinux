@@ -138,7 +138,7 @@ void desktop_environments(char *desk)
 
     for (size_t i = 0; i < LEN(deskenvs); i++)
     {
-        printf("%d\n",i);
+        printf("%ld\n", i);
         if (!strcasecmp(desk, deskenvs[i].string))
         {
             deskenvs[i].responder();
