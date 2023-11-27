@@ -20,6 +20,7 @@ void sigint_handler()
 
 int redirect_one_coolant_source(int i)
 {
+    msleep(randint(145, 287));
     if (randint(1, 10) > 5)
     {
         log_info("Successfully redirected Coolant Source %d.", i + 1);
@@ -82,7 +83,7 @@ void desktop_environment_gnome()
     int cpu_temp = randint(10, 20);
     int max_cpu_temp = randint(80, 130);
 
-    for (int i = 0; i < randint(30, 70); i++)
+    for (;;)
     {
         log_warn("CPU Temperature (celsius): %d", cpu_temp);
 
