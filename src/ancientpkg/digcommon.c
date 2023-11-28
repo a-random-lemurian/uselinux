@@ -219,20 +219,16 @@ int extract_packages(char *location, int n,
 
         free(status);
 
+        char pkgname[512];
+        sprintf(pkgname, "package-ancient:%d", i);
         if (has_missing_shard && dcf->ignore_missing_shards == 0)
         {
-            char pkgname[512];
-            sprintf(pkgname, "package-ancient:%d", i);
             package_shard_failure(dcf, i, (char *)pkgname);
-
             dst->missing_shards++;
         }
         else if (broken_package_shard && dcf->ignore_broken_shards == 0)
         {
-            char pkgname[512];
-            sprintf(pkgname, "package-ancient:%d", i);
             deal_with_broken_package_shard(dcf, i, (char *)pkgname);
-        
             dst->broken_shards++;
         }
 
