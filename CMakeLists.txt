@@ -10,6 +10,10 @@ if(FSF_TERMINOLOGY)
      add_compile_definitions(FSF_TERMINOLOGY)
 endif()
 
+if(DEBUG)
+    add_compile_options(-g3)
+endif()
+
 add_compile_options(-O3 -flto -funroll-loops)
 
 include_directories(modules)
