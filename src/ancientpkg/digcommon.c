@@ -1,6 +1,7 @@
 #include "ancientpkg.h"
 #include "ancientpkg_utils.h"
 #include "cursedpkg.h"
+#include "status.h"
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>
 #include <common/utils.h>
@@ -134,12 +135,30 @@ void find_alternative_sources_for_shards(DigControlFlags *dcf)
     }
 }
 
+int generate_status(int broken_shard_chance, DigControlFlags *dcf,
+                    int *hms, // [h]as [m]issing [s]hard
+                    int *bps  // [b]roken [p]ackage [s]hard
+                   )
+{
+    int status = 200;
+    int r = randint(1, 10000);
+    if (r > 9775)
+    {
+        *hms = 1;
+        status = 404;
+    }
+    else if (r > broken_shard_chance && dcf->ignore_broken_shards == 0)
+    {
+        *bps = 1;
+    }
+    return status;
+}
+
 int extract_packages(char *location, int n,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf,
                      DigStatistics* dst)
 {
     int pkgs = 0;
-    char* status;
     int has_missing_shard;
     int dc_slp = 0;
     int broken_package_shard = 0;
@@ -180,27 +199,10 @@ int extract_packages(char *location, int n,
         broken_package_shard = 0;
         has_missing_shard = 0;
 
-        status = "[200 OK]";
-        
-        int rand = randint(1, 10000);
-        if (rand > 9775)
-        {
-            has_missing_shard = 1;
-            status = "[404 Not Found]";
-        }
-        else if (rand > broken_shard_chance && dcf->ignore_broken_shards == 0)
-        {
-            broken_package_shard = 1;
-            status = "[500 Internal Server Error]";
-        }
-        else
-        {
-            if (!dcf->dry_run)
-            {
-                ancientpkg_msleep(1);
-            }
-        }
-
+        int status_number = generate_status(broken_shard_chance, dcf,
+                                            &has_missing_shard,
+                                            &broken_package_shard);
+        char* status = status_string(status_number);
         printf("Get:%d:s%d.digsites.site-3/site/%s (%ld ms) %s\n",
                i, n, location, total_time, status);
         fflush(stdout);
@@ -214,6 +216,8 @@ int extract_packages(char *location, int n,
             dst->source_packages++;
             dst->packages++;
         }
+
+        free(status);
 
         if (has_missing_shard && dcf->ignore_missing_shards == 0)
         {

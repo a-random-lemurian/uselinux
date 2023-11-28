@@ -11,6 +11,7 @@ add_executable(ancientpkg dig.c
                           cursedpkg.c
                           ae-curse.c
                           ancientpkg_utils.c
+                          status.c
                           "install.c")
 
 target_link_libraries(ancientpkg argparse common parson)
