@@ -1,6 +1,6 @@
 #include "ancientpkg.h"
 #include "ancientpkg_utils.h"
-#include "cursedpkg.h"
+#include "curse.h"
 #include "status.h"
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>

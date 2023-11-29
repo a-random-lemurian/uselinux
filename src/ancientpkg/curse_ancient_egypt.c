@@ -4,7 +4,7 @@
 #include "ancientpkg.h"
 #include <assert.h>
 #include <common/utils.h>
-#include "cursedpkg.h"
+#include "curse.h"
 #include <stdio.h>
 #include <string.h>
 #include <strings.h>
