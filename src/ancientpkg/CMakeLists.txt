@@ -7,6 +7,7 @@ add_executable(ancientpkg dig.c
                           jsondig.c
                           digstats.c
                           excavate.c
+                          curse.c
                           curse_diseased.c
                           curse_ancient_egypt.c
                           curse_infohazard.c

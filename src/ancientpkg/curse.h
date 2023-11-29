@@ -2,6 +2,13 @@
 #define CURSEDPKG_H
 #include "ancientpkg.h"
 
+typedef struct PackageCurse
+{
+    char* type;
+    char* name;
+    int (*fn)(int, DigControlFlags*, DigStatistics*);
+} PackageCurse;
+
 int cmit_diseased_pkg(int n, DigControlFlags *dcf, DigStatistics *dst);
 int cmit_infohazard(int n, DigControlFlags *dcf, DigStatistics *dst);
 

@@ -64,13 +64,6 @@ typedef struct DigStatistics
     long double salt_used_kg;
 } DigStatistics;
 
-typedef struct PackageCurse
-{
-    char* type;
-    char* name;
-    int (*fn)(int, DigControlFlags*, DigStatistics*);
-} PackageCurse;
-
 /**
  * @brief Set the default dig control flags in an object.
  * 
