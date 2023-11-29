@@ -1,6 +1,25 @@
 #include <stdlib.h>
 #include <string.h>
 
+int generate_status(int broken_shard_chance, DigControlFlags *dcf,
+                    int *hms, // [h]as [m]issing [s]hard
+                    int *bps  // [b]roken [p]ackage [s]hard
+                   )
+{
+    int status = 200;
+    int r = randint(1, 10000);
+    if (r > 9775)
+    {
+        *hms = 1;
+        status = 404;
+    }
+    else if (r > broken_shard_chance && dcf->ignore_broken_shards == 0)
+    {
+        *bps = 1;
+    }
+    return status;
+}
+
 char* status_string(int status)
 {
     char *out = malloc(320);

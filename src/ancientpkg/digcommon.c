@@ -82,25 +82,6 @@ void find_alternative_sources_for_shards(DigControlFlags *dcf)
     }
 }
 
-int generate_status(int broken_shard_chance, DigControlFlags *dcf,
-                    int *hms, // [h]as [m]issing [s]hard
-                    int *bps  // [b]roken [p]ackage [s]hard
-                   )
-{
-    int status = 200;
-    int r = randint(1, 10000);
-    if (r > 9775)
-    {
-        *hms = 1;
-        status = 404;
-    }
-    else if (r > broken_shard_chance && dcf->ignore_broken_shards == 0)
-    {
-        *bps = 1;
-    }
-    return status;
-}
-
 int extract_packages(char *location, int n,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf,
                      DigStatistics* dst)
