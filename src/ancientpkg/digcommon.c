@@ -86,12 +86,12 @@ int extract_packages(char *location, int n,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf,
                      DigStatistics* dst)
 {
-    int pkgs = 0;
     int has_missing_shard;
     int dc_slp = 0;
     int broken_package_shard = 0;
     int broken_shard_chance = 8600;
     long total_time = 0;
+    char *src;
 
     if (dcf->dry_run)
     {
@@ -131,20 +131,14 @@ int extract_packages(char *location, int n,
                                             &has_missing_shard,
                                             &broken_package_shard);
         char* status = status_string(status_number);
-        printf("Get:%d:s%d.digsites.site-3/site/%s (%ld ms) %s\n",
-               i, n, location, total_time, status);
+        src = dcf->source_packages ? "/src" : "";
+        printf("Get:%d:s%d.digsites.site-3/site/%s%s (%ld ms) %s\n",
+               i, n, src, location, total_time, status);
         fflush(stdout);
-
         if (dcf->source_packages)
         {
-            printf("Get:%d:s%d.digsites.site-3/site/src/%s (%d ms) %s "
-                   "<SOURCE>\n",
-                   i, n, location, (sleep + dc_slp), status);
-            fflush(stdout);
             dst->source_packages++;
-            dst->packages++;
         }
-
         free(status);
 
         char pkgname[512];
@@ -160,7 +154,7 @@ int extract_packages(char *location, int n,
             dst->broken_shards++;
         }
 
-        pkgs++;
+        dst->packages++;
 
         if (dcf->no_proprietary_packages)
         {
@@ -174,7 +168,7 @@ int extract_packages(char *location, int n,
         {
             if ((randint(1, 1000) > 980))
             {
-                pkgs += randint(4, 20);
+                dst->packages += randint(4, 20);
             }
         }
 
@@ -182,11 +176,10 @@ int extract_packages(char *location, int n,
         {
             if ((randint(1, 1000) > 980))
             {
-                pkgs += randint(11, 45);
-
+                dst->packages += randint(11, 45);
                 if (dcf->aggressive_diggers && (randint(1, 10000)) > 9780)
                 {
-                    pkgs += randint(53, 90);
+                    dst->packages += randint(53, 90);
                 }
             }
         }
@@ -202,8 +195,7 @@ int extract_packages(char *location, int n,
         }
     }
 
-    dst->packages += pkgs;
-    return pkgs;
+    return dst->packages;
 }
 
 int validate_archaeologists(int archaeologists)
