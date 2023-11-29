@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "ancientpkg_utils.h"
+
 int generate_status(int broken_shard_chance, DigControlFlags *dcf,
                     int *hms, // [h]as [m]issing [s]hard
                     int *bps  // [b]roken [p]ackage [s]hard
