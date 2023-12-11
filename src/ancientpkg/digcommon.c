@@ -89,19 +89,11 @@ int extract_packages(char *location, int n,
     int has_missing_shard;
     int dc_slp = 0;
     int broken_package_shard = 0;
-    int broken_shard_chance = 8600;
+    int broken_shard_chance = dcf->aggressive_diggers ? 8600 : 3600;
     long total_time = 0;
     char *src;
 
-    if (dcf->dry_run)
-    {
-        ancientpkg_set_dry_run(1);
-    }
-
-    if (dcf->aggressive_diggers)
-    {
-        broken_shard_chance -= 5000;
-    }
+    ancientpkg_set_dry_run(dcf->dry_run);
 
     loops += randint(1, 10);
     for (int i = 0; i < loops; i++)
@@ -121,7 +113,6 @@ int extract_packages(char *location, int n,
             int sleep = ((int)ceil(gen_rand(&mtw) * 5) + 10);
             total_time += sleep;
         }
-
         ancientpkg_msleep(sleep);
 
         broken_package_shard = 0;
