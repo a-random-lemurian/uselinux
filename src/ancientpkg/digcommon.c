@@ -98,16 +98,12 @@ int extract_packages(char *location, int n,
     loops += randint(1, 10);
     for (int i = 0; i < loops; i++)
     {
-        clock_t t1_before = clock();
         total_time = 0;
-
-        if (dcf->dust_carefully && !dcf->dry_run)
-        {
-            dc_slp = dust_carefully();
-            total_time += dc_slp;
-        }
-
         int sleep = 0;
+
+        total_time +=
+            (dcf->dust_carefully && !dcf->dry_run) ? dust_carefully() : 0;
+
         if (!dcf->dry_run)
         {
             int sleep = ((int)ceil(gen_rand(&mtw) * 5) + 10);
@@ -147,32 +143,22 @@ int extract_packages(char *location, int n,
 
         dst->packages++;
 
-        if (dcf->no_proprietary_packages)
+        if (dcf->no_proprietary_packages && (randint(1, 1000) > 960))
         {
-            if ((randint(1, 1000) > 960))
-            {
-                purge_proprietary_package(dcf, dst);
-            }
+            purge_proprietary_package(dcf, dst);
         }
 
-        if (dcf->aggressive_diggers)
+        if (dcf->aggressive_diggers && (randint(1, 1000) > 980))
         {
-            if ((randint(1, 1000) > 980))
-            {
-                dst->packages += randint(4, 20);
-            }
+            dst->packages += randint(4, 20);
         }
 
-        if (dcf->better_pickaxes)
+        if (dcf->better_pickaxes && (randint(1, 1000) > 980))
         {
-            if ((randint(1, 1000) > 980))
-            {
-                dst->packages += randint(11, 45);
-                if (dcf->aggressive_diggers && (randint(1, 10000)) > 9780)
-                {
-                    dst->packages += randint(53, 90);
-                }
-            }
+            dst->packages += randint(11, 45);
+            dst->packages +=
+                (dcf->aggressive_diggers &&
+                (randint(1, 10000)) > 9780) ? randint(53, 90) : 0;
         }
 
         if (dcf->curse_check)
@@ -185,7 +171,6 @@ int extract_packages(char *location, int n,
             virus_check(dcf);
         }
     }
-
     return dst->packages;
 }
 
