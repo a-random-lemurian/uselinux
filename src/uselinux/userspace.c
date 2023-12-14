@@ -7,11 +7,10 @@ void print_userspace_msg(const char* msg, int arg_no_typewriter)
     if (arg_no_typewriter == 1)
     {
         printf("%s", msg);
+        return;
     }
-    else
-    {
-        typewriter_randomized(msg, 2, 18);
-    }
+
+    typewriter_randomized(msg, 2, 18);
 }
 
 void break_userspace(int arg_no_typewriter, int arg_family_friendly)
@@ -21,16 +20,10 @@ void break_userspace(int arg_no_typewriter, int arg_family_friendly)
     printf("But it seems like your kernel patch broke userspace again!\n");
     printf("New mail: 1\n\n\n");
 
-    if (!arg_family_friendly)
-    {
-        print_userspace_msg(WE_DO_NOT_BREAK_USERSPACE_family_friendly,
-                            arg_no_typewriter);
-    }
-    else
-    {
-        print_userspace_msg(WE_DO_NOT_BREAK_USERSPACE,
-                            arg_no_typewriter);
-    }
+     print_userspace_msg(arg_family_friendly
+        ? WE_DO_NOT_BREAK_USERSPACE_family_friendly
+        : WE_DO_NOT_BREAK_USERSPACE
+        , arg_no_typewriter);
 
 
     printf("%d", randint(1, 100));
@@ -43,8 +36,6 @@ void break_userspace(int arg_no_typewriter, int arg_family_friendly)
 
         segfault_or_abort(80);
     }
-    else
-    {
-        exit(0);
-    }
+
+    exit(0);
 }
