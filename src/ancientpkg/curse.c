@@ -35,25 +35,24 @@ int mitigate_curse(DigStatistics *dst, DigControlFlags *dcf)
  */
 int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf)
 {
-
-    int i = 0;
-
-    if ((randint(1, 100000)) > 91700)
+    if (!(randint(1, 100000)) > 91700)
     {
-        dst->cursed_packages++;
-
-        printf("\n" WARN "curse detected in package.");
-        repeat(' ', 30);
-        printf("\n");
-
-        ancientpkg_msleep((randint(35, 88)));
-
-        int n = randint(1, 1000);
-
-        printf(WARN "digsite %d lockdown initiated.\n", loops);
-
-        mitigate_curse(dst, dcf);
+        return 1;
     }
 
-    return i;
+    dst->cursed_packages++;
+
+    printf("\n" WARN "curse detected in package.");
+    repeat(' ', 30);
+    printf("\n");
+
+    ancientpkg_msleep((randint(35, 88)));
+
+    int n = randint(1, 1000);
+
+    printf(WARN "digsite %d lockdown initiated.\n", loops);
+
+    mitigate_curse(dst, dcf);
+
+    return 0;
 }

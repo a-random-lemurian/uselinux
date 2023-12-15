@@ -10,21 +10,22 @@
 
 void virus_check(DigControlFlags* dcf)
 {
-    if ((randint(1, 100000) > 95200))
+    if (!(randint(1, 100000) > 95200))
     {
-        printf("\n" WARN "Malware detected in package. Initializing "
-               "virus removal procedure....\n");
+        return;
+    }
+    printf("\n" WARN "Malware detected in package. Initializing "
+           "virus removal procedure....\n");
 
-        int times = randint(30, 70);
-        for (int i = 0; i < times; i++)
+    int times = randint(30, 70);
+    for (int i = 0; i < times; i++)
+    {
+        printf("Removing malware... (attempt %d)", i);
+        ancientpkg_msleep((randint(54, 134)));
+
+        if (i != times)
         {
-            printf("Removing malware... (attempt %d)", i);
-            ancientpkg_msleep((randint(54, 134)));
-
-            if (i != times)
-            {
-                printf("\n");
-            }
+            printf("\n");
         }
     }
 }
