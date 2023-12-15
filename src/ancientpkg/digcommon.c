@@ -19,11 +19,7 @@ void virus_check(DigControlFlags* dcf)
         for (int i = 0; i < times; i++)
         {
             printf("Removing malware... (attempt %d)", i);
-
-            if (!dcf->dry_run)
-            {
-                ancientpkg_msleep((randint(54, 134)));
-            }
+            ancientpkg_msleep((randint(54, 134)));
 
             if (i != times)
             {
@@ -65,10 +61,7 @@ void find_alternative_sources_for_shards(DigControlFlags *dcf)
         printf("Checking package src %d.... ", n);
         fflush(stdout);
 
-        if (!dcf->dry_run)
-        {
-            ancientpkg_msleep(randint(1, 300));
-        }
+        ancientpkg_msleep(randint(1, 300));
 
         if (randint(1, 100) > randint(60, 85))
         {
