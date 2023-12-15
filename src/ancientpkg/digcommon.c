@@ -279,13 +279,7 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
 void package_shard_failure(DigControlFlags* dcf, int i, char *pkgname)
 {
     printf(WARN "failed to get package shard %d %s (stable)\n", i, pkgname);
-
     printf("attempting to resolve the situation....\n");
-
-    if (!dcf->dry_run)
-    {
-        ancientpkg_msleep(randint(100, 3000));
-    }
-
+    ancientpkg_msleep(randint(100, 3000));
     find_alternative_sources_for_shards(dcf);
 }
