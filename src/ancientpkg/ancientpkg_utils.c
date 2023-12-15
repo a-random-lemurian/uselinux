@@ -10,13 +10,10 @@ void ancientpkg_set_dry_run(int i)
 
 void ancientpkg_msleep(int tms)
 {
-    if (dry_run)
-    {
-        return;
+    if (!dry_run) {
+        struct timeval tv;
+        tv.tv_sec = tms / 1000;
+        tv.tv_usec = (tms % 1000) * 1000;
+        select(0, NULL, NULL, NULL, &tv);
     }
-
-    struct timeval tv;
-    tv.tv_sec = tms / 1000;
-    tv.tv_usec = (tms % 1000) * 1000;
-    select(0, NULL, NULL, NULL, &tv);
 }
