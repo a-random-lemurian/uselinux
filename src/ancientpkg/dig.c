@@ -1,4 +1,5 @@
 #include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 #include <common/ansiescapes.h>
 #include <common/argparse.h>
 #include <common/mtwister.h>
@@ -89,6 +90,8 @@ int cmd_dig(int argc, char **argv)
 
     DigStatistics dst;
     initialize_dig_stats(&dst);
+
+    ancientpkg_set_dry_run(dcf.dry_run);
 
     dig_common(archaeologists, expected_packages, passes, location,
                &dcf, &dst);

@@ -81,10 +81,7 @@ int cmd_excavate(int argc, char **argv)
             exit(1);
         }
 
-        if (args.dry_run)
-        {
-            ancientpkg_msleep(randint(30, 90));
-        }
+        ancientpkg_msleep(randint(30, 90));
 
         if (randint(1, 1000) > 950)
         {

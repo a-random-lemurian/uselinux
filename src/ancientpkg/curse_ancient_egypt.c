@@ -2,6 +2,7 @@
 #ifndef OMIT_ANCIENT_EGYPT_CURSE
 
 #include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 #include <assert.h>
 #include <common/utils.h>
 #include "curse.h"
@@ -45,11 +46,7 @@ int deal_with_single_hglyph_error(int i, int rc)
 
 int decode_single_hglyph(DigControlFlags* dcf, DigStatistics* dst)
 {
-    if (!dcf->dry_run)
-    {
-        msleep(randint(40, 400));
-    }
-
+    ancientpkg_msleep(randint(40, 400));
 
     int n = randint(1, 120);
 

@@ -46,10 +46,7 @@ int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf)
         repeat(' ', 30);
         printf("\n");
 
-        if (!dcf->dry_run)
-        {
-            ancientpkg_msleep((randint(35, 88)));
-        }
+        ancientpkg_msleep((randint(35, 88)));
 
         int n = randint(1, 1000);
 

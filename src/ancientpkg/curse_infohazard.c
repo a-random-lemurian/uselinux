@@ -1,4 +1,5 @@
 #include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 #include "curse.h"
 #include <common/utils.h>
 #include <common/mtwister.h>
@@ -32,14 +33,8 @@ int cmit_infohazard(int n, DigControlFlags *dcf, DigStatistics *dst)
 
     uint64_t bytes_suppressed = lvl * 50 * randint(20, 50) * 900 * (clock()/2);
 
-    if (!dcf->dry_run)
-    {
-        msleep(randint(40, 90));
-    }
-    else
-    {
-        random_infohazard(dcf, dst);
-    }
+    ancientpkg_msleep(randint(40, 90));
+    random_infohazard(dcf, dst);
 
     printf("%lu bytes of infohazardous memory was suppressed.\n",
            bytes_suppressed);
@@ -61,10 +56,7 @@ int ih_berryman_langford(DigControlFlags *dcf, DigStatistics *dst)
     for (int i = 0; i < max; i++)
     {
         printf(WARN "Expunging data (%d/%d)\n", i, max);
-        if (!dcf->dry_run)
-        {
-            msleep(randint(30, 50));
-        }
+        ancientpkg_msleep(randint(30, 50));
     }
 }
 
@@ -75,16 +67,11 @@ int ih_amnestic(DigControlFlags *dcf, DigStatistics *dst)
     printf(WARN "Detected amnestic of type %d in package. Leaks may cause "
                 "memory loss to any nearby archaeologists.", n);
 
-    if (!dcf->dry_run)
-    {
-        msleep(randint(100, 250));
-    }
+    ancientpkg_msleep(randint(100, 250));
 
     printf("Clearing archaeologists from site....\n");
-    if (!dcf->dry_run)
-    {
-        msleep(randint(100, 300));
-    }
+
+    ancientpkg_msleep(randint(100, 300));
 
     int max = (n * 5) + randint(2, 5);
     for (int i = 0; i < max; i++)
