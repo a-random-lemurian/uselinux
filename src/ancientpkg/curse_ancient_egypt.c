@@ -47,17 +47,7 @@ int deal_with_single_hglyph_error(int i, int rc)
 int decode_single_hglyph(DigControlFlags* dcf, DigStatistics* dst)
 {
     ancientpkg_msleep(randint(40, 400));
-
-    int n = randint(1, 120);
-
-    if (n > 115)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1;
-    }
+    return (randint(1, 120) < 115);
 }
 
 int remove_error_state()
