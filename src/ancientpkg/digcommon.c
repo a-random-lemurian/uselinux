@@ -176,9 +176,6 @@ int extract_packages(char *location, int n,
 
 int validate_archaeologists(int archaeologists)
 {
-    int had_fatal_err;
-    int rc;
-
     /*
      * We cannot have more archaeologists than the population of the entire
      * world.
@@ -187,13 +184,9 @@ int validate_archaeologists(int archaeologists)
     {
         printf(ERROR "Too many archaeologists (not everyone in the world is "
                                               "one,)\n");
-        rc = 1;
+        exit(1);
     }
-
-    if (had_fatal_err)
-    {
-        exit(rc);
-    }
+    return 0;
 }
 
 int dig_common(int archaeologists, int expected_packages,
