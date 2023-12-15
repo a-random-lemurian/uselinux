@@ -48,36 +48,3 @@ int print_infohazard_message(Infohazard* ih)
            ih->name, ih->danger);
     return 0;
 }
-
-int ih_berryman_langford(DigControlFlags *dcf, DigStatistics *dst)
-{
-    int max = randint(7, 23);
-
-    for (int i = 0; i < max; i++)
-    {
-        printf(WARN "Expunging data (%d/%d)\n", i, max);
-        ancientpkg_msleep(randint(30, 50));
-    }
-}
-
-int ih_amnestic(DigControlFlags *dcf, DigStatistics *dst)
-{
-    int n = randint(2, 10);
-
-    printf(WARN "Detected amnestic of type %d in package. Leaks may cause "
-                "memory loss to any nearby archaeologists.", n);
-
-    ancientpkg_msleep(randint(100, 250));
-
-    printf("Clearing archaeologists from site....\n");
-
-    ancientpkg_msleep(randint(100, 300));
-
-    int max = (n * 5) + randint(2, 5);
-    for (int i = 0; i < max; i++)
-    {
-        printf("Neutralizing amnestic (%d/%d)\n", i, max);
-    }
-
-    printf("Amnestic neutralized.");
-}

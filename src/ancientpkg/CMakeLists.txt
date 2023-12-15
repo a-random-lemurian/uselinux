@@ -11,6 +11,8 @@ add_executable(ancientpkg dig.c
                           curse_diseased.c
                           curse_ancient_egypt.c
                           curse_infohazard.c
+                          infohazard_amnestic.c
+                          infohazard_berryman_langford.c
                           ancientpkg_utils.c
                           status.c
                           "install.c")
