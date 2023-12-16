@@ -57,15 +57,19 @@ int cmd_install(int argc, char **argv)
     struct argparse_option options[] = {
         OPT_HELP(),
         OPT_STRING('p', "package-name", &S.package_name, "Name of package"),
+        OPT_BOOLEAN('d', "dry-run", &S.dry_run, "Dry run"),
         OPT_END()};
 
     argparse_init(&ap, options, NULL, 0);
     argparse_parse(&ap, argc, (const char **)argv);
 
+    ancientpkg_set_dry_run(S.dry_run);
+
     if (S.package_name == NULL)
     {
         printf(BHRED "error:" reset " need to specify a package name.\n");
     }
+
 
     install_package(&S);
 }
