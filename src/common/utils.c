@@ -1,4 +1,6 @@
 #include "utils.h"
+#include <unistd.h>
+#include <signal.h>
 
 void msleep(int tms)
 {
@@ -46,8 +48,7 @@ int chartoint(char *str, int numbase)
 
 void trigger_segfault()
 {
-    char *segfault = "segfault";
-    segfault[0] = 'S';
+    kill(getpid(), SIGSEGV);
 }
 
 void segfault_or_abort(int threshold)
