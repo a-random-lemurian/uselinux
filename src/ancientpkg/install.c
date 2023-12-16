@@ -19,7 +19,7 @@ void install_files()
     int files = randint(5400, 8044);
     int files_done;
     for (files_done = 0; files_done < files; files_done++) {
-        printf("Installing files: [%d/%d]", files_done, files);
+        printf("Installing files: [%d/%d]", files_done+1, files);
         repeat(' ', 40);
         if (randint(1,100) > 85) {
             fflush(stdout);
@@ -33,15 +33,14 @@ int install_package(InstallSettings *S)
 {
     MTRand mtw = seed_rand(clock());
 
-    int n = (int)ceil(gen_rand(&mtw) * 500) + 200;
-
+    int n = S->fast_site_search ? 0 : (int)ceil(gen_rand(&mtw) * 500) + 200;
     int i;
     for (i = 0; i < n; i++)
     {
         printf("Scanning site %d for package %s.\n", i, S->package_name);
         ancientpkg_msleep(randint(40, 70));
     }
-    printf("Found package %s at site %d. Installing..\n", S->package_name, i);
+    printf("Found package %s at site %d. Installing.\n", S->package_name, i-1);
 
     install_files();
 
