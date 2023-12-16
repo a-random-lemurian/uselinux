@@ -8,6 +8,12 @@
 
 #include "ancientpkg_utils.h"
 
+typedef struct InstallSettings {
+    char *package_name;
+    int fast_site_search;
+    int dry_run;
+} InstallSettings;
+
 void install_files()
 {
     int files = randint(5400, 8044);
@@ -23,7 +29,7 @@ void install_files()
     }
 }
 
-int install_package(char *name)
+int install_package(InstallSettings *S)
 {
     MTRand mtw = seed_rand(clock());
 
@@ -32,34 +38,34 @@ int install_package(char *name)
     int i;
     for (i = 0; i < n; i++)
     {
-        printf("Scanning site %d for package %s.\n", i, name);
+        printf("Scanning site %d for package %s.\n", i, S->package_name);
         ancientpkg_msleep(randint(40, 70));
     }
-    printf("Found package %s at site %d. Installing..\n", name, i);
+    printf("Found package %s at site %d. Installing..\n", S->package_name, i);
 
     install_files();
 
     printf("\n");
-    printf("Installed package %s.\n", name);
+    printf("Installed package %s.\n", S->package_name);
 }
 
 int cmd_install(int argc, char **argv)
 {
-    char *package_name = NULL;
+    InstallSettings S;
 
     struct argparse ap;
     struct argparse_option options[] = {
         OPT_HELP(),
-        OPT_STRING('p', "package-name", &package_name, "Name of package"),
+        OPT_STRING('p', "package-name", &S.package_name, "Name of package"),
         OPT_END()};
 
     argparse_init(&ap, options, NULL, 0);
     argparse_parse(&ap, argc, (const char **)argv);
 
-    if (package_name == NULL)
+    if (S.package_name == NULL)
     {
         printf(BHRED "error:" reset " need to specify a package name.\n");
     }
 
-    install_package(package_name);
+    install_package(&S);
 }
