@@ -65,16 +65,19 @@ int cmd_excavate(int argc, char **argv)
     int package_found = 0;
     while (package_found == 0)
     {
-        printf("Checking source %10d "
-               "(%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:"
-               "%.12ld:%.12ld:%.12ld:%.12ld)\n",
-               i, gen_rand_long(&mtw), gen_rand_long(&mtw),
-               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
-               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
-               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
-               gen_rand_long(&mtw));
-        i++;
+        printf("Checking source %10ld (", gen_rand_long(&mtw));
+        int j = 0;
+        for (j = 0; j < 12; j++)
+        {
+            printf("%.12ld", gen_rand_long(&mtw));
+            if (j < 11)
+            {
+                printf(":");
+            }
+        }
+        printf(")\n");
 
+        i++;
         if (i > args.attempts && args.attempts != -1)
         {
             printf(ERROR "Reached maximum attempts.\n");
