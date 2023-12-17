@@ -1,5 +1,3 @@
-#include "ancientpkg.h"
-#include "ancientpkg_utils.h"
 #include <common/ansiescapes.h>
 #include <common/argparse.h>
 #include <common/mtwister.h>
@@ -7,6 +5,62 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
+
+/*
+ * Check the archaeologists, passes, location, and expected_packages variables
+ * and ensure that they are valid.
+ */
+static int has_missing_args(DigControlFlags *dcf, char *location,
+                            int archaeologists, int passes,
+                            int expected_packages)
+{
+    int had_fatal_err = 0;
+    if (location == NULL)
+    {
+        printf(ERROR "location must be specified\n");
+        had_fatal_err = 1;
+    }
+
+    if (!dcf->force_archaeologists)
+    {
+        if (archaeologists <= 1)
+        {
+            printf(ERROR "need more than 1 archaeologist.\n");
+            had_fatal_err = 1;
+        }
+
+        if (archaeologists > 8000000000)
+        {
+            printf(ERROR
+                   "Too many archaeologists (not everyone in the world is "
+                   "one,)\n");
+            had_fatal_err = 1;
+        }
+    }
+
+    if (passes <= 0)
+    {
+        printf(ERROR "need more than 1 pass.\n");
+        had_fatal_err = 1;
+    }
+
+    if (expected_packages <= 0)
+    {
+        printf(ERROR "need to expect more than 1 package.\n");
+        had_fatal_err = 1;
+    }
+
+    if (had_fatal_err)
+    {
+        printf("use --help for help.\n");
+        return 1;
+    }
+
+    return had_fatal_err;
+}
 
 int cmd_dig(int argc, char **argv)
 {
@@ -35,7 +89,7 @@ int cmd_dig(int argc, char **argv)
                    "Read package dig config from JSON file"),
         OPT_BOOLEAN(0, "show-all-stats", &dcf.show_all_stats,
                     "Show all dig statistics"),
-        OPT_BOOLEAN(0, "no-stats", &dcf.no_stats, 
+        OPT_BOOLEAN(0, "no-stats", &dcf.no_stats,
                     "Don't show any stats at all"),
         OPT_GROUP("Flags that control the package excavation job"),
         OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
@@ -81,7 +135,8 @@ int cmd_dig(int argc, char **argv)
         dig_from_json(jsonfile);
     }
 
-    if (has_missing_args(&dcf, location, archaeologists, passes, expected_packages))
+    if (has_missing_args(&dcf, location, archaeologists, passes,
+                         expected_packages))
     {
         printf("From the command line: missing arguments.\n");
         exit(1);
@@ -96,8 +151,8 @@ int cmd_dig(int argc, char **argv)
 
     ancientpkg_set_dry_run(dcf.dry_run);
 
-    dig_common(archaeologists, expected_packages, passes, location,
-               &dcf, &dst);
+    dig_common(archaeologists, expected_packages, passes, location, &dcf,
+               &dst);
 
     print_dig_stats_report(&dst, &dcf);
 

@@ -1,14 +1,15 @@
 /* AE = [A]ncient [E]gypt */
 #ifndef OMIT_ANCIENT_EGYPT_CURSE
 
-#include "ancientpkg.h"
-#include "ancientpkg_utils.h"
 #include <assert.h>
 #include <common/utils.h>
-#include "curse.h"
 #include <stdio.h>
 #include <string.h>
 #include <strings.h>
+
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
+#include "curse.h"
 
 static int last_decode_attempt_was_error = 0;
 static int consecutive_decode_failures = 0;
@@ -16,10 +17,9 @@ static int first_failed_hglyph = 0;
 
 int deal_with_single_hglyph_error(int i, int rc)
 {
-
     char endch = '\n';
 
-    printf("[Decode] "BHRED"Error:"reset" Failed to decode hieroglyph %d.",
+    printf("[Decode] " BHRED "Error:" reset " Failed to decode hieroglyph %d.",
            i);
 
     if (last_decode_attempt_was_error == 2)
@@ -44,7 +44,7 @@ int deal_with_single_hglyph_error(int i, int rc)
     return 0;
 }
 
-int decode_single_hglyph(DigControlFlags* dcf, DigStatistics* dst)
+int decode_single_hglyph(DigControlFlags *dcf, DigStatistics *dst)
 {
     ancientpkg_msleep(randint(40, 400));
     return (randint(1, 120) < 115);
@@ -58,7 +58,7 @@ int remove_error_state()
     return 0;
 }
 
-int decode_hieroglyphs(DigControlFlags* dcf, DigStatistics* dst)
+int decode_hieroglyphs(DigControlFlags *dcf, DigStatistics *dst)
 {
     int i = 0;
     int rc = 0;

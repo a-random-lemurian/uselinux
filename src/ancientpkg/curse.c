@@ -1,10 +1,12 @@
 #include "curse.h"
-#include "ancientpkg.h"
-#include "ancientpkg_utils.h"
+
 #include <common/ansiescapes.h>
 #include <common/mtwister.h>
 #include <common/utils.h>
 #include <math.h>
+
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 
 static PackageCurse curses[] = {
     {"disease", "Diseased package", cmit_diseased_pkg},

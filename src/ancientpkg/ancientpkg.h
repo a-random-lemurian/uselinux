@@ -40,7 +40,7 @@ typedef struct DigControlFlags
     int dry_run;
 
     /* Location */
-    char* location;
+    char *location;
 
     int force_archaeologists;
 } DigControlFlags;
@@ -68,7 +68,7 @@ typedef struct DigStatistics
 
 /**
  * @brief Set the default dig control flags in an object.
- * 
+ *
  * @param dcf The object.
  * @return int An integer.
  */
@@ -92,34 +92,11 @@ int cmd_excavate(int argc, char **argv);
 /**
  * @brief The command line interface for the install command.
  */
-int cmd_install(int argc, char** argv);
-
-/**
- * @brief Use the bracket strategy of computing package counts.
- *
- * gaop_factor_brackets() computes the value of out given int a, and int
- * factor. The program takes 10,000 from `a`, which becomes `a1`. Value
- * `c` is generated with the value of `a1` multiplied by the factor, then
- * value `c` is subtracted by value `d`, then incremented to the output
- * value. Value `d` is the bracket tier, multiplied by 50 and
- * then divided by 2.
- *
- * This function very crudely attempts to approximate the principle of
- * diminishing returns. As you add more "archaeologists" to this program
- * to dig up packages, the added productivity bonus you receive should
- * decrease.
- * 
- * @param a Archaeologists
- * @param factor Factor to use when multiplying
- * @return int The number of packages
- */
-int gaop_factor_brackets(int a, int factor);
-
-int generate_amount_of_packages(int a, int factor);
+int cmd_install(int argc, char **argv);
 
 /**
  * @brief Extract the packages.
- * 
+ *
  * @param archaeologists Number of archaeologists
  * @param expected_packages Packages expected
  * @param passes Number of passes to make over the site
@@ -133,22 +110,21 @@ int dig_common(int archaeologists, int expected_packages, int passes,
 
 /**
  * @brief Check for missing args
- * 
+ *
  * @param location Location argument
  * @param archaeologists Archaeologists argument
  * @param passes Passes argument
  * @param expected_packages Expected packages argument
- * @return int 
+ * @return int
  */
 int has_missing_args(DigControlFlags *dcf, char *location, int archaeologists,
                      int passes, int expected_packages);
-
 
 void package_shard_failure(DigControlFlags *dcf, int i, char *pkgname);
 
 /**
  * @brief Launch a dig job with parameters from a JSON file
- * 
+ *
  * @param filename Name of JSON file
  * @return int An integer
  */
@@ -156,7 +132,7 @@ int dig_from_json(char *filename);
 
 /**
  * @brief Get a flag from a parson JSON object
- * 
+ *
  * @param dcf_flags The parson JSON object
  * @param name The name of the flag
  * @return int The integer result code of the flag
@@ -165,17 +141,16 @@ int get_flag(JSON_Object *dcf_flags, char *name);
 
 /**
  * @brief Get the dig control flags from a parson JSON object.
- * 
+ *
  * @param dcf The dig control flag object to modify
  * @param dcf_flags The parson JSON object with the dig control flags.
  */
 void get_dig_control_flags_from_json(DigControlFlags *dcf,
                                      JSON_Object *dcf_flags);
 
-
 /**
  * @brief Unimplemented. Performs a ritual.
- * 
+ *
  * @param i Undocumented due to alien codebase.
  * @param ritual_success An integer value that the function would set if the
  * ritual worked.
@@ -184,39 +159,37 @@ void get_dig_control_flags_from_json(DigControlFlags *dcf,
  * @param dcf Dig contol flags
  * @return long double Undocumented due to alien codebase.
  */
-long double perform_ritual(int i, int *ritual_success, DigStatistics* dst, 
-                           DigControlFlags* dcf);
-
+long double perform_ritual(int i, int *ritual_success, DigStatistics *dst,
+                           DigControlFlags *dcf);
 
 /**
  * @brief Dust a package carefully
- * 
+ *
  * @return int The time spent dusting carefully
  */
 int dust_carefully();
 
-
 /* Package checks */
 /**
  * @brief Check for curses in the packages.
- * 
+ *
  * @param loops Loops to make.
  * @param dst Dig statistics object
  * @param dcf Dig control flags object
- * @return int 
+ * @return int
  */
 int curse_check(int loops, DigStatistics *dst, DigControlFlags *dcf);
 
 /**
  * @brief Check for viruses in the packages.
- * 
+ *
  * @param dcf Dig control flags object
  */
 void virus_check(DigControlFlags *dcf);
 
 /**
  * @brief Extract packages
- * 
+ *
  * @param location Where to extract
  * @param n Undocumented due to alien codebase.
  * @param loops Loops to make
@@ -224,20 +197,20 @@ void virus_check(DigControlFlags *dcf);
  * @param mtw Mersenne twister object
  * @param dcf Dig control flags object
  * @param dst Dig statistics object
- * @return int 
+ * @return int
  */
-int extract_packages(char *location, int n,
-                     int loops, char endch, MTRand mtw, DigControlFlags *dcf,
-                     DigStatistics* dst);
+int extract_packages(char *location, int n, int loops, char endch, MTRand mtw,
+                     DigControlFlags *dcf, DigStatistics *dst);
 
 /**
  * @brief Deal with a broken package shard.
- * 
+ *
  * @param dcf Object with flags to control the dig job.
  * @param i Shard ID
  * @param pkgname The package with the missing shard.
  */
-void deal_with_broken_package_shard(DigControlFlags* dcf, int i, char* pkgname);
+void deal_with_broken_package_shard(DigControlFlags *dcf, int i,
+                                    char *pkgname);
 
 /**
  * @brief Find a shard, getting it from other sources
@@ -246,14 +219,14 @@ void find_alternative_sources_for_shards();
 
 /**
  * @brief Initialize a dig statistics object to its default values.
- * 
- * @param dst 
+ *
+ * @param dst
  */
 void initialize_dig_stats(DigStatistics *dst);
 
 /**
  * @brief Print a report of statistics during the dig.
- * 
+ *
  * @param dst Dig statistics object.
  * @param dcf Object with flags to control the dig job.
  */
@@ -263,7 +236,7 @@ void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf);
 /**
  * @brief Validate packages for common errors, at the moment it only checks
  * for missing parameters.
- * 
+ *
  * @param self The package to validate
  * @return int Whether there are missing parameters
  */
@@ -271,7 +244,7 @@ int validate_package(Package *self);
 
 /**
  * @brief Create a package
- * 
+ *
  * @param self Package object
  * @param name Name of package
  * @param license License of package
@@ -283,10 +256,10 @@ int create_package(Package *self, char *name, char *license);
  * @brief If a package has one maintainer, use this function to set the
  * package's maintainer. For a package with multiple maintainers use
  * the set_pkg_multiple_maintainers function instead.
- * 
- * @param self 
- * @param maintainer 
- * @return int 
+ *
+ * @param self
+ * @param maintainer
+ * @return int
  */
 int set_pkg_maintainer(Package *self, char *maintainer);
 
@@ -294,12 +267,11 @@ int set_pkg_maintainer(Package *self, char *maintainer);
  * @brief If a package has a group of maintainers, use this function to
  * set the package's maintainers. For a package with one maintainer use the
  * set_pkg_maintainer function instead.
- * 
+ *
  * @param self The package to modify
  * @param maintainers The maintainers of the package
  * @return int Result code
  */
 int set_pkg_multiple_maintainers(Package *self, char **maintainers);
-
 
 #endif /* ANCIENTPKG_H */

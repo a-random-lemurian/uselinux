@@ -3,14 +3,12 @@
 
 static int dry_run;
 
-void ancientpkg_set_dry_run(int i)
-{
-    dry_run = i;
-}
+void ancientpkg_set_dry_run(int i) { dry_run = i; }
 
 void ancientpkg_msleep(int tms)
 {
-    if (!dry_run) {
+    if (!dry_run)
+    {
         struct timeval tv;
         tv.tv_sec = tms / 1000;
         tv.tv_usec = (tms % 1000) * 1000;

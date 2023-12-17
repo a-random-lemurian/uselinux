@@ -1,6 +1,7 @@
-#include "ancientpkg.h"
 #include <stdio.h>
 #include <time.h>
+
+#include "ancientpkg.h"
 
 void print_dig_stats_report(DigStatistics *dst, DigControlFlags *dcf)
 {

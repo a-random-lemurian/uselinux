@@ -38,8 +38,7 @@ int cmd_excavate(int argc, char **argv)
         OPT_STRING('t', "target", &args.target, "Target package to find."),
         OPT_INTEGER('a', "attempts", &args.attempts,
                     "Number of attempts to make while trying to find package"),
-        OPT_BOOLEAN('n', "dry-run", &args.dry_run,
-                    "Dry run (don't wait)"),
+        OPT_BOOLEAN('n', "dry-run", &args.dry_run, "Dry run (don't wait)"),
         OPT_END()};
 
     argparse_init(&ap, options, usages, 0);
@@ -69,10 +68,11 @@ int cmd_excavate(int argc, char **argv)
         printf("Checking source %10d "
                "(%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:%.12ld:"
                "%.12ld:%.12ld:%.12ld:%.12ld)\n",
-               i, gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
+               i, gen_rand_long(&mtw), gen_rand_long(&mtw),
                gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
                gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
-               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw));
+               gen_rand_long(&mtw), gen_rand_long(&mtw), gen_rand_long(&mtw),
+               gen_rand_long(&mtw));
         i++;
 
         if (i > args.attempts && args.attempts != -1)

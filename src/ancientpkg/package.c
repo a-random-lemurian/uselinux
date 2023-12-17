@@ -1,8 +1,9 @@
-#include "ancientpkg.h"
 #include <common/ansiescapes.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "ancientpkg.h"
 
 int validate_package(Package *self)
 {
