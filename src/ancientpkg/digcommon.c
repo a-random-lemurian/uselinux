@@ -76,6 +76,54 @@ void find_alternative_sources_for_shards(DigControlFlags *dcf)
     }
 }
 
+static void add_packages_based_on_flags(DigControlFlags *dcf,
+                                        DigStatistics *dst)
+{
+    if (dcf->aggressive_diggers && (randint(1, 1000) > 980))
+    {
+        dst->packages += randint(4, 20);
+    }
+
+    if (dcf->better_pickaxes && (randint(1, 1000) > 980))
+    {
+        dst->packages += randint(11, 45);
+        dst->packages +=
+            (dcf->aggressive_diggers &&
+            (randint(1, 10000)) > 9780) ? randint(53, 90) : 0;
+    }
+}
+
+static void package_extraction_checks(DigControlFlags *dcf, DigStatistics *dst,
+                                      int loops)
+{
+    if (dcf->curse_check)
+    {
+        curse_check(loops, dst, dcf);
+    }
+    if (dcf->virus_check)
+    {
+        virus_check(dcf);
+    }
+}
+
+static void package_shard_checks(DigControlFlags *dcf, DigStatistics *dst,
+                                 int i, int has_missing_shard,
+                                 int broken_package_shard)
+{
+    char pkgname[512];
+    sprintf(pkgname, "package-ancient:%d", i);
+    if (has_missing_shard && dcf->ignore_missing_shards == 0)
+    {
+        package_shard_failure(dcf, i, (char *)pkgname);
+        dst->missing_shards++;
+    }
+    else if (broken_package_shard && dcf->ignore_broken_shards == 0)
+    {
+        deal_with_broken_package_shard(dcf, i, (char *)pkgname);
+        dst->broken_shards++;
+    }
+}
+
 int extract_packages(char *location, int n,
                      int loops, char endch, MTRand mtw, DigControlFlags *dcf,
                      DigStatistics* dst)
@@ -107,7 +155,6 @@ int extract_packages(char *location, int n,
 
         broken_package_shard = 0;
         has_missing_shard = 0;
-
         int status_number = generate_status(broken_shard_chance, dcf,
                                             &has_missing_shard,
                                             &broken_package_shard);
@@ -122,18 +169,7 @@ int extract_packages(char *location, int n,
         }
         free(status);
 
-        char pkgname[512];
-        sprintf(pkgname, "package-ancient:%d", i);
-        if (has_missing_shard && dcf->ignore_missing_shards == 0)
-        {
-            package_shard_failure(dcf, i, (char *)pkgname);
-            dst->missing_shards++;
-        }
-        else if (broken_package_shard && dcf->ignore_broken_shards == 0)
-        {
-            deal_with_broken_package_shard(dcf, i, (char *)pkgname);
-            dst->broken_shards++;
-        }
+        package_shard_checks(dcf, dst, i, has_missing_shard, broken_package_shard);
 
         dst->packages++;
 
@@ -142,28 +178,8 @@ int extract_packages(char *location, int n,
             purge_proprietary_package(dcf, dst);
         }
 
-        if (dcf->aggressive_diggers && (randint(1, 1000) > 980))
-        {
-            dst->packages += randint(4, 20);
-        }
-
-        if (dcf->better_pickaxes && (randint(1, 1000) > 980))
-        {
-            dst->packages += randint(11, 45);
-            dst->packages +=
-                (dcf->aggressive_diggers &&
-                (randint(1, 10000)) > 9780) ? randint(53, 90) : 0;
-        }
-
-        if (dcf->curse_check)
-        {
-            curse_check(loops, dst, dcf);
-        }
-
-        if (dcf->virus_check)
-        {
-            virus_check(dcf);
-        }
+        add_packages_based_on_flags(dcf, dst);
+        package_extraction_checks(dcf, dst, loops);
     }
     return dst->packages;
 }
