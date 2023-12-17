@@ -183,13 +183,45 @@ int validate_archaeologists(int archaeologists)
     return 0;
 }
 
+int gaop_factor_brackets(int a, int factor)
+{
+    int bt = 1;       /* bt:  Bracket tier            */
+    int bs = 10000;   /* bs:  Bracket size            */
+    int bd = 100;     /* bd:  Bracket decrement       */
+    int mbs = 2000;   /* mbs: Minimum bracket size    */
+    int r_a = a;      /* Remaining a                  */
+    int out = 0;      /* Output                       */
+
+    while (r_a != 0) {
+        if (r_a < bs) {
+            out += r_a * factor - (int)ceil((bt * 50)/2);
+            r_a = 0;
+        }
+        else {
+            out += bs * factor - (int)ceil((bt * 50)/2);
+            r_a -= bs;
+        }
+        if (bs >= mbs) {
+            bs -= bd;
+            bt++;
+        }
+    }
+
+    return out;
+}
+
+int generate_amount_of_packages(int a, int factor)
+{
+    return gaop_factor_brackets(a, factor);
+}
+
 int dig_common(int archaeologists, int expected_packages,
                int passes, char *location, DigControlFlags *dcf,
                DigStatistics* dst)
 {
     validate_archaeologists(archaeologists);
 
-    int loops = (int)ceil((archaeologists * 10) + expected_packages);
+    int loops = generate_amount_of_packages(archaeologists, randint(8, 12));
 
     if (dcf->source_packages)
     {
