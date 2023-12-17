@@ -1,4 +1,5 @@
 #include "ancientpkg.h"
+#include <stdio.h>
 #include <common/ansiescapes.h>
 
 int validate_arguments(DigControlFlags *dcf, char *location,
