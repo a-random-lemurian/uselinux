@@ -184,21 +184,6 @@ int extract_packages(char *location, int n,
     return dst->packages;
 }
 
-int validate_archaeologists(int archaeologists)
-{
-    /*
-     * We cannot have more archaeologists than the population of the entire
-     * world.
-     */
-    if (archaeologists > 8000000000)
-    {
-        printf(ERROR "Too many archaeologists (not everyone in the world is "
-                                              "one,)\n");
-        exit(1);
-    }
-    return 0;
-}
-
 int gaop_factor_brackets(int a, int factor)
 {
     int bt = 1;       /* bt:  Bracket tier            */
@@ -235,8 +220,6 @@ int dig_common(int archaeologists, int expected_packages,
                int passes, char *location, DigControlFlags *dcf,
                DigStatistics* dst)
 {
-    validate_archaeologists(archaeologists);
-
     int loops = generate_amount_of_packages(archaeologists, randint(8, 12));
 
     if (dcf->source_packages)
@@ -277,19 +260,26 @@ int has_missing_args(char *location, int archaeologists, int passes,
         printf(ERROR "need more than 1 archaeologist.\n");
         had_fatal_err = 1;
     }
-    
+
+    if (archaeologists > 8000000000)
+    {
+        printf(ERROR "Too many archaeologists (not everyone in the world is "
+                                              "one,)\n");
+        had_fatal_err = 1;
+    }
+
     if (passes <= 0)
     {
         printf(ERROR "need more than 1 pass.\n");
         had_fatal_err = 1;
     }
-    
+
     if (expected_packages <= 0)
     {
         printf(ERROR "need to expect more than 1 package.\n");
         had_fatal_err = 1;
     }
-    
+
     if (had_fatal_err)
     {
         printf("use --help for help.\n");
