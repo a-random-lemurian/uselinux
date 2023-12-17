@@ -108,18 +108,6 @@ int cmd_install(int argc, char **argv);
 int dig_common(int archaeologists, int expected_packages, int passes,
                char *location, DigControlFlags *dcf, DigStatistics *dst);
 
-/**
- * @brief Check for missing args
- *
- * @param location Location argument
- * @param archaeologists Archaeologists argument
- * @param passes Passes argument
- * @param expected_packages Expected packages argument
- * @return int
- */
-int has_missing_args(DigControlFlags *dcf, char *location, int archaeologists,
-                     int passes, int expected_packages);
-
 void package_shard_failure(DigControlFlags *dcf, int i, char *pkgname);
 
 /**

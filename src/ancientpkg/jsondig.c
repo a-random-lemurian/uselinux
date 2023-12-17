@@ -9,6 +9,7 @@
 
 #include "ancientpkg.h"
 #include "ancientpkg_utils.h"
+#include "validate_args.h"
 
 int validate_json_package(JSON_Object *package)
 {
