@@ -41,6 +41,8 @@ typedef struct DigControlFlags
 
     /* Location */
     char* location;
+
+    int force_archaeologists;
 } DigControlFlags;
 
 typedef struct Package
@@ -138,8 +140,8 @@ int dig_common(int archaeologists, int expected_packages, int passes,
  * @param expected_packages Expected packages argument
  * @return int 
  */
-int has_missing_args(char *location, int archaeologists, int passes,
-                     int expected_packages);
+int has_missing_args(DigControlFlags *dcf, char *location, int archaeologists,
+                     int passes, int expected_packages);
 
 
 void package_shard_failure(DigControlFlags *dcf, int i, char *pkgname);
