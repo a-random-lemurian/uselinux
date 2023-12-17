@@ -1,6 +1,7 @@
 /* Documentation in docs/dig_from_json.md */
 
-#include <ancientpkg.h>
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 #include <common/ansiescapes.h>
 #include <common/utils.h>
 #include <parson/parson.h>
@@ -59,7 +60,7 @@ void process_single_package(DigControlFlags* dcf, JSON_Object *package,
                pkgname, license);
 
         int sleep = randint(500, 1000);
-        msleep(sleep);
+        ancientpkg_msleep(sleep);
 
         for (int i = 0; i < randint(30, 70); i++)
         {

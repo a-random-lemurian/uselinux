@@ -1,10 +1,11 @@
 /* AE = [A]ncient [E]gypt */
 #ifndef OMIT_ANCIENT_EGYPT_CURSE
 
-#include <ancientpkg.h>
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 #include <assert.h>
 #include <common/utils.h>
-#include <cursedpkg.h>
+#include "curse.h"
 #include <stdio.h>
 #include <string.h>
 #include <strings.h>
@@ -45,22 +46,8 @@ int deal_with_single_hglyph_error(int i, int rc)
 
 int decode_single_hglyph(DigControlFlags* dcf, DigStatistics* dst)
 {
-    if (!dcf->dry_run)
-    {
-        msleep(randint(40, 400));
-    }
-
-
-    int n = randint(1, 120);
-
-    if (n > 115)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1;
-    }
+    ancientpkg_msleep(randint(40, 400));
+    return (randint(1, 120) < 115);
 }
 
 int remove_error_state()

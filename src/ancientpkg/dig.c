@@ -1,4 +1,5 @@
-#include <ancientpkg.h>
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 #include <common/ansiescapes.h>
 #include <common/argparse.h>
 #include <common/mtwister.h>
@@ -55,6 +56,9 @@ int cmd_dig(int argc, char **argv)
                     "Include source packages."),
         OPT_BOOLEAN(0, "no-proprietary-packages", &dcf.no_proprietary_packages,
                     "Include only free software."),
+        OPT_GROUP("Other flags"),
+        OPT_BOOLEAN(0, "force-archaeologists", &dcf.force_archaeologists,
+                    "Ignore population limit of 8 billion on archaeologists"),
         OPT_END()};
 
     const char *usages[] = {
@@ -77,7 +81,7 @@ int cmd_dig(int argc, char **argv)
         dig_from_json(jsonfile);
     }
 
-    if (has_missing_args(location, archaeologists, passes, expected_packages))
+    if (has_missing_args(&dcf, location, archaeologists, passes, expected_packages))
     {
         printf("From the command line: missing arguments.\n");
         exit(1);
@@ -89,6 +93,8 @@ int cmd_dig(int argc, char **argv)
 
     DigStatistics dst;
     initialize_dig_stats(&dst);
+
+    ancientpkg_set_dry_run(dcf.dry_run);
 
     dig_common(archaeologists, expected_packages, passes, location,
                &dcf, &dst);

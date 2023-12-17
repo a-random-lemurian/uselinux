@@ -1,5 +1,6 @@
-#include <ancientpkg.h>
-#include <cursedpkg.h>
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
+#include "curse.h"
 #include <common/utils.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -16,10 +17,7 @@ int cmit_diseased_pkg(int n, DigControlFlags *dcf, DigStatistics *dst)
                i, infectionlvl);
         infectionlvl -= randint(1, 60);
 
-        if (!dcf->dry_run)
-        {
-            msleep(randint(20, 135));
-        }
+        ancientpkg_msleep(randint(20, 135));
     }
 
     return 0;

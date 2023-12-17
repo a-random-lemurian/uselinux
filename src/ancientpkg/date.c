@@ -1,4 +1,4 @@
-#include <ancientpkg.h>
+#include "ancientpkg.h"
 #include <common/ansiescapes.h>
 #include <common/argparse.h>
 #include <common/mtwister.h>
@@ -75,57 +75,51 @@ int cmd_date(int argc, char **argv)
 
     int chance = 1;
 
-    if (!strcasecmp(method, "radiocarbon"))
+    if (!strcasecmp(method, "radiocarbon") && pkg_age > 40000)
     {
-        if (pkg_age > 40000)
-        {
-            chance += (int)ceil((pkg_age - 40000) / 4000);
-        }
+        chance += (int)ceil((pkg_age - 40000) / 4000);
     }
 
     int odds = (int)ceil((gen_rand(&mtw) * chance));
-
-    if (odds < 16)
-    {
-        printf("%d\n", odds);
-        if (json_file != NULL)
-        {
-            FILE *fp = fopen(json_file, "w");
-            JSON_Value *root = json_value_init_object();
-            JSON_Object *rootobj = json_value_get_object(root);
-            char *serialized_string = NULL;
-            json_object_set_string(rootobj, "packageName", pkg);
-            json_object_set_number(rootobj, "packageAge", pkg_age);
-            json_object_dotset_string(rootobj, "datingMethod", method);
-            json_serialize_to_file(root, json_file);
-        }
-        else
-        {
-            printf("Package " HWHT "%s" reset
-                   " is %d years old (dated with %s)\n",
-                   pkg, pkg_age, method);
-
-            if (pkg_age < 200)
-            {
-                printf("That's a very young package. How rare, indeed.\n");
-            }
-            else if (pkg_age > 4200 && pkg_age < 4500)
-            {
-                printf("It seems like this package was released "
-                       "during the construction of the Great "
-                       "Pyramids of Giza.\n");
-            }
-            else
-            {
-                printf(BHYEL "warning:" reset " No historical context for %s.",
-                       pkg);
-            }
-            exit(0);
-        }
-    }
-    else
+    if (odds > 16)
     {
         printf(BHRED "error: " reset "unable to determine age of %s", pkg);
         exit(1);
     }
+    printf("%d\n", odds);
+
+    if (json_file != NULL)
+    {
+        FILE *fp = fopen(json_file, "w");
+        JSON_Value *root = json_value_init_object();
+        JSON_Object *rootobj = json_value_get_object(root);
+        char *serialized_string = NULL;
+        json_object_set_string(rootobj, "packageName", pkg);
+        json_object_set_number(rootobj, "packageAge", pkg_age);
+        json_object_dotset_string(rootobj, "datingMethod", method);
+        json_serialize_to_file(root, json_file);
+
+        exit(0);
+    }
+
+    printf("Package " HWHT "%s" reset
+           " is %d years old (dated with %s)\n",
+           pkg, pkg_age, method);
+
+    if (pkg_age < 200)
+    {
+        printf("That's a very young package. How rare, indeed.\n");
+    }
+    else if (pkg_age > 4200 && pkg_age < 4500)
+    {
+        printf("It seems like this package was released "
+               "during the construction of the Great "
+               "Pyramids of Giza.\n");
+    }
+    else
+    {
+        printf(BHYEL "warning:" reset " No historical context for %s.",
+               pkg);
+    }
+    exit(0);
 }
