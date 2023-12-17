@@ -95,29 +95,6 @@ int cmd_excavate(int argc, char **argv);
 int cmd_install(int argc, char **argv);
 
 /**
- * @brief Use the bracket strategy of computing package counts.
- *
- * gaop_factor_brackets() computes the value of out given int a, and int
- * factor. The program takes 10,000 from `a`, which becomes `a1`. Value
- * `c` is generated with the value of `a1` multiplied by the factor, then
- * value `c` is subtracted by value `d`, then incremented to the output
- * value. Value `d` is the bracket tier, multiplied by 50 and
- * then divided by 2.
- *
- * This function very crudely attempts to approximate the principle of
- * diminishing returns. As you add more "archaeologists" to this program
- * to dig up packages, the added productivity bonus you receive should
- * decrease.
- *
- * @param a Archaeologists
- * @param factor Factor to use when multiplying
- * @return int The number of packages
- */
-int gaop_factor_brackets(int a, int factor);
-
-int generate_amount_of_packages(int a, int factor);
-
-/**
  * @brief Extract the packages.
  *
  * @param archaeologists Number of archaeologists
