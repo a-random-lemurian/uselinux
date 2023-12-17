@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <time.h>
 
-void virus_check(DigControlFlags* dcf)
+void virus_check(DigControlFlags *dcf)
 {
     if (!(randint(1, 100000) > 95200))
     {
@@ -48,7 +48,7 @@ int purge_proprietary_package(DigControlFlags *dcf, DigStatistics *dst)
     dst->proprietary_packages_purged++;
 }
 
-void deal_with_broken_package_shard(DigControlFlags* dcf, int i, char* pkgname)
+void deal_with_broken_package_shard(DigControlFlags *dcf, int i, char *pkgname)
 {
     printf(WARN "Package shard %i of %s is broken!\n", i, pkgname);
     printf("Looking for alternative sources...\n");
@@ -88,8 +88,9 @@ static void add_packages_based_on_flags(DigControlFlags *dcf,
     {
         dst->packages += randint(11, 45);
         dst->packages +=
-            (dcf->aggressive_diggers &&
-            (randint(1, 10000)) > 9780) ? randint(53, 90) : 0;
+            (dcf->aggressive_diggers && (randint(1, 10000)) > 9780)
+                ? randint(53, 90)
+                : 0;
     }
 }
 
@@ -124,9 +125,8 @@ static void package_shard_checks(DigControlFlags *dcf, DigStatistics *dst,
     }
 }
 
-int extract_packages(char *location, int n,
-                     int loops, char endch, MTRand mtw, DigControlFlags *dcf,
-                     DigStatistics* dst)
+int extract_packages(char *location, int n, int loops, char endch, MTRand mtw,
+                     DigControlFlags *dcf, DigStatistics *dst)
 {
     int has_missing_shard;
     int dc_slp = 0;
@@ -155,13 +155,13 @@ int extract_packages(char *location, int n,
 
         broken_package_shard = 0;
         has_missing_shard = 0;
-        int status_number = generate_status(broken_shard_chance, dcf,
-                                            &has_missing_shard,
-                                            &broken_package_shard);
-        char* status = status_string(status_number);
+        int status_number =
+            generate_status(broken_shard_chance, dcf, &has_missing_shard,
+                            &broken_package_shard);
+        char *status = status_string(status_number);
         src = dcf->source_packages ? "/src" : "";
-        printf("Get:%d:s%d.digsites.site-3/site/%s%s (%ld ms) %s\n",
-               i, n, src, location, total_time, status);
+        printf("Get:%d:s%d.digsites.site-3/site/%s%s (%ld ms) %s\n", i, n, src,
+               location, total_time, status);
         fflush(stdout);
         if (dcf->source_packages)
         {
@@ -169,7 +169,8 @@ int extract_packages(char *location, int n,
         }
         free(status);
 
-        package_shard_checks(dcf, dst, i, has_missing_shard, broken_package_shard);
+        package_shard_checks(dcf, dst, i, has_missing_shard,
+                             broken_package_shard);
 
         dst->packages++;
 
@@ -186,23 +187,27 @@ int extract_packages(char *location, int n,
 
 int gaop_factor_brackets(int a, int factor)
 {
-    int bt = 1;       /* bt:  Bracket tier            */
-    int bs = 10000;   /* bs:  Bracket size            */
-    int bd = 100;     /* bd:  Bracket decrement       */
-    int mbs = 2000;   /* mbs: Minimum bracket size    */
-    int r_a = a;      /* Remaining a                  */
-    int out = 0;      /* Output                       */
+    int bt = 1;     /* bt:  Bracket tier            */
+    int bs = 10000; /* bs:  Bracket size            */
+    int bd = 100;   /* bd:  Bracket decrement       */
+    int mbs = 2000; /* mbs: Minimum bracket size    */
+    int r_a = a;    /* Remaining a                  */
+    int out = 0;    /* Output                       */
 
-    while (r_a != 0) {
-        if (r_a < bs) {
-            out += r_a * factor - (int)ceil((bt * 50)/2);
+    while (r_a != 0)
+    {
+        if (r_a < bs)
+        {
+            out += r_a * factor - (int)ceil((bt * 50) / 2);
             r_a = 0;
         }
-        else {
-            out += bs * factor - (int)ceil((bt * 50)/2);
+        else
+        {
+            out += bs * factor - (int)ceil((bt * 50) / 2);
             r_a -= bs;
         }
-        if (bs >= mbs) {
+        if (bs >= mbs)
+        {
             bs -= bd;
             bt++;
         }
@@ -216,9 +221,8 @@ int generate_amount_of_packages(int a, int factor)
     return gaop_factor_brackets(a, factor);
 }
 
-int dig_common(int archaeologists, int expected_packages,
-               int passes, char *location, DigControlFlags *dcf,
-               DigStatistics* dst)
+int dig_common(int archaeologists, int expected_packages, int passes,
+               char *location, DigControlFlags *dcf, DigStatistics *dst)
 {
     int loops = generate_amount_of_packages(archaeologists, randint(8, 12));
 
@@ -265,8 +269,9 @@ int has_missing_args(DigControlFlags *dcf, char *location, int archaeologists,
 
         if (archaeologists > 8000000000)
         {
-            printf(ERROR "Too many archaeologists (not everyone in the world is "
-                                                  "one,)\n");
+            printf(ERROR
+                   "Too many archaeologists (not everyone in the world is "
+                   "one,)\n");
             had_fatal_err = 1;
         }
     }
@@ -317,7 +322,7 @@ int set_default_dig_control_flags(DigControlFlags *dcf)
 /*
  * Notify the user that there was a failure in retrieving a package shard.
  */
-void package_shard_failure(DigControlFlags* dcf, int i, char *pkgname)
+void package_shard_failure(DigControlFlags *dcf, int i, char *pkgname)
 {
     printf(WARN "failed to get package shard %d %s (stable)\n", i, pkgname);
     printf("attempting to resolve the situation....\n");

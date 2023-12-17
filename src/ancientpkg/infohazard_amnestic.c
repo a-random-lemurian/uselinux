@@ -1,11 +1,12 @@
-#include "ancientpkg.h"
-#include "ancientpkg_utils.h"
-#include "curse.h"
-#include "infohazard.h"
 #include <common/mtwister.h>
 #include <common/utils.h>
 #include <stdint.h>
 #include <stdio.h>
+
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
+#include "curse.h"
+#include "infohazard.h"
 
 int ih_amnestic(DigControlFlags *dcf, DigStatistics *dst)
 {

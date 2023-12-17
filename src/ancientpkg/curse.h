@@ -4,9 +4,9 @@
 
 typedef struct PackageCurse
 {
-    char* type;
-    char* name;
-    int (*fn)(int, DigControlFlags*, DigStatistics*);
+    char *type;
+    char *name;
+    int (*fn)(int, DigControlFlags *, DigStatistics *);
 } PackageCurse;
 
 int cmit_diseased_pkg(int n, DigControlFlags *dcf, DigStatistics *dst);

@@ -8,7 +8,8 @@
 
 #include "ancientpkg_utils.h"
 
-typedef struct InstallSettings {
+typedef struct InstallSettings
+{
     char *package_name;
     int fast_site_search;
     int dry_run;
@@ -18,13 +19,15 @@ void install_files()
 {
     int files = randint(5400, 8044);
     int files_done;
-    for (files_done = 0; files_done < files; files_done++) {
-        printf("Installing files: [%d/%d]", files_done+1, files);
+    for (files_done = 0; files_done < files; files_done++)
+    {
+        printf("Installing files: [%d/%d]", files_done + 1, files);
         repeat(' ', 40);
-        if (randint(1,100) > 85) {
+        if (randint(1, 100) > 85)
+        {
             fflush(stdout);
         }
-        ancientpkg_msleep((randint(1,100) < 30) ? randint(1, 3) : 0);
+        ancientpkg_msleep((randint(1, 100) < 30) ? randint(1, 3) : 0);
         printf("\r");
     }
 }
@@ -40,7 +43,8 @@ int install_package(InstallSettings *S)
         printf("Scanning site %d for package %s.\n", i, S->package_name);
         ancientpkg_msleep(randint(40, 70));
     }
-    printf("Found package %s at site %d. Installing.\n", S->package_name, i-1);
+    printf("Found package %s at site %d. Installing.\n", S->package_name,
+           i - 1);
 
     install_files();
 
@@ -56,8 +60,7 @@ int cmd_install(int argc, char **argv)
     struct argparse_option options[] = {
         OPT_HELP(),
         OPT_STRING('p', "package-name", &S.package_name, "Name of package"),
-        OPT_BOOLEAN('d', "dry-run", &S.dry_run, "Dry run"),
-        OPT_END()};
+        OPT_BOOLEAN('d', "dry-run", &S.dry_run, "Dry run"), OPT_END()};
 
     argparse_init(&ap, options, NULL, 0);
     argparse_parse(&ap, argc, (const char **)argv);
@@ -68,7 +71,6 @@ int cmd_install(int argc, char **argv)
     {
         printf(BHRED "error:" reset " need to specify a package name.\n");
     }
-
 
     install_package(&S);
 }

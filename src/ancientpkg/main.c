@@ -1,10 +1,11 @@
-#include "ancientpkg.h"
 #include <common/ansiescapes.h>
 #include <common/argparse.h>
 #include <common/mtwister.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "ancientpkg.h"
 
 static Subcommand subcommands[] = {
     {"dig", cmd_dig, "Dig for ancient packages"},

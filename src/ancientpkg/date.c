@@ -1,4 +1,3 @@
-#include "ancientpkg.h"
 #include <common/ansiescapes.h>
 #include <common/argparse.h>
 #include <common/mtwister.h>
@@ -8,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+#include "ancientpkg.h"
 
 char *valid_dating_methods[] = {"radiocarbon", "carbon", "uranium–lead",
                                 "uranium–thorium", "uranium–uranium"};
@@ -102,8 +103,7 @@ int cmd_date(int argc, char **argv)
         exit(0);
     }
 
-    printf("Package " HWHT "%s" reset
-           " is %d years old (dated with %s)\n",
+    printf("Package " HWHT "%s" reset " is %d years old (dated with %s)\n",
            pkg, pkg_age, method);
 
     if (pkg_age < 200)
@@ -118,8 +118,7 @@ int cmd_date(int argc, char **argv)
     }
     else
     {
-        printf(BHYEL "warning:" reset " No historical context for %s.",
-               pkg);
+        printf(BHYEL "warning:" reset " No historical context for %s.", pkg);
     }
     exit(0);
 }

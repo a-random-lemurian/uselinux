@@ -1,5 +1,3 @@
-#include "ancientpkg.h"
-#include "ancientpkg_utils.h"
 #include <common/ansiescapes.h>
 #include <common/argparse.h>
 #include <common/mtwister.h>
@@ -7,6 +5,9 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 
 int cmd_dig(int argc, char **argv)
 {
@@ -35,7 +36,7 @@ int cmd_dig(int argc, char **argv)
                    "Read package dig config from JSON file"),
         OPT_BOOLEAN(0, "show-all-stats", &dcf.show_all_stats,
                     "Show all dig statistics"),
-        OPT_BOOLEAN(0, "no-stats", &dcf.no_stats, 
+        OPT_BOOLEAN(0, "no-stats", &dcf.no_stats,
                     "Don't show any stats at all"),
         OPT_GROUP("Flags that control the package excavation job"),
         OPT_BOOLEAN(0, "virus-check", &dcf.virus_check,
@@ -81,7 +82,8 @@ int cmd_dig(int argc, char **argv)
         dig_from_json(jsonfile);
     }
 
-    if (has_missing_args(&dcf, location, archaeologists, passes, expected_packages))
+    if (has_missing_args(&dcf, location, archaeologists, passes,
+                         expected_packages))
     {
         printf("From the command line: missing arguments.\n");
         exit(1);
@@ -96,8 +98,8 @@ int cmd_dig(int argc, char **argv)
 
     ancientpkg_set_dry_run(dcf.dry_run);
 
-    dig_common(archaeologists, expected_packages, passes, location,
-               &dcf, &dst);
+    dig_common(archaeologists, expected_packages, passes, location, &dcf,
+               &dst);
 
     print_dig_stats_report(&dst, &dcf);
 

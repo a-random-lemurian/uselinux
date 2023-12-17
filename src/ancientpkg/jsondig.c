@@ -1,13 +1,14 @@
 /* Documentation in docs/dig_from_json.md */
 
-#include "ancientpkg.h"
-#include "ancientpkg_utils.h"
 #include <common/ansiescapes.h>
 #include <common/utils.h>
 #include <parson/parson.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "ancientpkg.h"
+#include "ancientpkg_utils.h"
 
 int validate_json_package(JSON_Object *package)
 {
@@ -39,7 +40,7 @@ int validate_json_package(JSON_Object *package)
     return validate_package(&pkg);
 }
 
-void process_single_package(DigControlFlags* dcf, JSON_Object *package,
+void process_single_package(DigControlFlags *dcf, JSON_Object *package,
                             size_t i)
 {
     if (validate_json_package(package))
@@ -79,7 +80,7 @@ void process_single_package(DigControlFlags* dcf, JSON_Object *package,
     }
 }
 
-void process_multiple_packages(DigControlFlags* dcf, JSON_Array *packages)
+void process_multiple_packages(DigControlFlags *dcf, JSON_Array *packages)
 {
     JSON_Object *package;
     for (size_t i = 0; i < json_array_get_count(packages); i++)
@@ -157,7 +158,7 @@ int dig_from_json(char *filename)
     DigStatistics dst;
     initialize_dig_stats(&dst);
 
-    dig_common(archaeologists, expected_packages,
-               passes, location, &dcf, &dst);
+    dig_common(archaeologists, expected_packages, passes, location, &dcf,
+               &dst);
     exit(0);
 }
