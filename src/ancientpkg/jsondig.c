@@ -136,7 +136,7 @@ int dig_from_json(char *filename)
     int expected_packages = -1;
     expected_packages = json_object_get_number(root, "expectedPackages");
 
-    if (has_missing_args(location, archaeologists, passes, expected_packages))
+    if (validate_arguments(&dcf, location, archaeologists, passes, expected_packages))
     {
         printf("From JSON job file %s: missing arguments.\n"
                "location: %s\n"
