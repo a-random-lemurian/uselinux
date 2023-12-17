@@ -15,6 +15,7 @@ add_executable(ancientpkg dig.c
                           infohazard_berryman_langford.c
                           ancientpkg_utils.c
                           status.c
+                          validate_args.c
                           "install.c")
 
 target_link_libraries(ancientpkg argparse common parson)
