@@ -14,14 +14,6 @@
 #define ANALYTICAL_ENGINE_YEAR 1833
 
 /**
- * @brief Activate Hackerman mode. Requires Kali Linux, a distribution that
- * comes preinstalled with several tools for hacking.
- *
- * @param distro Distribution being used. Must be Kali Linux.
- */
-void hackerman(char *distro);
-
-/**
  * @brief Bash an operating system, insulting it.
  *
  * @param os The operating system to bash.
